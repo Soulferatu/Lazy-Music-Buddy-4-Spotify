@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Wacken Playlist Buddy icon">
+  <rect width="512" height="512" fill="#101010"/>
+  <path fill="#e0b84f" d="M118 360h276v44H118zM164 312h184v36H164z"/>
+  <path fill="#f5f1e8" d="M151 102h58l47 143 47-143h58l-77 190h-56z"/>
+  <circle cx="180" cy="384" r="18" fill="#f5f1e8"/>
+  <circle cx="332" cy="384" r="18" fill="#f5f1e8"/>
+</svg>
