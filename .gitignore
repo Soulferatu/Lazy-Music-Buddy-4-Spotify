@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Flask and local environment
+.env
+.flaskenv
+instance/
+
+# Local databases and generated files
+*.sqlite
+*.sqlite3
+*.db
+
+# Editors and OS files
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
