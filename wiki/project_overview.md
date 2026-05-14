@@ -41,17 +41,27 @@ App-owned mode is the first target because it gives visitors the simplest experi
 - The frontend is responsive HTML, CSS, and JavaScript served by Flask.
 - Tests should focus on playlist-building, matching, deduplication, OAuth-adjacent payload logic, and shuffle behavior.
 
-## Early Product Decisions Still Needed
+## Confirmed Product Decisions
 
-- Visual style.
-- Palette.
-- Font direction.
-- App name.
-- Logo or install icon direction.
-- Initial layout style.
-- Language.
-- Confirmation that app-owned mode is the first release target.
-- Confirmation that local-only development is enough for the first milestone.
+Source: [raw/product_decisions_stage0.md](../raw/product_decisions_stage0.md).
+
+| Decision | Choice |
+| --- | --- |
+| App name | Play[my W:O:A]list |
+| Visual style | Dark festival dashboard, near-black background (#141316), gold accents |
+| Heading font | Cinzel Decorative Bold (Google Fonts) |
+| Body font | Inter (Google Fonts) |
+| Accent font | Special Elite (Google Fonts) |
+| Language | Bilingual: English and Brazilian Portuguese (pt-BR), switchable in UI |
+| Layout | Checklist-first single-page flow |
+| First Spotify mode | App-owned mode |
+| Local development | Sufficient through Stage 4 |
+
+## Decisions Still Open
+
+- Logo and install icon (placeholder SVG exists, final icon not designed).
+- Hosting provider (deferred to Stage 9).
+- Personal Spotify login mode (deferred to Stage 5).
 
 ## Related Pages
 
