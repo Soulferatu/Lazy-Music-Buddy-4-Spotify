@@ -6,10 +6,12 @@ The first implementation target is app-owned playlist creation: visitors choose 
 
 ## Current Status
 
-Stage 0 is the active baseline:
+Stage 1 is the active baseline:
 
 - Flask app factory.
-- Basic home page.
+- Wacken 2026 starter lineup checklist.
+- Playlist name input.
+- Local playlist preview without Spotify calls.
 - Health endpoint.
 - PWA manifest and service worker placeholders.
 - Environment variable template.
@@ -38,10 +40,22 @@ Copy-Item .env.example .env
 Run the app:
 
 ```powershell
-flask --app wacken_playlist:create_app run
+py -m flask --app wacken_playlist:create_app --debug run --host 127.0.0.1 --port 1337
 ```
 
-Open `http://127.0.0.1:5000`.
+Open `http://127.0.0.1:1337`.
+
+Restart the dev server cleanly:
+
+```powershell
+.\scripts\restart-dev.ps1
+```
+
+To use another port:
+
+```powershell
+.\scripts\restart-dev.ps1 -Port 1338
+```
 
 ## Useful Commands
 
@@ -54,7 +68,7 @@ python -m pytest
 Check the health endpoint after starting the server:
 
 ```powershell
-Invoke-RestMethod http://127.0.0.1:5000/health
+Invoke-RestMethod http://127.0.0.1:1337/health
 ```
 
 ## Environment Variables

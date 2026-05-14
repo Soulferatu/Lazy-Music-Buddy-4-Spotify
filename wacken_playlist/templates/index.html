@@ -1,33 +1,125 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ language }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#111111">
-    <title>Wacken Playlist Buddy</title>
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="theme-color" content="#141316">
+    <title>{{ app_name }}</title>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest', v=3) }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v=3) }}">
   </head>
   <body>
+    <header class="app-header">
+      <a class="app-mark" href="{{ url_for('main.index', lang=language) }}" aria-label="{{ app_name }}">
+        <span>Play</span><span class="app-mark-accent">[my W:O:A]</span><span>list</span>
+      </a>
+      <div class="language-switch" aria-label="Language">
+        <span class="language-label" data-i18n="language_label">Language</span>
+        <button class="language-button" type="button" data-language-choice="en">EN</button>
+        <button class="language-button" type="button" data-language-choice="pt-BR">PT-BR</button>
+      </div>
+    </header>
+
     <main class="app-shell">
       <section class="intro">
-        <p class="eyebrow">Wacken Open Air playlist builder</p>
-        <h1>Wacken Playlist Buddy</h1>
-        <p class="lede">
-          Choose festival bands, preview their Spotify tracks, and generate a shareable playlist.
+        <p class="eyebrow" data-i18n="hero_eyebrow">Wacken Open Air playlist builder</p>
+        <p class="lede" data-i18n="hero_lede">
+          Select the Wacken 2026 bands you want to hear, name the playlist, and the app will use Spotify artist matches to pick each band's top streamed tracks. The playlist is created through the app account, so visitors can get a Spotify link without connecting their own Spotify account.
         </p>
       </section>
 
-      <section class="panel" aria-labelledby="stage-title">
-        <div>
-          <p class="eyebrow">Stage 0</p>
-          <h2 id="stage-title">App shell is running</h2>
-        </div>
-        <p>
-          The project baseline is ready. Next up: Wacken 2026 band data, selection controls, and playlist naming.
-        </p>
+      <section class="workspace" aria-labelledby="stage-title">
+        <form class="planner" action="{{ url_for('main.preview') }}" method="post">
+          <input type="hidden" id="language" name="language" value="{{ form_values.language }}">
+          <div class="planner-header">
+            <div>
+              <p class="eyebrow" data-i18n="stage_eyebrow">Stage 1</p>
+              <h2 id="stage-title" data-i18n="selection_title">Wacken 2026 selection</h2>
+            </div>
+            <span class="band-count" data-count="{{ bands|length }}" data-i18n-count="band_count">{{ bands|length }} bands</span>
+          </div>
+
+          {% if errors %}
+            <div class="notice notice-error" role="alert">
+              {% for error in errors %}
+                <p data-i18n="{{ error.key }}">{{ error.message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <label class="field">
+            <span data-i18n="playlist_name_label">Playlist name</span>
+            <input
+              type="text"
+              name="playlist_name"
+              value="{{ form_values.playlist_name }}"
+              placeholder="Wacken 2026 must-see list"
+              data-i18n-placeholder="playlist_name_placeholder"
+              required
+            >
+          </label>
+
+          <div class="tools">
+            <label class="field search-field">
+              <span data-i18n="filter_bands_label">Filter bands</span>
+              <input type="search" id="band-search" placeholder="Search lineup" data-i18n-placeholder="search_placeholder">
+            </label>
+            <button class="ghost-button" type="button" id="clear-selection" data-i18n="clear_button">Clear</button>
+          </div>
+
+          <fieldset class="band-grid" aria-describedby="source-note">
+            <legend data-i18n="choose_bands">Choose bands</legend>
+            {% for band in bands %}
+              <label class="band-option" data-band-name="{{ band|lower }}">
+                <input
+                  type="checkbox"
+                  name="bands"
+                  value="{{ band }}"
+                  {% if band in form_values.bands %}checked{% endif %}
+                >
+                <span>{{ band }}</span>
+              </label>
+            {% endfor %}
+          </fieldset>
+
+          <p id="source-note" class="source-note">
+            <span data-i18n="source_note">
+            Starter lineup data is curated from official W:O:A 2026 announcements and can be refreshed before Spotify matching.
+            </span>
+          </p>
+
+          <div class="actions">
+            <p><strong id="selected-count">{{ form_values.bands|length }}</strong> <span data-i18n="selected_label">selected</span></p>
+            <button type="submit" data-i18n="preview_button">Preview playlist</button>
+          </div>
+        </form>
+
+        <aside class="summary" aria-live="polite">
+          {% if preview %}
+            <p class="eyebrow" data-i18n="local_preview">Local preview</p>
+            <h2>{{ preview.playlist_name }}</h2>
+            <p data-track-count="{{ preview.track_count }}" data-i18n-track-preview>
+              Spotify will later try to add up to {{ preview.track_count }} tracks:
+              10 top songs for each selected band.
+            </p>
+            <ul>
+              {% for band in preview.bands %}
+                <li>{{ band }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="eyebrow" data-i18n="preview_eyebrow">Preview</p>
+            <h2 data-i18n="ready_title">Ready for your picks</h2>
+            <p data-i18n="ready_copy">
+              This step stays local. Spotify search, warnings, and playlist creation begin in later stages.
+            </p>
+          {% endif %}
+        </aside>
       </section>
     </main>
-    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/app.js', v=3) }}" defer></script>
   </body>
 </html>

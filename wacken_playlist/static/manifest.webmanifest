@@ -1,11 +1,11 @@
 {
-  "name": "Wacken Playlist Buddy",
-  "short_name": "Wacken Buddy",
+  "name": "Play[my W:O:A]list",
+  "short_name": "My W:O:A",
   "description": "Build Spotify playlists from Wacken Open Air band selections.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#101010",
-  "theme_color": "#111111",
+  "background_color": "#121317",
+  "theme_color": "#141316",
   "icons": [
     {
       "src": "/static/icons/icon.svg",
