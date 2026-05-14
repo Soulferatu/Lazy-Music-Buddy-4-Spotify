@@ -24,6 +24,7 @@ instance/
 # Editors and OS files
 .idea/
 .vscode/
+.obsidian/
 *.swp
 Thumbs.db
 .DS_Store
