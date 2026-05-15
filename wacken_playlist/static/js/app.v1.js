@@ -1,14 +1,3 @@
-/*
-  app.js — A1v3 "Embers" port
-  ---------------------------
-  Preserves all v1 behaviour (i18n, search, clear, selected-count, language
-  switching, service worker registration) and adds the Embers visual layer:
-    • Cursor-aware ember particle field on #embers canvas
-    • Live nameplate on the banner that mirrors the playlist-name input
-    • Spark flash on band tile toggle
-  v1 backup: app.v1.js
-*/
-
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/service-worker.js", { scope: "/" }).catch(() => {
@@ -24,9 +13,6 @@ const selectedCount = document.querySelector("#selected-count");
 const bandCheckboxes = Array.from(document.querySelectorAll('input[name="bands"]'));
 const languageInput = document.querySelector("#language");
 const languageButtons = Array.from(document.querySelectorAll("[data-language-choice]"));
-const playlistNameInput = document.querySelector("#playlist-name");
-const bannerNameplate = document.querySelector("#banner-nameplate");
-const bannerNameplateText = document.querySelector("#banner-nameplate-text");
 
 const translations = window.__translations || {};
 const DEFAULT_LANGUAGE = "en";
@@ -114,113 +100,6 @@ clearSelection?.addEventListener("click", () => {
 bandCheckboxes.forEach((checkbox) => {
   checkbox.addEventListener("change", updateSelectedCount);
 });
-
-// ───────── Embers visual layer additions ─────────
-
-// Spark flash on band tile click
-bandOptions.forEach((option) => {
-  option.addEventListener("click", () => {
-    requestAnimationFrame(() => {
-      option.classList.remove("is-flash");
-      // Force reflow so the animation restarts.
-      void option.offsetWidth;
-      option.classList.add("is-flash");
-    });
-  });
-});
-
-// Live banner nameplate — mirrors the playlist-name input
-function syncNameplate() {
-  if (!bannerNameplate || !bannerNameplateText || !playlistNameInput) return;
-  const value = playlistNameInput.value.trim();
-  bannerNameplateText.textContent = value;
-  bannerNameplate.classList.toggle("is-live", Boolean(value));
-}
-
-playlistNameInput?.addEventListener("input", syncNameplate);
-// Initial paint reflects any server-rendered playlist name (preview or form_values).
-syncNameplate();
-
-// Cursor-aware ember particle field
-(function startEmbers() {
-  const canvas = document.getElementById("embers");
-  if (!canvas) return;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const ctx = canvas.getContext("2d");
-  let w = 0;
-  let h = 0;
-  let mx = -9999;
-  let my = -9999;
-  let mActive = false;
-  const particles = [];
-
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-
-  function spawn() {
-    return {
-      x: Math.random() * w,
-      y: h + 10,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: -Math.random() * 1.4 - 0.4,
-      r: Math.random() * 1.8 + 0.4,
-      life: Math.random() * 220 + 140,
-      age: 0,
-      hue: 20 + Math.random() * 30,
-    };
-  }
-
-  resize();
-  window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    mActive = true;
-  });
-  window.addEventListener("pointerleave", () => {
-    mActive = false;
-  });
-
-  for (let i = 0; i < 170; i++) {
-    const p = spawn();
-    p.y = Math.random() * h;
-    particles.push(p);
-  }
-
-  function tick() {
-    ctx.clearRect(0, 0, w, h);
-    for (const p of particles) {
-      if (mActive) {
-        const dx = mx - p.x;
-        const dy = my - p.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < 40000) {
-          const f = 0.0006;
-          p.vx += dx * f;
-          p.vy += dy * f;
-        }
-      }
-      p.x += p.vx;
-      p.y += p.vy;
-      p.age += 1;
-      p.vx *= 0.99;
-      p.vy *= 0.995;
-      if (p.age > p.life || p.y < -10) Object.assign(p, spawn());
-      const a = 1 - p.age / p.life;
-      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
-      grad.addColorStop(0, `hsla(${p.hue}, 100%, 55%, ${0.65 * a})`);
-      grad.addColorStop(1, "hsla(15, 100%, 40%, 0)");
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    if (!reduce) requestAnimationFrame(tick);
-  }
-  tick();
-})();
 
 languageButtons.forEach((button) => {
   button.addEventListener("click", () => {

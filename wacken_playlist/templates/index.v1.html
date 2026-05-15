@@ -9,7 +9,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest', v=app_version) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter+Tight:wght@400;500;600;800&family=Inter:wght@400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v=app_version) }}">
     <script>
       window.__translations = {{ translations_bundle | tojson }};
@@ -17,57 +17,29 @@
     </script>
   </head>
   <body>
-    <canvas id="embers" aria-hidden="true"></canvas>
-
     <header class="app-header">
-      <div class="lockup">
-        <span class="lockup-mark" aria-hidden="true"></span>
-        <a class="app-mark" href="{{ url_for('main.index', lang=language) }}" aria-label="{{ app_name }}">
-          <span>Play</span><span class="app-mark-accent">[my W:O:A]</span><span>list</span>
-        </a>
-        <div class="header-meta" aria-label="festival meta">
-          <span>87 acts</span>
-          <span>3 days</span>
-          <span>4 stages</span>
-        </div>
-      </div>
-
-      <div class="header-tools">
-        <div class="countdown" title="Days until the Infield (Holy Grounds) opens">
-          <small>Holy Grounds in</small>
-          <b>74</b>
-          <span>days</span>
-        </div>
-
-        <div class="language-switch" aria-label="{{ translations.language_label }}">
-          <span class="language-label" data-i18n="language_label">{{ translations.language_label }}</span>
-          <button class="language-button" type="button" data-language-choice="en">EN</button>
-          <button class="language-button" type="button" data-language-choice="pt-BR">PT-BR</button>
-        </div>
+      <a class="app-mark" href="{{ url_for('main.index', lang=language) }}" aria-label="{{ app_name }}">
+        <span>Play</span><span class="app-mark-accent">[my W:O:A]</span><span>list</span>
+      </a>
+      <div class="language-switch" aria-label="{{ translations.language_label }}">
+        <span class="language-label" data-i18n="language_label">{{ translations.language_label }}</span>
+        <button class="language-button" type="button" data-language-choice="en">EN</button>
+        <button class="language-button" type="button" data-language-choice="pt-BR">PT-BR</button>
       </div>
     </header>
 
-    <main class="app-shell">
+    <div class="banner"></div>
 
+    <main class="app-shell">
       <section class="intro">
         <p class="eyebrow" data-i18n="hero_eyebrow">{{ translations.hero_eyebrow }}</p>
-        <h1 class="hero-title">Build your<br>Wacken <em>set.</em></h1>
         <p class="lede" data-i18n="hero_lede">{{ translations.hero_lede }}</p>
-      </section>
-
-      <section class="banner-hero" aria-label="hero">
-        <img src="{{ url_for('static', filename='images/banner.png') }}" alt="Bull skull with headphones, wreathed in flame">
-        <div class="banner-nameplate" id="banner-nameplate" aria-live="polite">
-          <span class="banner-nameplate-small">Now Previewing</span>
-          <span class="banner-nameplate-big" id="banner-nameplate-text">{% if preview %}{{ preview.playlist_name }}{% else %}{{ form_values.playlist_name }}{% endif %}</span>
-        </div>
       </section>
 
       <section class="workspace" aria-labelledby="stage-title">
         <form class="planner" action="{{ url_for('main.preview') }}" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <input type="hidden" id="language" name="language" value="{{ form_values.language }}">
-
           <div class="planner-header">
             <div>
               <p class="eyebrow" data-i18n="stage_eyebrow">{{ translations.stage_eyebrow }}</p>
@@ -84,42 +56,37 @@
             </div>
           {% endif %}
 
-          <div class="field-row">
-            <label class="field">
-              <span data-i18n="playlist_name_label">{{ translations.playlist_name_label }}</span>
-              <input
-                type="text"
-                id="playlist-name"
-                name="playlist_name"
-                value="{{ form_values.playlist_name }}"
-                placeholder="{{ translations.playlist_name_placeholder }}"
-                data-i18n-placeholder="playlist_name_placeholder"
-                required
-              >
-            </label>
+          <label class="field">
+            <span data-i18n="playlist_name_label">{{ translations.playlist_name_label }}</span>
+            <input
+              type="text"
+              name="playlist_name"
+              value="{{ form_values.playlist_name }}"
+              placeholder="{{ translations.playlist_name_placeholder }}"
+              data-i18n-placeholder="playlist_name_placeholder"
+              required
+            >
+          </label>
 
+          <div class="tools">
             <label class="field search-field">
               <span data-i18n="filter_bands_label">{{ translations.filter_bands_label }}</span>
               <input type="search" id="band-search" placeholder="{{ translations.search_placeholder }}" data-i18n-placeholder="search_placeholder">
             </label>
-          </div>
-
-          <div class="tools">
             <button class="ghost-button" type="button" id="clear-selection" data-i18n="clear_button">{{ translations.clear_button }}</button>
           </div>
 
           <fieldset class="band-grid" aria-describedby="source-note">
             <legend data-i18n="choose_bands">{{ translations.choose_bands }}</legend>
             {% for band in bands %}
-              <label class="band-option" data-band-name="{{ band|lower }}" tabindex="0">
+              <label class="band-option" data-band-name="{{ band|lower }}">
                 <input
                   type="checkbox"
                   name="bands"
                   value="{{ band }}"
                   {% if band in form_values.bands %}checked{% endif %}
                 >
-                <span class="band-option-name">{{ band }}</span>
-                <span class="band-option-spark" aria-hidden="true"></span>
+                <span>{{ band }}</span>
               </label>
             {% endfor %}
           </fieldset>
@@ -130,7 +97,7 @@
 
           <div class="actions">
             <p><strong id="selected-count">{{ form_values.bands|length }}</strong> <span data-i18n="selected_label">{{ translations.selected_label }}</span></p>
-            <button type="submit" id="preview-button" data-i18n="preview_button">{{ translations.preview_button }}</button>
+            <button type="submit" data-i18n="preview_button">{{ translations.preview_button }}</button>
           </div>
         </form>
 
@@ -157,9 +124,9 @@
 
             <div class="track-groups">
               {% for entry in preview.matched %}
-                <details class="track-group" {% if loop.first %}open{% endif %}>
+                <details class="track-group" open>
                   <summary class="track-group-header">
-                    <span>{{ entry.band }}</span>
+                    {{ entry.band }}
                     <span class="track-group-count">{{ entry.tracks|length }}</span>
                   </summary>
                   <ol class="track-list">
@@ -178,7 +145,6 @@
         </aside>
       </section>
     </main>
-
     <script src="{{ url_for('static', filename='js/app.js', v=app_version) }}" defer></script>
   </body>
 </html>
