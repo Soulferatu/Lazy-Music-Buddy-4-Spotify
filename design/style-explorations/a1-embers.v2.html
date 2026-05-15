@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1 — Embers (v2) · Play[my W:O:A]list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter+Tight:wght@400;500;600;800&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#141316; --bg2:#0a090b; --bg3:#1a1418;
+    --ember1:#ff4500; --ember2:#ff8a3d; --ember3:#8b0000;
+    --gold:#e0b84f; --gold2:#f5d27a;
+    --paper:#f5f1e8; --muted:#8a8580;
+    --warn:#ffb300; --ok:#3fdc7a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--paper);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+
+  /* ───────── Atmosphere layers ───────── */
+  canvas#embers{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  body::before{content:"";position:fixed;inset:0;background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,69,0,.22), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139,0,0,.22), transparent 60%);
+    z-index:1;pointer-events:none}
+  body::after{content:"";position:fixed;inset:0;background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px);
+    z-index:1;pointer-events:none;mix-blend-mode:overlay}
+
+  .wrap{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:20px clamp(16px,4vw,40px) 60px}
+
+  /* ───────── Header ───────── */
+  header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .lockup{display:flex;align-items:center;gap:14px}
+  .lockup .mark{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--gold2), var(--gold) 50%, #6b4f1a);box-shadow:0 0 18px rgba(224,184,79,.45);position:relative}
+  .lockup .mark::after{content:"W";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;color:#1a1208;font-size:18px}
+  .lockup .name{font-family:'Cinzel Decorative',serif;font-weight:700;font-size:clamp(18px,2.2vw,22px);letter-spacing:.04em}
+  .lockup .name em{color:var(--gold);font-style:normal}
+  .lockup .badge{font-family:'Special Elite';font-size:10px;letter-spacing:.3em;color:var(--ember2);text-transform:uppercase;border-left:1px solid rgba(255,255,255,.1);padding-left:14px}
+
+  .toolbar{display:flex;align-items:center;gap:18px}
+  .countdown{font-family:'Cinzel Decorative',serif;font-size:14px;color:var(--gold);letter-spacing:.08em;display:flex;align-items:baseline;gap:8px}
+  .countdown b{font-size:22px;color:var(--paper);text-shadow:0 0 14px rgba(255,69,0,.4)}
+  .countdown small{font-family:'Special Elite';font-size:10px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+  .lang{display:flex;gap:6px;font-family:'Special Elite';font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .lang button{background:transparent;border:1px solid #2a2226;color:var(--paper);padding:6px 10px;font:inherit;letter-spacing:inherit;cursor:pointer;transition:.2s}
+  .lang button.on{background:var(--gold);color:#000;border-color:var(--gold)}
+  .lang button:hover:not(.on){border-color:var(--gold)}
+
+  /* ───────── Hero ───────── */
+  .hero{margin:24px 0;position:relative;border:1px solid rgba(255,69,0,.25);background:linear-gradient(180deg, #1a1418 0%, #0c0a0c 100%);overflow:hidden;border-radius:2px;
+    box-shadow:0 30px 80px rgba(255,69,0,.08), inset 0 0 80px rgba(0,0,0,.6)}
+  .hero img{width:100%;display:block;mix-blend-mode:screen;opacity:.95;filter:contrast(1.08) saturate(1.15)}
+  .hero h1{position:absolute;left:clamp(20px,3vw,40px);top:clamp(20px,3vw,40px);margin:0;font-family:'Cinzel Decorative',serif;font-size:clamp(32px,5.4vw,72px);line-height:.95;text-shadow:0 0 40px rgba(255,69,0,.55), 0 4px 0 rgba(0,0,0,.4);max-width:62%}
+  .hero h1 em{color:var(--gold);font-style:normal;text-shadow:0 0 28px rgba(224,184,79,.65)}
+  .hero .stage-call{position:absolute;left:clamp(20px,3vw,40px);bottom:clamp(16px,2vw,24px);font-family:'Special Elite';letter-spacing:.4em;color:var(--gold);font-size:11px}
+  .hero .meta-strip{position:absolute;right:clamp(20px,3vw,40px);bottom:clamp(16px,2vw,24px);display:flex;gap:14px;font-family:'Special Elite';font-size:10px;letter-spacing:.25em;color:var(--paper);text-transform:uppercase;opacity:.85}
+  .hero .meta-strip span{padding:4px 10px;border:1px solid rgba(224,184,79,.3);background:rgba(0,0,0,.5)}
+
+  /* ───────── Layout ───────── */
+  .grid{display:grid;grid-template-columns:1.45fr 1fr;gap:22px}
+  @media (max-width:920px){.grid{grid-template-columns:1fr}}
+
+  .card{background:rgba(20,19,22,.78);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.06);padding:22px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;width:60%;height:1px;background:linear-gradient(90deg, var(--ember1), transparent)}
+  .eyebrow{font-family:'Special Elite';letter-spacing:.35em;text-transform:uppercase;font-size:11px;color:var(--ember2);margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  .eyebrow::before{content:"";width:18px;height:1px;background:var(--ember1)}
+  h2{font-family:'Cinzel Decorative',serif;margin:0 0 4px;font-size:24px;letter-spacing:.02em}
+  .sub{margin:0 0 18px;font-size:13px;color:var(--muted)}
+
+  /* fields */
+  .field{display:block;margin:10px 0}
+  .field>span{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;background:#0a090b;border:1px solid #2a2226;border-bottom:1px solid var(--gold);color:var(--paper);padding:11px 12px;font-family:inherit;font-size:15px;outline:0;transition:.2s}
+  .field input:focus{border-color:var(--ember1);box-shadow:0 0 18px rgba(255,69,0,.18)}
+  .row2{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+  @media (max-width:520px){.row2{grid-template-columns:1fr}}
+
+  /* stage groups */
+  .stage-group{margin-top:14px;border:1px dashed rgba(255,255,255,.07)}
+  .stage-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:linear-gradient(90deg, rgba(255,69,0,.1), transparent);font-family:'Special Elite';font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+  .stage-head .pill{font-family:'Inter Tight';font-size:10px;letter-spacing:.18em;color:var(--muted);background:transparent;border:1px solid rgba(255,255,255,.08);padding:2px 8px;border-radius:10px}
+  .bands{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px;padding:8px}
+
+  .band{position:relative;display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;font-size:14px;border:1px solid transparent;transition:.18s;user-select:none}
+  .band input{accent-color:var(--ember1);margin:0}
+  .band:hover{border-color:rgba(255,69,0,.3);background:rgba(255,69,0,.05)}
+  .band.on{border-color:var(--ember1);background:linear-gradient(90deg,rgba(255,69,0,.18),rgba(255,69,0,.02));box-shadow:inset 0 0 22px rgba(255,69,0,.18)}
+  .band.on .name{color:var(--paper)}
+  .band .name{flex:1;color:#cfcac1}
+  .band .tag{font-family:'Special Elite';font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .band.on::after{content:"";position:absolute;right:10px;top:50%;width:7px;height:7px;background:var(--gold);border-radius:50%;box-shadow:0 0 14px var(--gold);transform:translateY(-50%);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+  /* spark on toggle */
+  .band .spark{position:absolute;inset:0;pointer-events:none;opacity:0}
+  .band.flash .spark{opacity:1;animation:flash .55s ease-out}
+  @keyframes flash{
+    0%{box-shadow:inset 0 0 0 rgba(255,140,40,.0); background:rgba(255,140,40,.0)}
+    30%{box-shadow:inset 0 0 60px rgba(255,140,40,.5); background:rgba(255,140,40,.18)}
+    100%{box-shadow:inset 0 0 0 rgba(255,140,40,0); background:transparent}
+  }
+
+  /* actions */
+  .actions{margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(255,255,255,.06)}
+  .stat-row{display:flex;gap:22px}
+  .stat .v{font-family:'Cinzel Decorative',serif;font-size:26px;color:var(--gold);line-height:1}
+  .stat .k{font-family:'Special Elite';font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+  .cta{position:relative;background:linear-gradient(180deg, var(--gold2), var(--gold));color:#0a090b;border:0;padding:14px 26px;font-family:'Cinzel Decorative',serif;letter-spacing:.06em;font-size:14px;cursor:pointer;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.1) inset, 0 10px 40px rgba(224,184,79,.25)}
+  .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);transform:translateX(-100%);transition:transform .6s}
+  .cta:hover::after{transform:translateX(100%)}
+  .cta:hover{box-shadow:0 0 0 1px rgba(255,255,255,.15) inset, 0 14px 50px rgba(224,184,79,.5)}
+
+  /* ───────── Setlist tickets (preview) ───────── */
+  aside.card{display:flex;flex-direction:column}
+  .preview-meta{display:flex;justify-content:space-between;font-family:'Special Elite';font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+  .preview-meta .ok{color:var(--ok)}
+  .preview-meta .warn{color:var(--warn)}
+
+  .ticket{position:relative;padding:14px 16px;background:linear-gradient(180deg, rgba(255,69,0,.1), rgba(255,69,0,.02));border-left:3px solid var(--ember1);margin-bottom:8px;cursor:pointer;transition:.2s}
+  .ticket:hover{background:linear-gradient(180deg, rgba(255,69,0,.16), rgba(255,69,0,.04))}
+  .ticket .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .ticket .b{font-family:'Cinzel Decorative',serif;font-size:17px;letter-spacing:.02em}
+  .ticket .ix{font-family:'Special Elite';font-size:10px;letter-spacing:.3em;color:var(--gold)}
+  .ticket .meta{display:flex;gap:14px;font-family:'Special Elite';font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+  .ticket ol{margin:10px 0 0;padding:0 0 0 16px;font-size:13px;color:#cfcac1;line-height:1.8;display:none}
+  .ticket.open ol{display:block}
+  .ticket ol li::marker{color:var(--gold);font-family:'Cinzel Decorative'}
+  .ticket .perf{margin-top:8px;display:flex;gap:3px;height:14px;align-items:end}
+  .ticket .perf span{flex:1;background:linear-gradient(180deg, var(--ember1), var(--gold));opacity:.6}
+
+  .warn-bar{margin-top:8px;padding:10px 14px;background:rgba(255,179,0,.08);border-left:3px solid var(--warn);font-size:12px;color:var(--warn);font-family:'Special Elite';letter-spacing:.18em;text-transform:uppercase}
+
+  .summary-foot{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
+  .summary-foot .total{font-family:'Cinzel Decorative',serif;font-size:30px;color:var(--gold)}
+  .summary-foot .total small{display:block;font-family:'Special Elite';font-size:10px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+  .ghost{background:transparent;color:var(--paper);border:1px solid var(--gold);padding:10px 16px;font-family:'Special Elite';letter-spacing:.2em;font-size:11px;text-transform:uppercase;cursor:pointer}
+  .ghost:hover{background:var(--gold);color:#000}
+
+  /* ───────── Equalizer footer ───────── */
+  .eq-bar{margin-top:30px;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border:1px solid rgba(255,255,255,.06);background:rgba(10,9,11,.6);font-family:'Special Elite';font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .eq{display:flex;align-items:end;gap:3px;height:22px}
+  .eq span{display:block;width:3px;background:linear-gradient(180deg, var(--ember1), var(--gold));animation:eq 1.1s ease-in-out infinite alternate}
+  .eq span:nth-child(1){height:30%;animation-delay:.0s}
+  .eq span:nth-child(2){height:60%;animation-delay:.1s}
+  .eq span:nth-child(3){height:80%;animation-delay:.2s}
+  .eq span:nth-child(4){height:50%;animation-delay:.3s}
+  .eq span:nth-child(5){height:90%;animation-delay:.4s}
+  .eq span:nth-child(6){height:40%;animation-delay:.5s}
+  .eq span:nth-child(7){height:70%;animation-delay:.6s}
+  @keyframes eq{from{transform:scaleY(.4);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+</style>
+</head>
+<body>
+<canvas id="embers"></canvas>
+
+<div class="wrap">
+
+  <!-- ───────── HEADER ───────── -->
+  <header>
+    <div class="lockup">
+      <div class="mark" aria-hidden="true"></div>
+      <div>
+        <div class="name">Play<em>[my W:O:A]</em>list</div>
+      </div>
+      <div class="badge">— Embers Edition</div>
+    </div>
+    <div class="toolbar">
+      <div class="countdown" title="Days until Wacken Open Air 2026">
+        <small>To the gates</small>
+        <b id="dd">28</b>
+        <span>days</span>
+      </div>
+      <div class="lang" role="tablist" aria-label="language">
+        <button class="on">EN</button><button>PT-BR</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───────── HERO ───────── -->
+  <section class="hero" aria-label="hero">
+    <h1>Lineup<br>on <em>fire.</em></h1>
+    <img src="../../wacken_playlist/static/images/banner.png" alt="Bull skull with headphones, wreathed in flame">
+    <div class="stage-call">· · · NOW SPINNING — WACKEN 2026 · · ·</div>
+    <div class="meta-strip">
+      <span>87 acts</span>
+      <span>3 days</span>
+      <span>4 stages</span>
+    </div>
+  </section>
+
+  <!-- ───────── BODY ───────── -->
+  <section class="grid">
+
+    <!-- LEFT: planner -->
+    <div class="card">
+      <p class="eyebrow">Stage I — Selection</p>
+      <h2>Build your set</h2>
+      <p class="sub">Pick the bands you want on the playlist. Toggle one and watch it ignite. We'll match them to Spotify in the next step.</p>
+
+      <div class="row2">
+        <label class="field">
+          <span>Playlist name <em style="font-style:normal;color:var(--ember2)">·required</em></span>
+          <input value="W:O:A 2026 — Embers Mix">
+        </label>
+        <label class="field">
+          <span>Filter the lineup</span>
+          <input placeholder="search bands…">
+        </label>
+      </div>
+
+      <!-- Stage groupings -->
+      <div class="stage-group">
+        <div class="stage-head"><span>▸ Faster Stage</span><span class="pill">Sat · 18:00–02:00</span></div>
+        <div class="bands">
+          <label class="band on" tabindex="0"><input type="checkbox" checked><span class="name">Iron Maiden</span><span class="tag">Headline</span><span class="spark"></span></label>
+          <label class="band on" tabindex="0"><input type="checkbox" checked><span class="name">Megadeth</span><span class="tag">Thrash</span><span class="spark"></span></label>
+          <label class="band" tabindex="0"><input type="checkbox"><span class="name">Gojira</span><span class="tag">Prog</span><span class="spark"></span></label>
+        </div>
+      </div>
+
+      <div class="stage-group">
+        <div class="stage-head"><span>▸ Louder Stage</span><span class="pill">Fri · 20:00–01:00</span></div>
+        <div class="bands">
+          <label class="band on" tabindex="0"><input type="checkbox" checked><span class="name">Behemoth</span><span class="tag">Black</span><span class="spark"></span></label>
+          <label class="band on" tabindex="0"><input type="checkbox" checked><span class="name">Powerwolf</span><span class="tag">Power</span><span class="spark"></span></label>
+          <label class="band" tabindex="0"><input type="checkbox"><span class="name">Sabaton</span><span class="tag">Power</span><span class="spark"></span></label>
+        </div>
+      </div>
+
+      <div class="stage-group">
+        <div class="stage-head"><span>▸ Wackinger Stage</span><span class="pill">Sun · 14:00–22:00</span></div>
+        <div class="bands">
+          <label class="band" tabindex="0"><input type="checkbox"><span class="name">Amon Amarth</span><span class="tag">Viking</span><span class="spark"></span></label>
+          <label class="band" tabindex="0"><input type="checkbox"><span class="name">Heilung</span><span class="tag">Folk</span><span class="spark"></span></label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="stat-row">
+          <div class="stat"><div class="v" id="cnt">04</div><div class="k">Selected</div></div>
+          <div class="stat"><div class="v">20</div><div class="k">Tracks</div></div>
+          <div class="stat"><div class="v">1:42</div><div class="k">Run-time</div></div>
+        </div>
+        <button class="cta" type="button">Ignite Preview ›</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: setlist tickets -->
+    <aside class="card">
+      <p class="eyebrow">Setlist Tickets</p>
+      <h2>W:O:A 2026 — Embers Mix</h2>
+
+      <div class="preview-meta">
+        <span class="ok">▸ 4 of 4 matched</span>
+        <span class="warn">▸ 0 unmatched</span>
+        <span>last sync · 02:14</span>
+      </div>
+
+      <div class="ticket open">
+        <div class="top"><span class="b">Iron Maiden</span><span class="ix">№ 01 · 5 tracks</span></div>
+        <div class="meta"><span>Faster · Sat</span><span>112 dB</span><span>22 min</span></div>
+        <ol>
+          <li>The Trooper</li>
+          <li>Fear of the Dark</li>
+          <li>Hallowed Be Thy Name</li>
+          <li>Run to the Hills</li>
+          <li>Aces High</li>
+        </ol>
+        <div class="perf"><span style="height:60%"></span><span style="height:90%"></span><span style="height:75%"></span><span style="height:85%"></span><span style="height:70%"></span><span style="height:95%"></span></div>
+      </div>
+
+      <div class="ticket">
+        <div class="top"><span class="b">Megadeth</span><span class="ix">№ 02 · 5 tracks</span></div>
+        <div class="meta"><span>Faster · Sat</span><span>115 dB</span><span>19 min</span></div>
+        <div class="perf"><span style="height:80%"></span><span style="height:55%"></span><span style="height:90%"></span><span style="height:60%"></span><span style="height:75%"></span><span style="height:65%"></span></div>
+      </div>
+
+      <div class="ticket">
+        <div class="top"><span class="b">Behemoth</span><span class="ix">№ 03 · 5 tracks</span></div>
+        <div class="meta"><span>Louder · Fri</span><span>116 dB</span><span>20 min</span></div>
+        <div class="perf"><span style="height:50%"></span><span style="height:70%"></span><span style="height:95%"></span><span style="height:80%"></span><span style="height:60%"></span><span style="height:90%"></span></div>
+      </div>
+
+      <div class="ticket">
+        <div class="top"><span class="b">Powerwolf</span><span class="ix">№ 04 · 5 tracks</span></div>
+        <div class="meta"><span>Louder · Fri</span><span>110 dB</span><span>21 min</span></div>
+        <div class="perf"><span style="height:65%"></span><span style="height:85%"></span><span style="height:55%"></span><span style="height:75%"></span><span style="height:80%"></span><span style="height:70%"></span></div>
+      </div>
+
+      <div class="warn-bar">▲ Heads up — 2 b-sides may not be on Spotify in your region</div>
+
+      <div class="summary-foot">
+        <div class="total">20<small>tracks queued</small></div>
+        <button class="ghost">Open in Spotify ↗</button>
+      </div>
+    </aside>
+
+  </section>
+
+  <!-- ───────── EQUALIZER FOOTER ───────── -->
+  <div class="eq-bar">
+    <span>· · · A1 — EMBERS · v2 · · ·</span>
+    <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <span>02:14:08 · stable · cache warm</span>
+  </div>
+</div>
+
+<script>
+  // ───────── Cursor-aware ember field ─────────
+  const c = document.getElementById('embers');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx = c.getContext('2d');
+  let w, h, particles=[], mx=-9999, my=-9999, mActive=false;
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+  function spawn(){return{
+    x:Math.random()*w, y:h+10,
+    vx:(Math.random()-.5)*.5, vy:-Math.random()*1.4-.4,
+    r:Math.random()*1.8+.4, life:Math.random()*220+140, age:0,
+    hue:20+Math.random()*30
+  }}
+  resize(); addEventListener('resize',resize);
+  addEventListener('pointermove', e=>{mx=e.clientX;my=e.clientY;mActive=true});
+  addEventListener('pointerleave', ()=>mActive=false);
+
+  for(let i=0;i<170;i++){const p=spawn();p.y=Math.random()*h;particles.push(p)}
+
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      // gentle drift toward cursor
+      if(mActive){
+        const dx=mx-p.x, dy=my-p.y, d2=dx*dx+dy*dy;
+        if(d2<40000){const f=.0006; p.vx+=dx*f; p.vy+=dy*f}
+      }
+      p.x+=p.vx; p.y+=p.vy; p.age++;
+      p.vx*=.99; p.vy*=.995;
+      if(p.age>p.life||p.y<-10){Object.assign(p,spawn())}
+      const a=1-p.age/p.life;
+      const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);
+      grad.addColorStop(0,`hsla(${p.hue},100%,55%,${.65*a})`);
+      grad.addColorStop(1,'hsla(15,100%,40%,0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,Math.PI*2);ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(tick);
+  }
+  tick();
+
+  // ───────── Band toggle: spark + count ─────────
+  const cntEl=document.getElementById('cnt');
+  document.querySelectorAll('.band').forEach(b=>{
+    b.addEventListener('click',e=>{
+      // toggle visual class along with the input change
+      requestAnimationFrame(()=>{
+        const on=b.querySelector('input').checked;
+        b.classList.toggle('on',on);
+        b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
+        const n=document.querySelectorAll('.band.on').length;
+        cntEl.textContent=String(n).padStart(2,'0');
+      });
+    });
+  });
+
+  // ───────── Ticket expand/collapse ─────────
+  document.querySelectorAll('.ticket').forEach(t=>{
+    t.addEventListener('click',()=>t.classList.toggle('open'));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B1 — Backstage Pass (v2) · Play[my W:O:A]list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c; --panel:#15151a; --panel2:#1c1c1f; --line:#2a2a2e;
+    --gold:#e0b84f; --gold2:#f5d27a; --hazard:#f5c518;
+    --paper:#ebe7df; --muted:#7a7a7e;
+    --ga:#5a8dee; --vip:#e0b84f; --aa:#e83a2b; --crew:#39ff14;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--paper);font-family:'Inter',sans-serif;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(245,197,24,.05), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(224,184,79,.05), transparent 50%),
+      linear-gradient(180deg, #0a0a0c 0%, #08080a 100%);
+  }
+  .stage{max-width:1280px;margin:0 auto;padding:20px clamp(16px,3vw,32px) 40px;position:relative}
+
+  /* ───────── Header ───────── */
+  header{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .lockup{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono'}
+  .lockup .mark{width:34px;height:34px;background:linear-gradient(135deg,#3a3a3e,#1a1a1f);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:18px;border-radius:4px}
+  .lockup .name{font-family:'Cinzel Decorative',serif;font-size:20px;letter-spacing:.04em}
+  .lockup .name em{color:var(--gold);font-style:normal}
+  .gate-led{display:flex;gap:18px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  .led{display:inline-flex;align-items:center;gap:6px}
+  .led .dot{width:8px;height:8px;border-radius:50%;background:#333}
+  .led .dot.on{background:var(--crew);box-shadow:0 0 8px var(--crew)}
+  .led .dot.warn{background:var(--hazard);box-shadow:0 0 8px var(--hazard)}
+  .lang{display:flex;gap:4px}
+  .lang button{background:#1a1a1d;border:1px solid var(--line);color:var(--paper);padding:5px 10px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.15em;cursor:pointer}
+  .lang button.on{background:var(--hazard);color:#000;border-color:var(--hazard)}
+
+  /* ───────── Lanyard with animated sway ───────── */
+  .lanyard-wrap{margin-top:24px;height:100px;position:relative;display:flex;justify-content:center;perspective:1000px}
+  .lanyard-wrap::before,.lanyard-wrap::after{content:"";position:absolute;top:8px;width:48%;height:22px;background:repeating-linear-gradient(135deg, var(--hazard) 0 14px, #0a0a0c 14px 28px);opacity:.85;transform-origin:center top;animation:sway 7s ease-in-out infinite}
+  .lanyard-wrap::before{left:0;clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%);animation-delay:-3.5s}
+  .lanyard-wrap::after{right:0;clip-path:polygon(0 0,100% 0,100% 100%,8px 100%)}
+  @keyframes sway{0%,100%{transform:skewY(6deg) rotate(.4deg)}50%{transform:skewY(7deg) rotate(-.3deg)}}
+  .clip{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:96px;height:30px;background:linear-gradient(180deg,#bcbcc0 0%, #6a6a6e 50%, #2a2a2e 100%);border-radius:4px;border:1px solid #1a1a1f;box-shadow:0 6px 14px rgba(0,0,0,.6)}
+  .clip::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40px;height:6px;background:#0a0a0c;border-radius:2px}
+
+  /* ───────── Pass with flip ───────── */
+  .pass-stage{max-width:780px;margin:0 auto;perspective:1400px}
+  .pass{position:relative;width:100%;min-height:480px;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,.2,.2,1)}
+  .pass.flipped{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;background:linear-gradient(160deg,#1c1c1f 0%, #2a2a2e 50%, #161618 100%);border:1px solid #3a3a3e;border-radius:16px;padding:30px;box-shadow:0 30px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden}
+  .face::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg, rgba(255,255,255,.018) 0 2px, transparent 2px 6px);pointer-events:none}
+  .back{transform:rotateY(180deg);background:linear-gradient(160deg,#161618 0%, #1c1c1f 50%, #0c0c0e 100%)}
+
+  /* Tier indicator strip */
+  .tier-strip{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg, var(--ga) 0 25%, var(--vip) 25% 50%, var(--aa) 50% 75%, var(--crew) 75% 100%)}
+
+  /* Holographic seal */
+  .holo{position:absolute;top:22px;right:22px;width:80px;height:80px;border-radius:50%;
+    background:conic-gradient(from 0deg, #e0b84f, #b08020, #f5c518, #9a6a14, #e0b84f, #f5d27a, #e0b84f);
+    box-shadow:0 0 28px rgba(224,184,79,.55);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;color:#1a1a1d;font-size:13px;letter-spacing:.08em;border:2px solid #1a1a1d;animation:spin 18s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .holo span{transform:rotate(-12deg)}
+
+  /* APPROVED stamp */
+  .stamp{position:absolute;top:50%;right:60px;transform:translateY(-50%) rotate(-12deg);font-family:'Cinzel Decorative',serif;color:rgba(232,58,43,.85);border:4px double rgba(232,58,43,.85);padding:8px 18px;font-size:20px;letter-spacing:.3em;opacity:.18;pointer-events:none;text-transform:uppercase}
+
+  /* FRONT layout */
+  .pass-grid{display:grid;grid-template-columns:220px 1fr;gap:24px;position:relative;z-index:1}
+  @media (max-width:680px){.pass-grid{grid-template-columns:1fr;gap:16px}}
+  .photo{border:2px solid var(--gold);background:#000;padding:6px;border-radius:6px;position:relative}
+  .photo img{display:block;width:100%;filter:contrast(1.1) brightness(.95);border-radius:3px}
+  .photo .cap{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.18em;color:var(--gold);margin-top:6px;text-align:center;text-transform:uppercase}
+  .photo .corner{position:absolute;top:-6px;left:-6px;width:18px;height:18px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+  .photo .corner.tr{left:auto;right:-6px;border-left:0;border-right:2px solid var(--gold)}
+  .photo .corner.bl{top:auto;bottom:-6px;border-top:0;border-bottom:2px solid var(--gold)}
+  .photo .corner.br{top:auto;bottom:-6px;left:auto;right:-6px;border:0;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+
+  .data{font-family:'JetBrains Mono';font-size:13px}
+  .data h1{font-family:'Cinzel Decorative',serif;font-size:32px;letter-spacing:.04em;margin:0 0 4px;color:var(--paper)}
+  .data h1 em{color:var(--gold);font-style:normal}
+  .role-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .role{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--hazard)}
+  .tier-badge{font-family:'Cinzel Decorative',serif;letter-spacing:.15em;font-size:11px;padding:4px 10px;border-radius:3px;text-transform:uppercase}
+  .tier-badge[data-tier="GA"]{background:rgba(90,141,238,.15);color:var(--ga);border:1px solid var(--ga)}
+  .tier-badge[data-tier="CURATOR"]{background:rgba(224,184,79,.15);color:var(--gold);border:1px solid var(--gold)}
+  .tier-badge[data-tier="VIP"]{background:rgba(232,58,43,.15);color:var(--aa);border:1px solid var(--aa)}
+  .tier-badge[data-tier="ALL ACCESS"]{background:rgba(57,255,20,.12);color:var(--crew);border:1px solid var(--crew)}
+
+  .row{display:grid;grid-template-columns:90px 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed #3a3a3e}
+  .row .k{color:#7a7a7e;letter-spacing:.15em;font-size:10px;text-transform:uppercase;align-self:center}
+  .row .v{color:var(--paper)}
+  .row .v.guest{font-family:'Special Elite';color:var(--gold);font-size:18px}
+
+  .zones{margin-top:14px}
+  .zones .label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7a7a7e;margin-bottom:6px;display:flex;justify-content:space-between}
+  .zones .label em{font-style:normal;color:var(--gold)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:'JetBrains Mono';font-size:11px;padding:4px 8px;border:1px solid var(--gold);color:var(--gold);background:rgba(224,184,79,.08);letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px}
+  .chip::before{content:"●";color:var(--crew);font-size:8px}
+  .chip.off{border-color:#3a3a3e;color:#5a5a5e;background:transparent}
+  .chip.off::before{color:#3a3a3e}
+
+  .barcode{margin-top:18px;height:48px;background:repeating-linear-gradient(90deg, #ebe7df 0 1px, transparent 1px 3px, #ebe7df 3px 4px, transparent 4px 7px, #ebe7df 7px 9px, transparent 9px 11px);border-radius:3px}
+  .serial{font-family:'JetBrains Mono';font-size:10px;color:#7a7a7e;letter-spacing:.2em;margin-top:4px;text-align:center}
+
+  .flip-btn{position:absolute;bottom:18px;right:22px;z-index:2;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'JetBrains Mono';font-size:10px;letter-spacing:.2em;padding:6px 12px;cursor:pointer;border-radius:3px;text-transform:uppercase}
+  .flip-btn:hover{background:var(--gold);color:#000}
+
+  /* BACK content */
+  .back .back-grid{display:grid;grid-template-columns:1fr 180px;gap:24px;position:relative;z-index:1}
+  @media (max-width:680px){.back .back-grid{grid-template-columns:1fr}}
+  .back h2{font-family:'Cinzel Decorative',serif;margin:0 0 12px;font-size:18px;color:var(--gold);letter-spacing:.04em}
+  .schedule{font-family:'JetBrains Mono';font-size:11px}
+  .sch-row{display:grid;grid-template-columns:50px repeat(3, 1fr);gap:4px;border-bottom:1px solid #2a2a2e;padding:6px 0;align-items:center}
+  .sch-row.head{color:var(--hazard);letter-spacing:.2em;font-size:10px;text-transform:uppercase;border-color:var(--gold)}
+  .sch-row .stage{color:var(--muted);letter-spacing:.15em;text-transform:uppercase;font-size:10px}
+  .sch-row .slot{padding:4px 6px;background:transparent;color:#5a5a5e;border:1px dashed transparent;border-radius:3px;text-align:center;font-size:10px}
+  .sch-row .slot.armed{background:rgba(57,255,20,.08);color:var(--crew);border-color:var(--crew)}
+  .sch-row .slot.warn{background:rgba(245,197,24,.08);color:var(--hazard);border-color:var(--hazard)}
+
+  .qr{width:160px;height:160px;background:
+    conic-gradient(#000 0 25%, transparent 25% 50%, #000 50% 75%, transparent 75%) 0 0/14px 14px,
+    repeating-linear-gradient(0deg, #ebe7df 0 2px, #000 2px 4px),
+    #ebe7df;
+    border:8px solid #ebe7df;border-radius:6px;position:relative;margin:0 auto}
+  .qr::before,.qr::after{content:"";position:absolute;width:34px;height:34px;border:6px solid #000;background:#ebe7df}
+  .qr::before{top:4px;left:4px}
+  .qr::after{top:4px;right:4px}
+  .qr-cap{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.2em;color:var(--muted);text-align:center;margin-top:6px;text-transform:uppercase}
+
+  .rules{margin-top:14px;font-family:'JetBrains Mono';font-size:11px;color:#9a9a9e;line-height:1.7}
+  .rules li{padding:3px 0;border-bottom:1px dotted #2a2a2e;list-style:none}
+  .rules li::before{content:"§ ";color:var(--gold)}
+
+  /* ───────── Controls below pass ───────── */
+  .controls{max-width:780px;margin:24px auto 0;display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+  @media (max-width:780px){.controls{grid-template-columns:1fr}}
+  .panel{background:#15151a;border:1px solid var(--line);padding:18px;border-radius:8px;position:relative}
+  .panel h3{font-family:'Cinzel Decorative',serif;margin:0 0 12px;font-size:17px}
+  .panel .ey{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.25em;color:var(--hazard);margin:0 0 6px;text-transform:uppercase}
+  .panel input[type=text]{width:100%;background:#0a0a0c;border:1px solid var(--line);color:var(--paper);padding:11px;font-family:'Special Elite';font-size:16px;border-radius:4px;outline:0}
+  .panel input[type=text]:focus{border-color:var(--gold)}
+  .grid-bands{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:10px;max-height:280px;overflow-y:auto;padding-right:4px}
+  .gb{display:flex;align-items:center;gap:8px;padding:8px 10px;font-family:'JetBrains Mono';font-size:12px;border:1px solid var(--line);border-radius:3px;cursor:pointer;transition:.15s}
+  .gb input{accent-color:var(--hazard)}
+  .gb:hover{border-color:var(--gold);background:rgba(224,184,79,.04)}
+  .gb.on{border-color:var(--gold);background:rgba(224,184,79,.08);color:var(--gold)}
+  .gb .stage-tag{margin-left:auto;font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+
+  .tier-meter{margin-top:14px;padding:10px 12px;background:#0a0a0c;border:1px solid var(--line);border-radius:4px}
+  .tier-meter .lbl{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+  .tier-meter .lbl em{font-style:normal;color:var(--gold)}
+  .meter{height:8px;background:#1a1a1f;border-radius:2px;overflow:hidden;position:relative}
+  .meter .fill{height:100%;width:50%;background:linear-gradient(90deg, var(--ga), var(--vip) 33%, var(--aa) 66%, var(--crew));transition:width .4s}
+  .tier-meter .ticks{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.15em;color:#5a5a5e;margin-top:4px;text-transform:uppercase}
+
+  .cta{margin-top:14px;width:100%;background:linear-gradient(180deg, var(--gold2), var(--gold));color:#0a0a0c;border:0;padding:16px;font-family:'Cinzel Decorative',serif;letter-spacing:.1em;font-size:15px;border-radius:4px;cursor:pointer;box-shadow:0 8px 24px rgba(224,184,79,.25);position:relative;overflow:hidden}
+  .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);transform:translateX(-100%);transition:transform .6s}
+  .cta:hover::after{transform:translateX(100%)}
+
+  .preview-list{font-family:'JetBrains Mono';font-size:12px;line-height:1.95;color:#bdbdb8}
+  .preview-list .li{display:flex;justify-content:space-between;border-bottom:1px dotted #2a2a2e;padding:4px 0}
+  .preview-list .li b{color:var(--paper);font-weight:400}
+  .preview-list .li .n{color:var(--gold)}
+  .preview-list .total{margin-top:10px;padding-top:8px;border-top:1px dashed var(--gold);color:var(--gold);font-family:'Cinzel Decorative',serif;font-size:14px;display:flex;justify-content:space-between;letter-spacing:.1em;text-transform:uppercase}
+
+  .install-hint{max-width:780px;margin:18px auto 0;text-align:center;font-family:'JetBrains Mono';font-size:11px;color:#7a7a7e;letter-spacing:.18em;padding:10px 16px;border:1px dashed var(--line);border-radius:4px;background:rgba(0,0,0,.2)}
+  .install-hint b{color:var(--hazard)}
+
+  footer{margin:30px 0 16px;text-align:center;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.3em;color:#5a5a5e;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;max-width:780px;margin-left:auto;margin-right:auto;padding-top:14px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- ───────── HEADER / GATE STATUS ───────── -->
+  <header>
+    <div class="lockup">
+      <div class="mark">W</div>
+      <div class="name">Play<em>[my W:O:A]</em>list</div>
+    </div>
+    <div class="gate-led">
+      <span class="led"><span class="dot on"></span>Gate · OPEN</span>
+      <span class="led"><span class="dot on"></span>Spotify · OK</span>
+      <span class="led"><span class="dot warn"></span>RFID · IDLE</span>
+      <span class="lang"><button class="on">EN</button><button>PT-BR</button></span>
+    </div>
+  </header>
+
+  <!-- ───────── LANYARD ───────── -->
+  <div class="lanyard-wrap" aria-hidden="true">
+    <div class="clip"></div>
+  </div>
+
+  <!-- ───────── PASS (flippable) ───────── -->
+  <div class="pass-stage">
+    <article class="pass" id="pass">
+      <!-- FRONT -->
+      <div class="face front">
+        <div class="tier-strip"></div>
+        <div class="holo"><span>W:O:A</span></div>
+        <div class="stamp">APPROVED · 2026</div>
+
+        <div class="pass-grid">
+          <div class="photo">
+            <span class="corner"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <img src="../../wacken_playlist/static/images/banner.png" alt="Pass photo">
+            <div class="cap">CREDENTIAL #00426</div>
+          </div>
+          <div class="data">
+            <h1>Play<em>[my W:O:A]</em>list</h1>
+            <div class="role-row">
+              <span class="role">Playlist Curator</span>
+              <span class="tier-badge" data-tier="CURATOR" id="tierBadge">CURATOR</span>
+            </div>
+            <div class="row"><span class="k">Holder</span><span class="v guest" id="holder">W:O:A '26 — Pit Mix</span></div>
+            <div class="row"><span class="k">Issued</span><span class="v">2026-05-15 · 14:08</span></div>
+            <div class="row"><span class="k">Gate</span><span class="v">SPOTIFY · APP-OWNED</span></div>
+            <div class="row"><span class="k">Valid</span><span class="v">FRI · SAT · SUN</span></div>
+            <div class="row"><span class="k">Expires</span><span class="v">2026-08-09 · 23:59</span></div>
+
+            <div class="zones">
+              <div class="label"><span>Zones cleared</span><em><span id="zonesOn">4</span> / 8</em></div>
+              <div class="chips" id="chips">
+                <span class="chip" data-band="Iron Maiden">Iron Maiden</span>
+                <span class="chip" data-band="Megadeth">Megadeth</span>
+                <span class="chip off" data-band="Amon Amarth">Amon Amarth</span>
+                <span class="chip" data-band="Behemoth">Behemoth</span>
+                <span class="chip off" data-band="Sabaton">Sabaton</span>
+                <span class="chip" data-band="Powerwolf">Powerwolf</span>
+                <span class="chip off" data-band="Gojira">Gojira</span>
+                <span class="chip off" data-band="Heilung">Heilung</span>
+              </div>
+            </div>
+
+            <div class="barcode"></div>
+            <div class="serial">▌▌█  W·O·A — 0 0 4 2 6 — 2 0 2 6  █▌▌</div>
+          </div>
+        </div>
+        <button class="flip-btn" type="button" data-flip>Flip · See back ↻</button>
+      </div>
+
+      <!-- BACK -->
+      <div class="face back">
+        <div class="tier-strip"></div>
+        <div class="back-grid">
+          <div>
+            <h2>Schedule · Stage map</h2>
+            <div class="schedule">
+              <div class="sch-row head"><span></span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div class="sch-row"><span class="stage">Faster</span><span class="slot">—</span><span class="slot armed">Maiden · Megadeth</span><span class="slot">—</span></div>
+              <div class="sch-row"><span class="stage">Louder</span><span class="slot armed">Behemoth · Powerwolf</span><span class="slot warn">Sabaton</span><span class="slot">—</span></div>
+              <div class="sch-row"><span class="stage">Wackinger</span><span class="slot">—</span><span class="slot warn">Amon Amarth</span><span class="slot warn">Heilung</span></div>
+              <div class="sch-row"><span class="stage">Bullhead</span><span class="slot">—</span><span class="slot">—</span><span class="slot warn">Gojira</span></div>
+            </div>
+
+            <h2 style="margin-top:20px">Pass Rules</h2>
+            <ul class="rules" style="margin:0;padding:0">
+              <li>Curator tier unlocks 4–7 bands · 20–35 tracks</li>
+              <li>VIP tier unlocks at 8+ bands · adds shuffle &amp; export</li>
+              <li>Pass is non-transferable; tied to playlist serial</li>
+              <li>Spotify app-owned mode · personal-mode in v2</li>
+              <li>Region restrictions may hide certain b-sides</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Tap to enter</h2>
+            <div class="qr"></div>
+            <div class="qr-cap">SCAN · GATE · #00426</div>
+            <div class="rules" style="margin-top:18px">
+              <li>RFID synced</li>
+              <li>Last seen · gate.04</li>
+              <li>Status · IDLE</li>
+            </div>
+          </div>
+        </div>
+        <button class="flip-btn" type="button" data-flip>← Flip back · Front</button>
+      </div>
+    </article>
+  </div>
+
+  <!-- ───────── CONTROLS ───────── -->
+  <div class="controls">
+    <div class="panel">
+      <p class="ey">▸ Edit credential · zones</p>
+      <h3>Holder name (writes to pass)</h3>
+      <input type="text" id="holderInput" value="W:O:A '26 — Pit Mix">
+
+      <div class="grid-bands" id="bandList">
+        <label class="gb on" data-band="Iron Maiden"><input type="checkbox" checked>Iron Maiden<span class="stage-tag">Faster</span></label>
+        <label class="gb on" data-band="Megadeth"><input type="checkbox" checked>Megadeth<span class="stage-tag">Faster</span></label>
+        <label class="gb" data-band="Amon Amarth"><input type="checkbox">Amon Amarth<span class="stage-tag">Wackinger</span></label>
+        <label class="gb on" data-band="Behemoth"><input type="checkbox" checked>Behemoth<span class="stage-tag">Louder</span></label>
+        <label class="gb" data-band="Sabaton"><input type="checkbox">Sabaton<span class="stage-tag">Louder</span></label>
+        <label class="gb on" data-band="Powerwolf"><input type="checkbox" checked>Powerwolf<span class="stage-tag">Louder</span></label>
+        <label class="gb" data-band="Gojira"><input type="checkbox">Gojira<span class="stage-tag">Bullhead</span></label>
+        <label class="gb" data-band="Heilung"><input type="checkbox">Heilung<span class="stage-tag">Wackinger</span></label>
+      </div>
+
+      <div class="tier-meter">
+        <div class="lbl"><span>Pass tier</span><em id="tierLabel">CURATOR</em></div>
+        <div class="meter"><div class="fill" id="meterFill"></div></div>
+        <div class="ticks"><span>GA · 1+</span><span>Curator · 4+</span><span>VIP · 8+</span><span>All · 12+</span></div>
+      </div>
+
+      <button class="cta" type="button">LAMINATE &amp; ISSUE PASS ›</button>
+    </div>
+
+    <div class="panel">
+      <p class="ey">▸ Crew manifest · preview</p>
+      <h3 id="trkTotal">20 tracks queued</h3>
+      <div class="preview-list" id="previewList">
+        <div class="li"><b>› Iron Maiden</b><span class="n">5</span></div>
+        <div class="li"><b>› Megadeth</b><span class="n">5</span></div>
+        <div class="li"><b>› Behemoth</b><span class="n">5</span></div>
+        <div class="li"><b>› Powerwolf</b><span class="n">5</span></div>
+        <div class="total"><span>Total</span><span>20 tracks</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="install-hint">▸ <b>Print your pass to home screen</b> — install Play[my W:O:A]list as a PWA · works offline at the gate</p>
+
+  <footer>
+    <span>B1 — BACKSTAGE PASS · v2 · LAMINATED EDITION</span>
+    <span>SERIAL #00426 · 2026-05-15</span>
+  </footer>
+</div>
+
+<script>
+  // ───────── Flip the pass ─────────
+  document.querySelectorAll('[data-flip]').forEach(b=>{
+    b.addEventListener('click', ()=> document.getElementById('pass').classList.toggle('flipped'));
+  });
+
+  // ───────── Holder name → writes to pass ─────────
+  const holderInput=document.getElementById('holderInput');
+  const holderOut=document.getElementById('holder');
+  holderInput.addEventListener('input', ()=> holderOut.textContent = holderInput.value || 'W:O:A — UNTITLED');
+
+  // ───────── Bands → chips, tier, preview ─────────
+  const tierBadge=document.getElementById('tierBadge');
+  const tierLabel=document.getElementById('tierLabel');
+  const meterFill=document.getElementById('meterFill');
+  const zonesOn=document.getElementById('zonesOn');
+  const trkTotal=document.getElementById('trkTotal');
+  const previewList=document.getElementById('previewList');
+  const tracksPerBand = 5;
+
+  function tierFor(n){
+    if(n>=12) return {name:'ALL ACCESS', pct:100};
+    if(n>=8)  return {name:'VIP',        pct:75};
+    if(n>=4)  return {name:'CURATOR',    pct:50};
+    if(n>=1)  return {name:'GA',         pct:25};
+    return {name:'GA', pct:8};
+  }
+
+  function refresh(){
+    const onLabels=[...document.querySelectorAll('#bandList .gb.on')];
+    const names=onLabels.map(l=>l.dataset.band);
+    const n=names.length;
+
+    // chips on the pass
+    document.querySelectorAll('#chips .chip').forEach(c=>{
+      c.classList.toggle('off', !names.includes(c.dataset.band));
+    });
+    zonesOn.textContent=n;
+
+    // tier
+    const t=tierFor(n);
+    tierBadge.textContent=t.name; tierBadge.dataset.tier=t.name;
+    tierLabel.textContent=t.name;
+    meterFill.style.width=t.pct+'%';
+
+    // preview list
+    previewList.innerHTML = names.map(b=>`<div class="li"><b>› ${b}</b><span class="n">${tracksPerBand}</span></div>`).join('')
+      + `<div class="total"><span>Total</span><span>${n*tracksPerBand} tracks</span></div>`;
+    trkTotal.textContent = `${n*tracksPerBand} tracks queued`;
+  }
+
+  document.querySelectorAll('#bandList .gb').forEach(l=>{
+    l.addEventListener('click', e=>{
+      requestAnimationFrame(()=>{
+        l.classList.toggle('on', l.querySelector('input').checked);
+        refresh();
+      });
+    });
+  });
+  refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play[my W:O:A]list — Icon Concepts v3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(circle at 12% 6%,  rgb(180 20 30 / 34%) 0 4%, transparent 9%),
+        radial-gradient(circle at 76% 14%, rgb(120 10 16 / 34%) 0 3%, transparent 9%),
+        linear-gradient(180deg, #17191e 0%, #101115 42%, #36070b 100%);
+      color: #eee9dc;
+      font-family: 'Inter', sans-serif;
+      padding: 60px 40px;
+      min-height: 100vh;
+    }
+    header { border-bottom: 1px solid rgb(240 42 54 / 22%); padding-bottom: 28px; margin-bottom: 52px; }
+    header h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 18px; color: #f02a36; letter-spacing: 0.06em;
+      text-shadow: 0 0 20px rgb(240 42 54 / 40%);
+      margin-bottom: 8px;
+    }
+    header p { font-size: 12px; color: #6a5a5a; line-height: 1.7; max-width: 600px; }
+    header p strong { color: #9a8080; }
+
+    .brief {
+      background: rgb(77 5 9 / 22%);
+      border-left: 2px solid rgb(240 42 54 / 40%);
+      padding: 14px 20px; margin-top: 18px; border-radius: 0 4px 4px 0;
+      font-size: 12px; color: #7a6060; line-height: 1.9;
+    }
+    .brief strong { color: #c44; }
+
+    .dir-block { margin-bottom: 68px; }
+    .dir-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+    .dir-label { font-family: 'Cinzel Decorative', serif; font-size: 11px; color: #f02a36; letter-spacing: 0.1em; }
+    .dir-name  { font-family: 'Cinzel Decorative', serif; font-size: 16px; color: #d8d0c8; }
+    .dir-desc  { font-size: 12px; color: #6a5050; margin-bottom: 24px; line-height: 1.7; max-width: 520px; }
+
+    .sizes-row { display: flex; gap: 36px; align-items: flex-end; flex-wrap: wrap; }
+    .size-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .size-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: #5a4040; }
+    .size-note  { font-size: 10px; color: #4a3030; text-align: center; max-width: 110px; line-height: 1.4; }
+
+    .maskable-wrap { position: relative; display: inline-block; }
+    .safe-zone-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 1.5px dashed rgb(240 42 54 / 35%);
+      pointer-events: none; transform: scale(0.8); transform-origin: center;
+    }
+
+    .checker {
+      background-image:
+        linear-gradient(45deg,#140e0e 25%,transparent 25%),
+        linear-gradient(-45deg,#140e0e 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#140e0e 75%),
+        linear-gradient(-45deg,transparent 75%,#140e0e 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+      background-color: #0d0a0a;
+      border-radius: 8px; padding: 14px; display: inline-block;
+    }
+
+    .dl-row { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+    button {
+      background: rgb(180 20 30 / 12%); border: 1px solid rgb(180 20 30 / 30%);
+      color: #c44; font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 0.06em; padding: 7px 14px; border-radius: 4px;
+      cursor: pointer; transition: background .15s;
+    }
+    button:hover { background: rgb(180 20 30 / 26%); }
+    .divider { border: none; border-top: 1px solid rgb(240 42 54 / 10%); margin: 56px 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Play[my W:O:A]list · Icon v3</h1>
+  <p>Visual source: the banner — <strong>bull skull + curved horns + headphones</strong>, surrounded by
+     <strong>lava fire + blood splatter</strong>, near-black background.
+     No gold. Dark grey skull, blood red fire, ember particles.</p>
+  <div class="brief">
+    Palette pulled directly from banner image:<br>
+    <strong>#0d0a0a</strong> background · <strong>#4a4848–#6e6c6c</strong> skull grey ·
+    <strong>#b4141e / #c41e10 / #e83520</strong> fire red · <strong>#ff4422</strong> ember highlights ·
+    no gold anywhere
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════
+     A · FULL EMBLEM
+     Bull skull + horns + headphones + fire glow + splatter
+     Closest to the banner, best at 512px
+════════════════════════════════════ -->
+<div class="dir-block" id="dir-a">
+  <div class="dir-header">
+    <span class="dir-label">A</span>
+    <span class="dir-name">Full Emblem</span>
+  </div>
+  <p class="dir-desc">
+    The complete banner composition compressed into a square icon — skull, horns, headphones,
+    fire glow, ember splatter. Most detailed; use this for the 512px app-store / splash size.
+  </p>
+
+  <div class="sizes-row">
+
+    <!-- 512 -->
+    <div class="size-item">
+      <span class="size-label">512 × 512</span>
+      <div class="checker">
+        <svg id="a-512" width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Fire glow — radiates from lower-centre outward like in banner -->
+            <radialGradient id="afire" cx="50%" cy="78%" r="72%">
+              <stop offset="0%"   stop-color="#cc2200" stop-opacity="0.85"/>
+              <stop offset="30%"  stop-color="#881100" stop-opacity="0.60"/>
+              <stop offset="70%"  stop-color="#3d0800" stop-opacity="0.30"/>
+              <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+            </radialGradient>
+            <!-- Side fire columns -->
+            <linearGradient id="aflame-l" x1="0%" y1="100%" x2="20%" y2="0%">
+              <stop offset="0%"   stop-color="#c41e10" stop-opacity="0.80"/>
+              <stop offset="60%"  stop-color="#e83520" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#ff4422" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="aflame-r" x1="100%" y1="100%" x2="80%" y2="0%">
+              <stop offset="0%"   stop-color="#c41e10" stop-opacity="0.80"/>
+              <stop offset="60%"  stop-color="#e83520" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#ff4422" stop-opacity="0"/>
+            </linearGradient>
+            <!-- Skull metallic fill -->
+            <linearGradient id="askull" x1="25%" y1="0%" x2="75%" y2="100%">
+              <stop offset="0%"   stop-color="#6e6c6c"/>
+              <stop offset="45%"  stop-color="#4d4b4b"/>
+              <stop offset="100%" stop-color="#2e2c2c"/>
+            </linearGradient>
+            <linearGradient id="ahorn" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#606060"/>
+              <stop offset="100%" stop-color="#2a2828"/>
+            </linearGradient>
+          </defs>
+
+          <!-- ── Background ── -->
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+
+          <!-- ── Fire glow (behind everything) ── -->
+          <rect width="512" height="512" rx="80" fill="url(#afire)"/>
+
+          <!-- ── Left fire column ── -->
+          <path d="M 80,512 Q 62,460 72,410 Q 82,365 60,325 Q 44,292 64,262
+                   Q 80,238 98,265 Q 112,290 98,330 Q 82,368 96,408 Q 110,448 88,490 Z"
+            fill="url(#aflame-l)" opacity="0.75"/>
+          <path d="M 118,512 Q 100,455 112,418 Q 126,384 108,350 Q 94,320 112,300
+                   Q 128,282 140,308 Q 152,334 136,368 Q 118,405 130,440 Q 144,472 122,504 Z"
+            fill="#e83520" opacity="0.40"/>
+
+          <!-- ── Right fire column ── -->
+          <path d="M 432,512 Q 450,460 440,410 Q 430,365 452,325 Q 468,292 448,262
+                   Q 432,238 414,265 Q 400,290 414,330 Q 430,368 416,408 Q 402,448 424,490 Z"
+            fill="url(#aflame-r)" opacity="0.75"/>
+          <path d="M 394,512 Q 412,455 400,418 Q 386,384 404,350 Q 418,320 400,300
+                   Q 384,282 372,308 Q 360,334 376,368 Q 394,405 382,440 Q 368,472 390,504 Z"
+            fill="#e83520" opacity="0.40"/>
+
+          <!-- ── Blood / ember splatter particles ── -->
+          <circle cx="44"  cy="68"  r="5"  fill="#c41e10" opacity="0.75"/>
+          <circle cx="76"  cy="38"  r="3"  fill="#e83520" opacity="0.60"/>
+          <circle cx="30"  cy="42"  r="2"  fill="#ff4422" opacity="0.50"/>
+          <ellipse cx="60" cy="100" rx="3" ry="9" fill="#b4141e" opacity="0.50" transform="rotate(-18 60 100)"/>
+          <circle cx="100" cy="26"  r="2"  fill="#c41e10" opacity="0.45"/>
+          <circle cx="460" cy="52"  r="5"  fill="#c41e10" opacity="0.70"/>
+          <circle cx="488" cy="36"  r="3"  fill="#e83520" opacity="0.55"/>
+          <circle cx="472" cy="80"  r="2"  fill="#ff4422" opacity="0.45"/>
+          <ellipse cx="450" cy="108" rx="3" ry="8" fill="#b4141e" opacity="0.48" transform="rotate(14 450 108)"/>
+          <circle cx="420" cy="28"  r="2"  fill="#c41e10" opacity="0.40"/>
+          <!-- mid-field sparks -->
+          <circle cx="155" cy="44"  r="2"  fill="#ff4422" opacity="0.35"/>
+          <circle cx="365" cy="38"  r="2"  fill="#ff4422" opacity="0.30"/>
+
+          <!-- ══════════════════════
+               HORNS
+               Curves from skull top-sides, sweep up/outward to sharp tips
+          ══════════════════════ -->
+          <!-- Left horn body -->
+          <path d="M 202,268
+                   C 175,248 138,208 96,158
+                   C 76,133 56,104 48,80
+                   C 43,65 45,52 54,50
+                   C 63,48 72,58 84,76
+                   C 104,108 130,140 166,176
+                   C 198,208 214,244 218,272 Z"
+            fill="url(#ahorn)"/>
+          <!-- Left horn edge highlight -->
+          <path d="M 48,80 C 62,100 88,130 124,165 C 160,200 195,238 210,266"
+            fill="none" stroke="#787676" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- Right horn body -->
+          <path d="M 310,268
+                   C 337,248 374,208 416,158
+                   C 436,133 456,104 464,80
+                   C 469,65 467,52 458,50
+                   C 449,48 440,58 428,76
+                   C 408,108 382,140 346,176
+                   C 314,208 298,244 294,272 Z"
+            fill="url(#ahorn)"/>
+          <!-- Right horn edge highlight -->
+          <path d="M 464,80 C 450,100 424,130 388,165 C 352,200 317,238 302,266"
+            fill="none" stroke="#787676" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- ══════════════════════
+               SKULL
+               Bull skull — wide cranium, pronounced snout, bold eye sockets
+          ══════════════════════ -->
+          <!-- Main cranium -->
+          <path d="M 256,205
+            C 306,205 360,226 378,268
+            C 396,310 390,358 368,386
+            C 350,408 320,422 295,427
+            C 280,430 268,432 256,432
+            C 244,432 232,430 217,427
+            C 192,422 162,408 144,386
+            C 122,358 116,310 134,268
+            C 152,226 206,205 256,205 Z"
+            fill="url(#askull)"/>
+
+          <!-- Skull central suture line -->
+          <line x1="256" y1="210" x2="256" y2="430"
+            stroke="#282626" stroke-width="2.5" opacity="0.55"/>
+
+          <!-- Skull top texture cracks -->
+          <path d="M 238,218 Q 234,240 240,262" stroke="#3a3838" stroke-width="1.5" fill="none" opacity="0.45"/>
+          <path d="M 274,216 Q 278,238 272,260" stroke="#3a3838" stroke-width="1.5" fill="none" opacity="0.45"/>
+          <path d="M 256,255 Q 264,272 259,292"  stroke="#2e2c2c" stroke-width="1"   fill="none" opacity="0.40"/>
+
+          <!-- Cheekbone edge highlight (lighter) -->
+          <path d="M 144,296 Q 132,330 140,370" stroke="#5a5858" stroke-width="2" fill="none" opacity="0.35"/>
+          <path d="M 368,296 Q 380,330 372,370" stroke="#5a5858" stroke-width="2" fill="none" opacity="0.35"/>
+
+          <!-- Eye sockets — large, hollow, oval -->
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <!-- Socket inner rim (slight lighter edge for depth) -->
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="none" stroke="#3a3636" stroke-width="2" opacity="0.4"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="none" stroke="#3a3636" stroke-width="2" opacity="0.4"/>
+
+          <!-- Nose cavity (inverted heart / bull nasal shape) -->
+          <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384
+                   Q 256,384 264,380 Q 272,374 268,362
+                   Q 262,350 256,348 Q 250,350 244,362 Z"
+            fill="#100c0c"/>
+
+          <!-- Snout / lower face tapering -->
+          <path d="M 222,425 C 218,442 215,462 218,474
+                   C 220,482 234,490 256,490
+                   C 278,490 292,482 294,474
+                   C 297,462 294,442 290,425 Z"
+            fill="#3a3838"/>
+          <!-- Snout centre line -->
+          <line x1="256" y1="430" x2="256" y2="488" stroke="#282626" stroke-width="2" opacity="0.4"/>
+
+          <!-- ══════════════════════
+               HEADPHONES
+          ══════════════════════ -->
+          <!-- Band arc (gunmetal dark, arcs over skull) -->
+          <path d="M 184,286 A 84,84 0 0 1 328,286"
+            fill="none" stroke="#1a1818" stroke-width="22" stroke-linecap="round"/>
+          <!-- Band highlight edge -->
+          <path d="M 184,286 A 84,84 0 0 1 328,286"
+            fill="none" stroke="#3c3a3a" stroke-width="7" stroke-linecap="round"/>
+          <!-- Band top highlight (lighter stripe) -->
+          <path d="M 190,280 A 76,76 0 0 1 322,280"
+            fill="none" stroke="#4a4848" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- Left ear cup — outer shell -->
+          <ellipse cx="180" cy="294" rx="33" ry="40" fill="#181616"/>
+          <!-- Left cup padding ring -->
+          <ellipse cx="180" cy="294" rx="26" ry="32" fill="#0e0c0c"/>
+          <!-- Left cup centre -->
+          <ellipse cx="180" cy="294" rx="16" ry="20" fill="#202020"/>
+          <!-- Left cup highlight (subtle) -->
+          <ellipse cx="174" cy="286" rx="6" ry="4"   fill="#2e2c2c" opacity="0.6"/>
+
+          <!-- Right ear cup -->
+          <ellipse cx="332" cy="294" rx="33" ry="40" fill="#181616"/>
+          <ellipse cx="332" cy="294" rx="26" ry="32" fill="#0e0c0c"/>
+          <ellipse cx="332" cy="294" rx="16" ry="20" fill="#202020"/>
+          <ellipse cx="326" cy="286" rx="6" ry="4"   fill="#2e2c2c" opacity="0.6"/>
+
+          <!-- Band-to-cup connector brackets -->
+          <rect x="170" y="258" width="22" height="14" rx="4" fill="#161414"/>
+          <rect x="320" y="258" width="22" height="14" rx="4" fill="#161414"/>
+
+          <!-- Subtle lava-red inner glow on eye sockets (fire reflected in skull) -->
+          <ellipse cx="218" cy="316" rx="22" ry="14" fill="#c41e10" opacity="0.08"/>
+          <ellipse cx="294" cy="316" rx="22" ry="14" fill="#c41e10" opacity="0.08"/>
+
+          <!-- Outer border — faint red glow ring -->
+          <rect x="8" y="8" width="496" height="496" rx="76"
+            fill="none" stroke="#c41e10" stroke-width="2" opacity="0.18"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 192 -->
+    <div class="size-item">
+      <span class="size-label">192 × 192</span>
+      <div class="checker">
+        <svg id="a-192" width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="a192fire" cx="50%" cy="78%" r="72%">
+              <stop offset="0%"   stop-color="#cc2200" stop-opacity="0.85"/>
+              <stop offset="50%"  stop-color="#661100" stop-opacity="0.50"/>
+              <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="a192skull" x1="25%" y1="0%" x2="75%" y2="100%">
+              <stop offset="0%"  stop-color="#6e6c6c"/>
+              <stop offset="50%" stop-color="#4d4b4b"/>
+              <stop offset="100%" stop-color="#2e2c2c"/>
+            </linearGradient>
+            <linearGradient id="a192horn" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"  stop-color="#606060"/>
+              <stop offset="100%" stop-color="#2a2828"/>
+            </linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+          <rect width="512" height="512" rx="80" fill="url(#a192fire)"/>
+          <!-- simplified fire columns -->
+          <path d="M 80,512 Q 62,445 72,400 Q 86,355 60,312 Q 40,278 70,250 Q 92,228 106,262 Q 118,295 100,340 Q 80,382 96,425 Q 110,462 84,498 Z" fill="#c41e10" opacity="0.60"/>
+          <path d="M 432,512 Q 450,445 440,400 Q 426,355 452,312 Q 472,278 442,250 Q 420,228 406,262 Q 394,295 412,340 Q 432,382 416,425 Q 402,462 428,498 Z" fill="#c41e10" opacity="0.60"/>
+          <!-- splatter -->
+          <circle cx="44"  cy="68" r="5" fill="#c41e10" opacity="0.75"/>
+          <circle cx="76"  cy="38" r="3" fill="#e83520" opacity="0.60"/>
+          <circle cx="460" cy="52" r="5" fill="#c41e10" opacity="0.70"/>
+          <circle cx="488" cy="36" r="3" fill="#e83520" opacity="0.55"/>
+          <!-- horns -->
+          <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="url(#a192horn)"/>
+          <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="url(#a192horn)"/>
+          <!-- skull -->
+          <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="url(#a192skull)"/>
+          <line x1="256" y1="210" x2="256" y2="430" stroke="#282626" stroke-width="2.5" opacity="0.55"/>
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384 Q 256,384 264,380 Q 272,374 268,362 Q 262,350 256,348 Q 250,350 244,362 Z" fill="#100c0c"/>
+          <path d="M 222,425 C 218,442 215,462 218,474 C 220,482 234,490 256,490 C 278,490 292,482 294,474 C 297,462 294,442 290,425 Z" fill="#3a3838"/>
+          <!-- headphones -->
+          <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#1a1818" stroke-width="22" stroke-linecap="round"/>
+          <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#3c3a3a" stroke-width="7"  stroke-linecap="round"/>
+          <ellipse cx="180" cy="294" rx="33" ry="40" fill="#181616"/>
+          <ellipse cx="180" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+          <ellipse cx="332" cy="294" rx="33" ry="40" fill="#181616"/>
+          <ellipse cx="332" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+        </svg>
+      </div>
+      <span class="size-note">Skull + horns still read</span>
+    </div>
+
+    <!-- Maskable -->
+    <div class="size-item">
+      <span class="size-label">Maskable</span>
+      <div class="checker">
+        <div class="maskable-wrap">
+          <svg id="a-mask" width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="amskfire" cx="50%" cy="78%" r="72%">
+                <stop offset="0%"   stop-color="#cc2200" stop-opacity="0.85"/>
+                <stop offset="50%"  stop-color="#661100" stop-opacity="0.50"/>
+                <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="amskskull" x1="25%" y1="0%" x2="75%" y2="100%">
+                <stop offset="0%"  stop-color="#6e6c6c"/>
+                <stop offset="50%" stop-color="#4d4b4b"/>
+                <stop offset="100%" stop-color="#2e2c2c"/>
+              </linearGradient>
+              <linearGradient id="amskhorn" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"  stop-color="#606060"/>
+                <stop offset="100%" stop-color="#2a2828"/>
+              </linearGradient>
+            </defs>
+            <!-- Full bleed bg -->
+            <rect width="512" height="512" fill="#0d0a0a"/>
+            <rect width="512" height="512" fill="url(#amskfire)"/>
+            <!-- Fire bleeds to edges (intentional) -->
+            <path d="M 80,512 Q 62,445 72,400 Q 86,355 60,312 Q 40,278 70,250 Q 92,228 106,262 Q 118,295 100,340 Q 80,382 96,425 Q 110,462 84,498 Z" fill="#c41e10" opacity="0.55"/>
+            <path d="M 432,512 Q 450,445 440,400 Q 426,355 452,312 Q 472,278 442,250 Q 420,228 406,262 Q 394,295 412,340 Q 432,382 416,425 Q 402,462 428,498 Z" fill="#c41e10" opacity="0.55"/>
+            <!-- splatter to edges -->
+            <circle cx="44"  cy="68" r="5" fill="#c41e10" opacity="0.70"/>
+            <circle cx="460" cy="52" r="5" fill="#c41e10" opacity="0.65"/>
+            <!-- Content in safe zone -->
+            <g transform="translate(56,56) scale(0.78)">
+              <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="url(#amskhorn)"/>
+              <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="url(#amskhorn)"/>
+              <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="url(#amskskull)"/>
+              <line x1="256" y1="210" x2="256" y2="430" stroke="#282626" stroke-width="2.5" opacity="0.55"/>
+              <ellipse cx="218" cy="308" rx="38" ry="30" fill="#100c0c"/>
+              <ellipse cx="294" cy="308" rx="38" ry="30" fill="#100c0c"/>
+              <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384 Q 256,384 264,380 Q 272,374 268,362 Q 262,350 256,348 Q 250,350 244,362 Z" fill="#100c0c"/>
+              <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#1a1818" stroke-width="22" stroke-linecap="round"/>
+              <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#3c3a3a" stroke-width="7"  stroke-linecap="round"/>
+              <ellipse cx="180" cy="294" rx="33" ry="40" fill="#181616"/>
+              <ellipse cx="180" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+              <ellipse cx="332" cy="294" rx="33" ry="40" fill="#181616"/>
+              <ellipse cx="332" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+            </g>
+          </svg>
+          <div class="safe-zone-ring"></div>
+        </div>
+      </div>
+      <span class="size-note">Fire/splatter bleeds edge · skull in safe zone</span>
+    </div>
+
+  </div>
+
+  <div class="dl-row">
+    <button onclick="dlSVG('a-512',  'woa-skull-512.svg')">↓ SVG 512</button>
+    <button onclick="dlSVG('a-192',  'woa-skull-192.svg')">↓ SVG 192</button>
+    <button onclick="dlSVG('a-mask', 'woa-skull-maskable.svg')">↓ SVG Maskable</button>
+    <button onclick="dlPNG('a-512',  'woa-skull-512.png', 512)">↓ PNG 512</button>
+    <button onclick="dlPNG('a-192',  'woa-skull-192.png', 192)">↓ PNG 192</button>
+  </div>
+</div>
+
+<hr class="divider">
+
+
+<!-- ═══════════════════════════════════
+     B · EMBLEM STAMP
+     Same skull+horns but as a flat high-contrast silhouette — no gradients.
+     Works at every size including 32px favicon.
+════════════════════════════════════ -->
+<div class="dir-block" id="dir-b">
+  <div class="dir-header">
+    <span class="dir-label">B</span>
+    <span class="dir-name">Emblem Stamp</span>
+  </div>
+  <p class="dir-desc">
+    Same composition as A but reduced to a bold two-tone silhouette:
+    blood-red skull+horns on near-black, headphones in dark grey.
+    Reads at 32px favicon, works as a brand mark, stamps well on dark and light surfaces.
+  </p>
+
+  <div class="sizes-row">
+
+    <!-- 512 -->
+    <div class="size-item">
+      <span class="size-label">512 × 512</span>
+      <div class="checker">
+        <svg id="b-512" width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bfire" cx="50%" cy="80%" r="65%">
+              <stop offset="0%"   stop-color="#8b0000" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+          <rect width="512" height="512" rx="80" fill="url(#bfire)"/>
+
+          <!-- Splatter (same particles) -->
+          <circle cx="44"  cy="68" r="5" fill="#b4141e" opacity="0.65"/>
+          <circle cx="76"  cy="38" r="3" fill="#c41e10" opacity="0.55"/>
+          <circle cx="460" cy="52" r="5" fill="#b4141e" opacity="0.60"/>
+          <circle cx="488" cy="36" r="3" fill="#c41e10" opacity="0.50"/>
+          <ellipse cx="60" cy="100" rx="3" ry="9" fill="#b4141e" opacity="0.45" transform="rotate(-18 60 100)"/>
+          <ellipse cx="450" cy="108" rx="3" ry="8" fill="#b4141e" opacity="0.42" transform="rotate(14 450 108)"/>
+
+          <!-- Horns — flat blood red -->
+          <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#b4141e"/>
+          <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#b4141e"/>
+
+          <!-- Skull — flat blood red (slightly darker to read against horns) -->
+          <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#8b1010"/>
+
+          <!-- Suture -->
+          <line x1="256" y1="210" x2="256" y2="430" stroke="#5a0808" stroke-width="2.5" opacity="0.6"/>
+
+          <!-- Eye sockets — near-black hollow -->
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+
+          <!-- Nose -->
+          <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384 Q 256,384 264,380 Q 272,374 268,362 Q 262,350 256,348 Q 250,350 244,362 Z" fill="#0d0a0a"/>
+
+          <!-- Snout -->
+          <path d="M 222,425 C 218,442 215,462 218,474 C 220,482 234,490 256,490 C 278,490 292,482 294,474 C 297,462 294,442 290,425 Z" fill="#6b0c0c"/>
+
+          <!-- Headphones — dark grey, reads against red skull -->
+          <path d="M 184,286 A 84,84 0 0 1 328,286"
+            fill="none" stroke="#222020" stroke-width="24" stroke-linecap="round"/>
+          <ellipse cx="180" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="180" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+          <ellipse cx="332" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="332" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+
+          <!-- Outer ring -->
+          <rect x="8" y="8" width="496" height="496" rx="76"
+            fill="none" stroke="#b4141e" stroke-width="2.5" opacity="0.22"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 192 -->
+    <div class="size-item">
+      <span class="size-label">192 × 192</span>
+      <div class="checker">
+        <svg id="b-192" width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="b192fire" cx="50%" cy="80%" r="65%">
+              <stop offset="0%"   stop-color="#8b0000" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+          <rect width="512" height="512" rx="80" fill="url(#b192fire)"/>
+          <circle cx="44"  cy="68" r="5" fill="#b4141e" opacity="0.65"/>
+          <circle cx="460" cy="52" r="5" fill="#b4141e" opacity="0.60"/>
+          <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#b4141e"/>
+          <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#b4141e"/>
+          <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#8b1010"/>
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+          <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384 Q 256,384 264,380 Q 272,374 268,362 Q 262,350 256,348 Q 250,350 244,362 Z" fill="#0d0a0a"/>
+          <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#222020" stroke-width="24" stroke-linecap="round"/>
+          <ellipse cx="180" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="180" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+          <ellipse cx="332" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="332" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+        </svg>
+      </div>
+      <span class="size-note">Highest contrast at small size</span>
+    </div>
+
+    <!-- Maskable -->
+    <div class="size-item">
+      <span class="size-label">Maskable</span>
+      <div class="checker">
+        <div class="maskable-wrap">
+          <svg id="b-mask" width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="bmskfire" cx="50%" cy="80%" r="65%">
+                <stop offset="0%"   stop-color="#8b0000" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="512" height="512" fill="#0d0a0a"/>
+            <rect width="512" height="512" fill="url(#bmskfire)"/>
+            <g transform="translate(56,56) scale(0.78)">
+              <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#b4141e"/>
+              <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#b4141e"/>
+              <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#8b1010"/>
+              <ellipse cx="218" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+              <ellipse cx="294" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+              <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#222020" stroke-width="24" stroke-linecap="round"/>
+              <ellipse cx="180" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+              <ellipse cx="180" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+              <ellipse cx="332" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+              <ellipse cx="332" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+            </g>
+          </svg>
+          <div class="safe-zone-ring"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dl-row">
+    <button onclick="dlSVG('b-512',  'woa-stamp-512.svg')">↓ SVG 512</button>
+    <button onclick="dlSVG('b-192',  'woa-stamp-192.svg')">↓ SVG 192</button>
+    <button onclick="dlSVG('b-mask', 'woa-stamp-maskable.svg')">↓ SVG Maskable</button>
+    <button onclick="dlPNG('b-512',  'woa-stamp-512.png', 512)">↓ PNG 512</button>
+    <button onclick="dlPNG('b-192',  'woa-stamp-192.png', 192)">↓ PNG 192</button>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Quick compare -->
+<section>
+  <h2 style="font-family:'Cinzel Decorative',serif;font-size:11px;color:#c41e10;letter-spacing:0.1em;margin-bottom:20px;text-shadow:0 0 12px rgb(240 42 54/30%)">
+    Quick Compare · 192px
+  </h2>
+  <div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;">
+    <div class="size-item">
+      <span class="size-label">A · Textured + Fire</span>
+      <div class="checker">
+        <svg width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+          <circle cx="44"  cy="68" r="5" fill="#c41e10" opacity="0.75"/>
+          <circle cx="460" cy="52" r="5" fill="#c41e10" opacity="0.70"/>
+          <path d="M 80,512 Q 62,445 72,400 Q 86,355 60,312 Q 40,278 70,250 Q 92,228 106,262 Q 118,295 100,340 Q 80,382 96,425 Q 110,462 84,498 Z" fill="#c41e10" opacity="0.55"/>
+          <path d="M 432,512 Q 450,445 440,400 Q 426,355 452,312 Q 472,278 442,250 Q 420,228 406,262 Q 394,295 412,340 Q 432,382 416,425 Q 402,462 428,498 Z" fill="#c41e10" opacity="0.55"/>
+          <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#565454"/>
+          <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#565454"/>
+          <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#4d4b4b"/>
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#100c0c"/>
+          <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#1a1818" stroke-width="22" stroke-linecap="round"/>
+          <ellipse cx="180" cy="294" rx="33" ry="40" fill="#181616"/>
+          <ellipse cx="180" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+          <ellipse cx="332" cy="294" rx="33" ry="40" fill="#181616"/>
+          <ellipse cx="332" cy="294" rx="22" ry="30" fill="#0e0c0c"/>
+        </svg>
+      </div>
+    </div>
+    <div class="size-item">
+      <span class="size-label">B · Flat Stamp</span>
+      <div class="checker">
+        <svg width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+          <circle cx="44"  cy="68" r="5" fill="#b4141e" opacity="0.65"/>
+          <circle cx="460" cy="52" r="5" fill="#b4141e" opacity="0.60"/>
+          <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#b4141e"/>
+          <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#b4141e"/>
+          <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#8b1010"/>
+          <ellipse cx="218" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+          <ellipse cx="294" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+          <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#222020" stroke-width="24" stroke-linecap="round"/>
+          <ellipse cx="180" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="180" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+          <ellipse cx="332" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+          <ellipse cx="332" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="margin-top:56px;padding-top:22px;border-top:1px solid rgb(240 42 54/8%);font-size:11px;color:#4a3535;line-height:1.9;">
+  <p><strong style="color:#7a5050">A</strong> = closer to the banner (textured grey skull, fire columns). Best at 512px. <strong style="color:#7a5050">B</strong> = stamped silhouette in blood red, reads at any size including 32px favicon.</p>
+  <p>Say which direction to finalize and I'll write the clean SVG to <code style="color:#6a4040">wacken_playlist/static/icons/icon.svg</code>.</p>
+</footer>
+
+<script>
+  function dlSVG(id, fn) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const c = el.cloneNode(true);
+    c.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([c.outerHTML], {type:'image/svg+xml'}));
+    a.download = fn; a.click(); URL.revokeObjectURL(a.href);
+  }
+  function dlPNG(id, fn, size) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const c = el.cloneNode(true);
+    c.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    c.setAttribute('width', size); c.setAttribute('height', size);
+    const url = URL.createObjectURL(new Blob([c.outerHTML], {type:'image/svg+xml'}));
+    const img = new Image();
+    img.onload = () => {
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = size;
+      cv.getContext('2d').drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      const a = document.createElement('a');
+      a.href = cv.toDataURL('image/png'); a.download = fn; a.click();
+    };
+    img.src = url;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bfire" cx="50%" cy="80%" r="65%">
+      <stop offset="0%"   stop-color="#8b0000" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="#0d0a0a"/>
+  <!-- Subtle red glow -->
+  <rect width="512" height="512" rx="80" fill="url(#bfire)"/>
+
+  <!-- Ember splatter -->
+  <circle cx="44"  cy="68"  r="5" fill="#b4141e" opacity="0.65"/>
+  <circle cx="76"  cy="38"  r="3" fill="#c41e10" opacity="0.55"/>
+  <circle cx="30"  cy="42"  r="2" fill="#b4141e" opacity="0.45"/>
+  <ellipse cx="60" cy="100" rx="3" ry="9" fill="#b4141e" opacity="0.45" transform="rotate(-18 60 100)"/>
+  <circle cx="100" cy="26"  r="2" fill="#c41e10" opacity="0.40"/>
+  <circle cx="460" cy="52"  r="5" fill="#b4141e" opacity="0.60"/>
+  <circle cx="488" cy="36"  r="3" fill="#c41e10" opacity="0.50"/>
+  <circle cx="472" cy="80"  r="2" fill="#b4141e" opacity="0.40"/>
+  <ellipse cx="450" cy="108" rx="3" ry="8" fill="#b4141e" opacity="0.42" transform="rotate(14 450 108)"/>
+  <circle cx="420" cy="28"  r="2" fill="#c41e10" opacity="0.38"/>
+
+  <!-- Left horn — blood red -->
+  <path d="M 202,268 C 175,248 138,208 96,158 C 76,133 56,104 48,80 C 43,65 45,52 54,50 C 63,48 72,58 84,76 C 104,108 130,140 166,176 C 198,208 214,244 218,272 Z" fill="#b4141e"/>
+
+  <!-- Right horn — blood red -->
+  <path d="M 310,268 C 337,248 374,208 416,158 C 436,133 456,104 464,80 C 469,65 467,52 458,50 C 449,48 440,58 428,76 C 408,108 382,140 346,176 C 314,208 298,244 294,272 Z" fill="#b4141e"/>
+
+  <!-- Skull — slightly darker red so horns pop -->
+  <path d="M 256,205 C 306,205 360,226 378,268 C 396,310 390,358 368,386 C 350,408 320,422 295,427 C 280,430 268,432 256,432 C 244,432 232,430 217,427 C 192,422 162,408 144,386 C 122,358 116,310 134,268 C 152,226 206,205 256,205 Z" fill="#8b1010"/>
+
+  <!-- Suture -->
+  <line x1="256" y1="210" x2="256" y2="430" stroke="#5a0808" stroke-width="2.5" opacity="0.6"/>
+
+  <!-- Eye sockets — near-black, high contrast -->
+  <ellipse cx="218" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+  <ellipse cx="294" cy="308" rx="38" ry="30" fill="#0d0a0a"/>
+
+  <!-- Nose cavity -->
+  <path d="M 244,362 Q 240,374 248,380 Q 256,384 256,384 Q 256,384 264,380 Q 272,374 268,362 Q 262,350 256,348 Q 250,350 244,362 Z" fill="#0d0a0a"/>
+
+  <!-- Snout -->
+  <path d="M 222,425 C 218,442 215,462 218,474 C 220,482 234,490 256,490 C 278,490 292,482 294,474 C 297,462 294,442 290,425 Z" fill="#6b0c0c"/>
+
+  <!-- Headphone band — dark gunmetal, reads against red -->
+  <path d="M 184,286 A 84,84 0 0 1 328,286" fill="none" stroke="#222020" stroke-width="24" stroke-linecap="round"/>
+
+  <!-- Left ear cup -->
+  <ellipse cx="180" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+  <ellipse cx="180" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+  <ellipse cx="180" cy="294" rx="14" ry="18" fill="#1a1818"/>
+
+  <!-- Right ear cup -->
+  <ellipse cx="332" cy="294" rx="34" ry="42" fill="#1e1c1c"/>
+  <ellipse cx="332" cy="294" rx="24" ry="31" fill="#0d0a0a"/>
+  <ellipse cx="332" cy="294" rx="14" ry="18" fill="#1a1818"/>
+
+  <!-- Outer ring — subtle red -->
+  <rect x="8" y="8" width="496" height="496" rx="76" fill="none" stroke="#b4141e" stroke-width="2.5" opacity="0.22"/>
+</svg>

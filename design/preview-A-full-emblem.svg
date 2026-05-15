@@ -1,0 +1,418 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+
+    <!-- ── Skull bone texture (fractal noise overlay) ── -->
+    <filter id="skull-texture" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.055 0.045" numOctaves="5" seed="12" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grey-noise"/>
+      <feComponentTransfer in="grey-noise" result="boosted-noise">
+        <feFuncR type="linear" slope="1.6" intercept="-0.28"/>
+        <feFuncG type="linear" slope="1.6" intercept="-0.28"/>
+        <feFuncB type="linear" slope="1.6" intercept="-0.28"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="boosted-noise" mode="soft-light" result="textured"/>
+      <feComposite in="textured" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <!-- ── Horn texture (horizontal ridges feel) ── -->
+    <filter id="horn-texture" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025 0.12" numOctaves="3" seed="7" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grey-noise"/>
+      <feComponentTransfer in="grey-noise" result="ridge-noise">
+        <feFuncR type="linear" slope="1.4" intercept="-0.22"/>
+        <feFuncG type="linear" slope="1.4" intercept="-0.22"/>
+        <feFuncB type="linear" slope="1.4" intercept="-0.22"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="ridge-noise" mode="overlay" result="textured"/>
+      <feComposite in="textured" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <!-- ── Fire atmospheric glow (large blurred halo) ── -->
+    <filter id="fire-bloom" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+
+    <!-- ── Soft ember glow ── -->
+    <filter id="ember-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+
+    <!-- ── Flame column blur ── -->
+    <filter id="flame-blur" x="-20%" y="-5%" width="140%" height="110%">
+      <feGaussianBlur stdDeviation="5 2"/>
+    </filter>
+
+    <!-- ── Skull base gradient (metallic grey, lit from below by fire) ── -->
+    <radialGradient id="skull-base" cx="48%" cy="38%" r="62%">
+      <stop offset="0%"   stop-color="#787676"/>
+      <stop offset="40%"  stop-color="#565454"/>
+      <stop offset="75%"  stop-color="#3e3c3c"/>
+      <stop offset="100%" stop-color="#252323"/>
+    </radialGradient>
+
+    <!-- ── Fire glow on skull face (reddish lit from below) ── -->
+    <radialGradient id="skull-fire-lit" cx="50%" cy="92%" r="70%">
+      <stop offset="0%"   stop-color="#8b1a0a" stop-opacity="0.55"/>
+      <stop offset="45%"  stop-color="#5a0e06" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ── Skull forehead highlight (ambient light from front) ── -->
+    <radialGradient id="skull-highlight" cx="50%" cy="20%" r="50%">
+      <stop offset="0%"   stop-color="#a0a0a0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#606060" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ── Horn gradient: outer edge lighter, inner darker ── -->
+    <linearGradient id="horn-l" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%"   stop-color="#282626"/>
+      <stop offset="40%"  stop-color="#4e4c4c"/>
+      <stop offset="70%"  stop-color="#686666"/>
+      <stop offset="100%" stop-color="#4a4848"/>
+    </linearGradient>
+    <linearGradient id="horn-r" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#282626"/>
+      <stop offset="40%"  stop-color="#4e4c4c"/>
+      <stop offset="70%"  stop-color="#686666"/>
+      <stop offset="100%" stop-color="#4a4848"/>
+    </linearGradient>
+
+    <!-- ── Headphone cup gradient (metallic dark) ── -->
+    <radialGradient id="cup-grad-l" cx="35%" cy="32%" r="60%">
+      <stop offset="0%"   stop-color="#383636"/>
+      <stop offset="100%" stop-color="#0e0c0c"/>
+    </radialGradient>
+    <radialGradient id="cup-grad-r" cx="65%" cy="32%" r="60%">
+      <stop offset="0%"   stop-color="#383636"/>
+      <stop offset="100%" stop-color="#0e0c0c"/>
+    </radialGradient>
+
+    <!-- ── Overall atmospheric radial (fire core behind skull) ── -->
+    <radialGradient id="atmo-glow" cx="50%" cy="68%" r="72%">
+      <stop offset="0%"   stop-color="#cc2a00" stop-opacity="0.90"/>
+      <stop offset="22%"  stop-color="#991800" stop-opacity="0.65"/>
+      <stop offset="50%"  stop-color="#4d0800" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#0d0a0a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ── Left/right flame column gradients ── -->
+    <linearGradient id="flame-lg" x1="50%" y1="100%" x2="30%" y2="0%">
+      <stop offset="0%"   stop-color="#cc2200"/>
+      <stop offset="40%"  stop-color="#e84010"/>
+      <stop offset="75%"  stop-color="#ff5520" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="flame-rg" x1="50%" y1="100%" x2="70%" y2="0%">
+      <stop offset="0%"   stop-color="#cc2200"/>
+      <stop offset="40%"  stop-color="#e84010"/>
+      <stop offset="75%"  stop-color="#ff5520" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Clipping path for rounded-corner icon shape -->
+    <clipPath id="icon-clip">
+      <rect width="512" height="512" rx="80"/>
+    </clipPath>
+
+  </defs>
+
+  <!-- ════════════════════════════════
+       BASE LAYER
+  ════════════════════════════════ -->
+  <rect width="512" height="512" rx="80" fill="#0a0808"/>
+
+  <g clip-path="url(#icon-clip)">
+
+    <!-- ── Atmospheric fire core (blurred halo, behind everything) ── -->
+    <ellipse cx="256" cy="380" rx="200" ry="160" fill="#cc2200" opacity="0.55" filter="url(#fire-bloom)"/>
+    <ellipse cx="256" cy="340" rx="130" ry="110" fill="#ff4400" opacity="0.30" filter="url(#fire-bloom)"/>
+    <!-- side glow pillars -->
+    <ellipse cx="96"  cy="340" rx="60" ry="130" fill="#c41e10" opacity="0.40" filter="url(#fire-bloom)"/>
+    <ellipse cx="416" cy="340" rx="60" ry="130" fill="#c41e10" opacity="0.40" filter="url(#fire-bloom)"/>
+
+    <!-- ── Atmospheric gradient overlay ── -->
+    <rect width="512" height="512" fill="url(#atmo-glow)"/>
+
+    <!-- ════════════════════════════════
+         FIRE COLUMNS — LEFT
+    ════════════════════════════════ -->
+    <!-- Back flame (wider, more diffuse) -->
+    <path d="M 55,512
+             Q 38,470 50,432 Q 62,396 44,358 Q 28,325 46,294
+             Q 62,268 80,290 Q 96,310 86,348 Q 74,388 90,424
+             Q 106,460 84,500 Z"
+      fill="url(#flame-lg)" opacity="0.65" filter="url(#flame-blur)"/>
+    <!-- Mid flame -->
+    <path d="M 86,512
+             Q 70,462 82,425 Q 96,390 78,355 Q 62,324 80,300
+             Q 96,278 112,302 Q 126,326 112,362 Q 96,400 110,436
+             Q 124,468 106,504 Z"
+      fill="#e84010" opacity="0.55"/>
+    <!-- Bright inner flame tongue -->
+    <path d="M 104,512
+             Q 90,475 100,446 Q 112,418 98,390 Q 86,365 100,345
+             Q 114,328 124,350 Q 132,370 122,398 Q 110,428 120,456
+             Q 130,482 114,508 Z"
+      fill="#ff5520" opacity="0.38"/>
+    <!-- Wisp tendrils left -->
+    <path d="M 62,400 Q 48,368 60,340 Q 72,318 82,340 Q 90,360 78,390 Z"
+      fill="#e84010" opacity="0.30"/>
+    <path d="M 42,360 Q 32,340 44,322 Q 54,308 62,325 Q 68,340 56,358 Z"
+      fill="#ff4422" opacity="0.22"/>
+
+    <!-- ════════════════════════════════
+         FIRE COLUMNS — RIGHT
+    ════════════════════════════════ -->
+    <path d="M 457,512
+             Q 474,470 462,432 Q 450,396 468,358 Q 484,325 466,294
+             Q 450,268 432,290 Q 416,310 426,348 Q 438,388 422,424
+             Q 406,460 428,500 Z"
+      fill="url(#flame-rg)" opacity="0.65" filter="url(#flame-blur)"/>
+    <path d="M 426,512
+             Q 442,462 430,425 Q 416,390 434,355 Q 450,324 432,300
+             Q 416,278 400,302 Q 386,326 400,362 Q 416,400 402,436
+             Q 388,468 406,504 Z"
+      fill="#e84010" opacity="0.55"/>
+    <path d="M 408,512
+             Q 422,475 412,446 Q 400,418 414,390 Q 426,365 412,345
+             Q 398,328 388,350 Q 380,370 390,398 Q 402,428 392,456
+             Q 382,482 398,508 Z"
+      fill="#ff5520" opacity="0.38"/>
+    <path d="M 450,400 Q 464,368 452,340 Q 440,318 430,340 Q 422,360 434,390 Z"
+      fill="#e84010" opacity="0.30"/>
+    <path d="M 470,360 Q 480,340 468,322 Q 458,308 450,325 Q 444,340 456,358 Z"
+      fill="#ff4422" opacity="0.22"/>
+
+    <!-- ════════════════════════════════
+         BLOOD / EMBER SPLATTER
+    ════════════════════════════════ -->
+    <!-- Large blobs -->
+    <ellipse cx="42"  cy="64"  rx="7"  ry="5"  fill="#cc1e0a" opacity="0.80" transform="rotate(-25 42 64)"/>
+    <ellipse cx="72"  cy="36"  rx="5"  ry="3"  fill="#e83520" opacity="0.70" transform="rotate(-10 72 36)"/>
+    <ellipse cx="28"  cy="44"  rx="3"  ry="2"  fill="#ff4422" opacity="0.60"/>
+    <ellipse cx="460" cy="50"  rx="7"  ry="5"  fill="#cc1e0a" opacity="0.75" transform="rotate(20 460 50)"/>
+    <ellipse cx="490" cy="34"  rx="5"  ry="3"  fill="#e83520" opacity="0.65" transform="rotate(8 490 34)"/>
+    <ellipse cx="472" cy="82"  rx="3"  ry="2"  fill="#ff4422" opacity="0.55"/>
+    <!-- Drip streaks -->
+    <ellipse cx="56"  cy="98"  rx="3"  ry="14" fill="#b4141e" opacity="0.55" transform="rotate(-14 56 98)"/>
+    <ellipse cx="452" cy="106" rx="3"  ry="12" fill="#b4141e" opacity="0.52" transform="rotate(16 452 106)"/>
+    <ellipse cx="35"  cy="85"  rx="2"  ry="9"  fill="#c41e10" opacity="0.42" transform="rotate(-8 35 85)"/>
+    <!-- Micro sparks -->
+    <circle cx="102" cy="26"  r="2"   fill="#ff4422" opacity="0.60"/>
+    <circle cx="130" cy="44"  r="1.5" fill="#c41e10" opacity="0.50"/>
+    <circle cx="160" cy="32"  r="1.5" fill="#ff4422" opacity="0.40"/>
+    <circle cx="420" cy="28"  r="2"   fill="#ff4422" opacity="0.55"/>
+    <circle cx="392" cy="46"  r="1.5" fill="#c41e10" opacity="0.48"/>
+    <circle cx="362" cy="36"  r="1.5" fill="#ff4422" opacity="0.38"/>
+    <!-- Right side mid-field -->
+    <circle cx="480" cy="130" r="2"   fill="#b4141e" opacity="0.35"/>
+    <circle cx="30"  cy="140" r="2"   fill="#b4141e" opacity="0.32"/>
+    <!-- Extra organic splat clusters -->
+    <ellipse cx="82"  cy="50"  rx="4"  ry="2.5" fill="#e83520" opacity="0.45" transform="rotate(-35 82 50)"/>
+    <ellipse cx="440" cy="64"  rx="4"  ry="2.5" fill="#e83520" opacity="0.42" transform="rotate(28 440 64)"/>
+
+    <!-- ════════════════════════════════
+         HORNS — with texture filter
+    ════════════════════════════════ -->
+    <g filter="url(#horn-texture)">
+      <!-- Left horn body -->
+      <path d="M 205,270
+               C 182,252 150,216 108,164
+               C 86,138 64,108 52,82
+               C 46,66 48,52 58,50
+               C 68,48 78,60 92,80
+               C 114,112 142,146 178,182
+               C 210,214 222,248 224,274 Z"
+        fill="url(#horn-l)"/>
+      <!-- Left horn inner shadow (darker concave inner face) -->
+      <path d="M 190,266
+               C 170,248 138,212 100,162
+               C 82,138 64,110 54,86
+               C 64,80 76,60 90,80
+               C 112,110 140,144 176,180
+               C 208,212 220,246 222,270 Z"
+        fill="#1e1c1c" opacity="0.45"/>
+      <!-- Left horn tip highlight -->
+      <path d="M 52,82 C 62,98 80,120 106,152" fill="none" stroke="#8a8888" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+      <!-- Horn ridge grooves (horizontal-ish stripes) -->
+      <path d="M 82,110 Q 100,122 118,136" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.50"/>
+      <path d="M 118,148 Q 138,162 158,175" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.45"/>
+      <path d="M 158,186 Q 178,198 196,212" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.40"/>
+      <!-- Fire glow on horn (reddish at base) -->
+      <path d="M 205,270 C 182,252 150,216 108,164 C 86,138 64,108 52,82 C 58,50 68,48 78,60 C 104,108 130,140 166,176 C 198,208 220,246 224,274 Z"
+        fill="#c41e10" opacity="0.06"/>
+    </g>
+
+    <g filter="url(#horn-texture)">
+      <!-- Right horn body -->
+      <path d="M 307,270
+               C 330,252 362,216 404,164
+               C 426,138 448,108 460,82
+               C 466,66 464,52 454,50
+               C 444,48 434,60 420,80
+               C 398,112 370,146 334,182
+               C 302,214 290,248 288,274 Z"
+        fill="url(#horn-r)"/>
+      <!-- Right horn inner shadow -->
+      <path d="M 322,266
+               C 342,248 374,212 412,162
+               C 430,138 448,110 458,86
+               C 448,80 436,60 422,80
+               C 400,110 372,144 336,180
+               C 304,212 292,246 290,270 Z"
+        fill="#1e1c1c" opacity="0.45"/>
+      <!-- Right horn tip highlight -->
+      <path d="M 460,82 C 450,98 432,120 406,152" fill="none" stroke="#8a8888" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+      <!-- Horn ridges -->
+      <path d="M 430,110 Q 412,122 394,136" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.50"/>
+      <path d="M 394,148 Q 374,162 354,175" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.45"/>
+      <path d="M 354,186 Q 334,198 316,212" fill="none" stroke="#1e1c1c" stroke-width="1.5" opacity="0.40"/>
+      <!-- Fire glow on horn -->
+      <path d="M 307,270 C 330,252 362,216 404,164 C 426,138 448,108 460,82 C 454,50 444,48 434,60 C 408,108 382,140 346,176 C 314,208 292,246 288,274 Z"
+        fill="#c41e10" opacity="0.06"/>
+    </g>
+
+    <!-- ════════════════════════════════
+         SKULL — textured metallic
+    ════════════════════════════════ -->
+    <g filter="url(#skull-texture)">
+      <!-- Main cranium — wider forehead, more bull-like -->
+      <path d="M 256,200
+               C 314,200 372,222 388,266
+               C 402,306 396,352 374,382
+               C 356,406 326,422 298,428
+               C 282,432 269,434 256,434
+               C 243,434 230,432 214,428
+               C 186,422 156,406 138,382
+               C 116,352 110,306 124,266
+               C 140,222 198,200 256,200 Z"
+        fill="url(#skull-base)"/>
+
+      <!-- Forehead ambient highlight (top-centre) -->
+      <ellipse cx="256" cy="230" rx="80" ry="40" fill="url(#skull-highlight)"/>
+
+      <!-- Fire light reflected on lower skull face -->
+      <path d="M 256,200
+               C 314,200 372,222 388,266
+               C 402,306 396,352 374,382
+               C 356,406 326,422 298,428
+               C 282,432 269,434 256,434
+               C 243,434 230,432 214,428
+               C 186,422 156,406 138,382
+               C 116,352 110,306 124,266
+               C 140,222 198,200 256,200 Z"
+        fill="url(#skull-fire-lit)"/>
+
+      <!-- Central suture / sagittal line -->
+      <path d="M 256,204 L 256,432" stroke="#1e1c1c" stroke-width="2.5" fill="none" opacity="0.65"/>
+
+      <!-- Frontal bone suture (horizontal, near top) -->
+      <path d="M 188,240 Q 256,234 324,240" stroke="#2a2828" stroke-width="1.5" fill="none" opacity="0.45"/>
+
+      <!-- Texture crack lines (like the banner) -->
+      <path d="M 240,208 Q 236,228 238,252 Q 240,268 236,285" stroke="#1e1c1c" stroke-width="1.5" fill="none" opacity="0.55"/>
+      <path d="M 272,206 Q 276,226 274,250 Q 272,266 276,283" stroke="#1e1c1c" stroke-width="1.5" fill="none" opacity="0.55"/>
+      <path d="M 256,252 Q 262,272 258,292 Q 255,306 260,320" stroke="#1e1c1c" stroke-width="1.2" fill="none" opacity="0.45"/>
+      <!-- Side face cracks -->
+      <path d="M 148,292 Q 140,318 146,348 Q 150,368 144,388" stroke="#505050" stroke-width="1.5" fill="none" opacity="0.35"/>
+      <path d="M 364,292 Q 372,318 366,348 Q 362,368 368,388" stroke="#505050" stroke-width="1.5" fill="none" opacity="0.35"/>
+      <path d="M 165,310 Q 158,325 162,342" stroke="#484646" stroke-width="1" fill="none" opacity="0.30"/>
+      <path d="M 347,310 Q 354,325 350,342" stroke="#484646" stroke-width="1" fill="none" opacity="0.30"/>
+
+      <!-- Cheekbone edge highlight -->
+      <path d="M 138,296 Q 128,330 138,366 Q 142,380 148,390"
+        fill="none" stroke="#686666" stroke-width="2" stroke-linecap="round" opacity="0.30"/>
+      <path d="M 374,296 Q 384,330 374,366 Q 370,380 364,390"
+        fill="none" stroke="#686666" stroke-width="2" stroke-linecap="round" opacity="0.30"/>
+
+      <!-- Eye sockets — large, hollow, rimmed -->
+      <ellipse cx="216" cy="306" rx="40" ry="32" fill="#0a0808"/>
+      <ellipse cx="296" cy="306" rx="40" ry="32" fill="#0a0808"/>
+      <!-- Socket rims (suggest depth) -->
+      <ellipse cx="216" cy="306" rx="40" ry="32" fill="none" stroke="#3a3636" stroke-width="2.5" opacity="0.55"/>
+      <ellipse cx="296" cy="306" rx="40" ry="32" fill="none" stroke="#3a3636" stroke-width="2.5" opacity="0.55"/>
+      <!-- Inner socket walls (lighter grey ring suggesting orbital bone) -->
+      <ellipse cx="216" cy="304" rx="34" ry="27" fill="none" stroke="#4e4c4c" stroke-width="1.5" opacity="0.30"/>
+      <ellipse cx="296" cy="304" rx="34" ry="27" fill="none" stroke="#4e4c4c" stroke-width="1.5" opacity="0.30"/>
+      <!-- Faint fire reflection in sockets -->
+      <ellipse cx="216" cy="318" rx="24" ry="14" fill="#cc2200" opacity="0.10"/>
+      <ellipse cx="296" cy="318" rx="24" ry="14" fill="#cc2200" opacity="0.10"/>
+
+      <!-- Nasal cavity — wide Y-shape (bull skull characteristic) -->
+      <path d="M 238,358 Q 232,374 240,384 Q 248,392 256,394
+               Q 264,392 272,384 Q 280,374 274,358
+               Q 268,346 256,343
+               Q 244,346 238,358 Z"
+        fill="#0a0808"/>
+      <path d="M 238,358 Q 232,374 240,384" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.40"/>
+      <path d="M 274,358 Q 280,374 272,384" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.40"/>
+
+      <!-- Lower face / snout extension -->
+      <path d="M 224,428
+               C 220,445 217,466 220,478
+               C 223,487 236,494 256,494
+               C 276,494 289,487 292,478
+               C 295,466 292,445 288,428 Z"
+        fill="#363434"/>
+      <!-- Snout suture -->
+      <line x1="256" y1="432" x2="256" y2="492" stroke="#1e1c1c" stroke-width="2" opacity="0.45"/>
+      <!-- Snout texture -->
+      <path d="M 230,450 Q 240,446 256,446 Q 272,446 282,450" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.35"/>
+      <path d="M 228,464 Q 240,460 256,460 Q 272,460 284,464" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.30"/>
+    </g>
+
+    <!-- ════════════════════════════════
+         HEADPHONES
+    ════════════════════════════════ -->
+    <!-- Band outer (thick dark arc) -->
+    <path d="M 182,284 A 86,86 0 0 1 330,284"
+      fill="none" stroke="#141212" stroke-width="26" stroke-linecap="round"/>
+    <!-- Band mid highlight (gunmetal) -->
+    <path d="M 182,284 A 86,86 0 0 1 330,284"
+      fill="none" stroke="#2e2c2c" stroke-width="14" stroke-linecap="round"/>
+    <!-- Band top glint -->
+    <path d="M 188,278 A 80,80 0 0 1 324,278"
+      fill="none" stroke="#4a4848" stroke-width="5"  stroke-linecap="round" opacity="0.55"/>
+    <!-- Band narrow top edge highlight -->
+    <path d="M 194,274 A 74,74 0 0 1 318,274"
+      fill="none" stroke="#585656" stroke-width="2"  stroke-linecap="round" opacity="0.35"/>
+
+    <!-- Connector brackets -->
+    <rect x="168" y="255" width="28" height="18" rx="4" fill="#141212"/>
+    <rect x="168" y="255" width="28" height="18" rx="4" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.6"/>
+    <rect x="316" y="255" width="28" height="18" rx="4" fill="#141212"/>
+    <rect x="316" y="255" width="28" height="18" rx="4" fill="none" stroke="#2a2828" stroke-width="1" opacity="0.6"/>
+
+    <!-- Left ear cup — multi-ring metallic -->
+    <ellipse cx="178" cy="292" rx="36" ry="44" fill="#181616"/>
+    <ellipse cx="178" cy="292" rx="36" ry="44" fill="none" stroke="#2a2828" stroke-width="1.5" opacity="0.7"/>
+    <ellipse cx="178" cy="292" rx="28" ry="35" fill="url(#cup-grad-l)"/>
+    <ellipse cx="178" cy="292" rx="20" ry="25" fill="#0e0c0c"/>
+    <ellipse cx="178" cy="292" rx="20" ry="25" fill="none" stroke="#303030" stroke-width="1" opacity="0.5"/>
+    <ellipse cx="178" cy="292" rx="12" ry="15" fill="#222020"/>
+    <!-- Cup highlight (lens glint) -->
+    <ellipse cx="172" cy="282" rx="5"  ry="3"  fill="#3e3c3c" opacity="0.60"/>
+
+    <!-- Right ear cup -->
+    <ellipse cx="334" cy="292" rx="36" ry="44" fill="#181616"/>
+    <ellipse cx="334" cy="292" rx="36" ry="44" fill="none" stroke="#2a2828" stroke-width="1.5" opacity="0.7"/>
+    <ellipse cx="334" cy="292" rx="28" ry="35" fill="url(#cup-grad-r)"/>
+    <ellipse cx="334" cy="292" rx="20" ry="25" fill="#0e0c0c"/>
+    <ellipse cx="334" cy="292" rx="20" ry="25" fill="none" stroke="#303030" stroke-width="1" opacity="0.5"/>
+    <ellipse cx="334" cy="292" rx="12" ry="15" fill="#222020"/>
+    <ellipse cx="328" cy="282" rx="5"  ry="3"  fill="#3e3c3c" opacity="0.60"/>
+
+    <!-- Ear cup fire glow (red tint from fire environment) -->
+    <ellipse cx="178" cy="310" rx="28" ry="20" fill="#c41e10" opacity="0.05"/>
+    <ellipse cx="334" cy="310" rx="28" ry="20" fill="#c41e10" opacity="0.05"/>
+
+  </g><!-- end clip-path -->
+
+  <!-- ── Outer border glow (faint red ring) ── -->
+  <rect x="6" y="6" width="500" height="500" rx="78"
+    fill="none" stroke="#c41e10" stroke-width="2" opacity="0.20"/>
+  <!-- Inner inset border -->
+  <rect x="14" y="14" width="484" height="484" rx="72"
+    fill="none" stroke="#3a0808" stroke-width="1" opacity="0.30"/>
+
+</svg>

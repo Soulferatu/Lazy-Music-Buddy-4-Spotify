@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B1 — Backstage Pass · Play[my W:O:A]list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#141316;--metal1:#3a3a3e;--metal2:#1c1c1f;--gold:#e0b84f;--hazard:#f5c518;--paper:#ebe7df}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#0a0a0c;color:var(--paper);font-family:'Inter',sans-serif;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(245,197,24,.06), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(224,184,79,.06), transparent 50%);
+  }
+  .stage{max-width:1180px;margin:0 auto;padding:24px clamp(16px,3vw,32px);position:relative}
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-family:'JetBrains Mono'}
+  .lockup{font-family:'Cinzel Decorative',serif;font-size:20px;letter-spacing:.04em}
+  .lockup em{color:var(--gold);font-style:normal}
+  .lang{display:flex;gap:6px;font-size:11px;letter-spacing:.15em}
+  .lang button{background:#1a1a1d;border:1px solid #2a2a2e;color:var(--paper);padding:6px 10px;font-family:inherit;cursor:pointer}
+  .lang button.on{background:var(--hazard);color:#000;border-color:var(--hazard)}
+
+  /* lanyard */
+  .lanyard{display:flex;justify-content:center;margin-bottom:0;height:80px;position:relative}
+  .lanyard::before,.lanyard::after{content:"";flex:1;background:repeating-linear-gradient(135deg, var(--hazard) 0 14px, #000 14px 28px);clip-path:polygon(0 0,100% 0,100% 100%,0 100%);opacity:.85;height:18px;align-self:flex-start;margin-top:6px}
+  .lanyard::before{transform:skewY(7deg);transform-origin:right top}
+  .lanyard::after{transform:skewY(-7deg);transform-origin:left top}
+  .clip{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:90px;height:24px;background:linear-gradient(180deg,#9a9a9e,#4a4a4e);border-radius:4px;border:1px solid #222}
+
+  .pass{max-width:760px;margin:0 auto;background:linear-gradient(160deg,#1c1c1f 0%, #2a2a2e 50%, #161618 100%);border:1px solid #3a3a3e;border-radius:14px;padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .pass::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg, rgba(255,255,255,.015) 0 2px, transparent 2px 6px);pointer-events:none}
+  .holo{position:absolute;top:18px;right:18px;width:74px;height:74px;border-radius:50%;background:conic-gradient(from 0deg,#e0b84f,#b08020,#f5c518,#9a6a14,#e0b84f);box-shadow:0 0 22px rgba(224,184,79,.5);display:flex;align-items:center;justify-content:center;font-family:'Cinzel Decorative',serif;color:#1a1a1d;font-size:13px;letter-spacing:.08em;border:2px solid #1a1a1d}
+  .holo span{transform:rotate(-12deg)}
+
+  .pass-grid{display:grid;grid-template-columns:200px 1fr;gap:24px}
+  @media (max-width:680px){.pass-grid{grid-template-columns:1fr;gap:16px}}
+  .photo{border:2px solid var(--gold);background:#000;padding:6px;border-radius:6px}
+  .photo img{display:block;width:100%;filter:contrast(1.1) brightness(.95);border-radius:3px}
+  .photo .cap{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.18em;color:var(--gold);margin-top:6px;text-align:center;text-transform:uppercase}
+
+  .data{font-family:'JetBrains Mono';font-size:13px}
+  .data h1{font-family:'Cinzel Decorative',serif;font-size:30px;letter-spacing:.04em;margin:0 0 4px;color:var(--paper)}
+  .data h1 em{color:var(--gold);font-style:normal}
+  .role{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--hazard);margin-bottom:14px}
+  .row{display:grid;grid-template-columns:90px 1fr;gap:8px;padding:6px 0;border-bottom:1px dashed #3a3a3e}
+  .row .k{color:#7a7a7e;letter-spacing:.15em;font-size:10px;text-transform:uppercase;align-self:center}
+  .row .v{color:var(--paper)}
+  .row .v.guest{font-family:'Special Elite';color:var(--gold);font-size:18px}
+
+  .zones{margin-top:14px}
+  .zones .label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7a7a7e;margin-bottom:6px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:'JetBrains Mono';font-size:11px;padding:4px 8px;border:1px solid var(--gold);color:var(--gold);background:rgba(224,184,79,.08);letter-spacing:.1em;text-transform:uppercase}
+  .chip.off{border-color:#3a3a3e;color:#5a5a5e;background:transparent}
+
+  .barcode{margin-top:18px;height:46px;background:repeating-linear-gradient(90deg, #ebe7df 0 1px, transparent 1px 3px, #ebe7df 3px 4px, transparent 4px 7px, #ebe7df 7px 9px, transparent 9px 11px);border-radius:3px}
+  .serial{font-family:'JetBrains Mono';font-size:10px;color:#7a7a7e;letter-spacing:.2em;margin-top:4px;text-align:center}
+
+  /* selection panel below pass */
+  .controls{max-width:760px;margin:24px auto 0;display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+  @media (max-width:680px){.controls{grid-template-columns:1fr}}
+  .panel{background:#15151a;border:1px solid #2a2a2e;padding:18px;border-radius:8px}
+  .panel h3{font-family:'Cinzel Decorative',serif;margin:0 0 10px;font-size:16px}
+  .panel .ey{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.25em;color:var(--hazard);margin:0 0 6px;text-transform:uppercase}
+  .panel input[type=text]{width:100%;background:#0a0a0c;border:1px solid #2a2a2e;color:var(--paper);padding:10px;font-family:'Special Elite';font-size:16px;border-radius:4px}
+  .grid-bands{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:10px}
+  .gb{display:flex;align-items:center;gap:8px;padding:6px 8px;font-family:'JetBrains Mono';font-size:12px;border:1px solid #2a2a2e;border-radius:3px;cursor:pointer}
+  .gb input{accent-color:var(--hazard)}
+  .gb.on{border-color:var(--gold);background:rgba(224,184,79,.08);color:var(--gold)}
+
+  .cta{margin-top:14px;width:100%;background:var(--gold);color:#0a0a0c;border:0;padding:14px;font-family:'Cinzel Decorative',serif;letter-spacing:.08em;font-size:14px;border-radius:4px;cursor:pointer;box-shadow:0 8px 24px rgba(224,184,79,.25)}
+
+  .install-hint{max-width:760px;margin:14px auto 0;text-align:center;font-family:'JetBrains Mono';font-size:11px;color:#7a7a7e;letter-spacing:.18em}
+  .install-hint b{color:var(--hazard)}
+
+  footer{margin:40px 0 16px;text-align:center;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.3em;color:#5a5a5e}
+</style>
+</head>
+<body>
+<div class="stage">
+  <header>
+    <div class="lockup">Play<em>[my W:O:A]</em>list</div>
+    <div class="lang"><button class="on">EN</button><button>PT-BR</button></div>
+  </header>
+
+  <div class="lanyard"><div class="clip"></div></div>
+
+  <article class="pass">
+    <div class="holo"><span>W:O:A</span></div>
+    <div class="pass-grid">
+      <div class="photo">
+        <img src="../../wacken_playlist/static/images/banner.png" alt="Holder photo">
+        <div class="cap">CREDENTIAL #00426</div>
+      </div>
+      <div class="data">
+        <h1>Play<em>[my W:O:A]</em>list</h1>
+        <div class="role">All Access · Playlist Curator</div>
+        <div class="row"><span class="k">Holder</span><span class="v guest">W:O:A '26 — Pit Mix</span></div>
+        <div class="row"><span class="k">Issued</span><span class="v">2026-05-15</span></div>
+        <div class="row"><span class="k">Gate</span><span class="v">SPOTIFY · APP-OWNED</span></div>
+        <div class="row"><span class="k">Valid</span><span class="v">FRI · SAT · SUN</span></div>
+
+        <div class="zones">
+          <div class="label">Zones cleared</div>
+          <div class="chips">
+            <span class="chip">Iron Maiden</span>
+            <span class="chip">Megadeth</span>
+            <span class="chip off">Amon Amarth</span>
+            <span class="chip">Behemoth</span>
+            <span class="chip off">Sabaton</span>
+            <span class="chip">Powerwolf</span>
+            <span class="chip off">Gojira</span>
+            <span class="chip off">Heilung</span>
+          </div>
+        </div>
+
+        <div class="barcode"></div>
+        <div class="serial">▌▌█  W·O·A — 0 0 4 2 6 — 2 0 2 6  █▌▌</div>
+      </div>
+    </div>
+  </article>
+
+  <div class="controls">
+    <div class="panel">
+      <p class="ey">Edit credential</p>
+      <h3>Holder name</h3>
+      <input type="text" value="W:O:A '26 — Pit Mix">
+      <div class="grid-bands">
+        <label class="gb on"><input type="checkbox" checked>Iron Maiden</label>
+        <label class="gb on"><input type="checkbox" checked>Megadeth</label>
+        <label class="gb"><input type="checkbox">Amon Amarth</label>
+        <label class="gb on"><input type="checkbox" checked>Behemoth</label>
+        <label class="gb"><input type="checkbox">Sabaton</label>
+        <label class="gb on"><input type="checkbox" checked>Powerwolf</label>
+        <label class="gb"><input type="checkbox">Gojira</label>
+        <label class="gb"><input type="checkbox">Heilung</label>
+      </div>
+      <button class="cta">LAMINATE &amp; ISSUE PASS ›</button>
+    </div>
+    <div class="panel">
+      <p class="ey">Preview · gate roster</p>
+      <h3>20 tracks queued</h3>
+      <div style="font-family:'JetBrains Mono';font-size:12px;line-height:1.9;color:#bdbdb8">
+        <div>› IRON MAIDEN ······· 5</div>
+        <div>› MEGADETH ········· 5</div>
+        <div>› BEHEMOTH ········· 5</div>
+        <div>› POWERWOLF ········ 5</div>
+        <div style="border-top:1px dashed #3a3a3e;margin-top:8px;padding-top:6px;color:var(--gold)">TOTAL ··············· 20</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="install-hint">▸ <b>Print your pass to home screen</b> · install Play[my W:O:A]list as a PWA</p>
+
+  <footer>B1 — BACKSTAGE PASS · LAMINATED EDITION</footer>
+</div>
+</body>
+</html>

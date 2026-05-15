@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1 — Embers · Play[my W:O:A]list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter+Tight:wght@400;600;800&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#141316; --bg2:#0a090b;
+    --ember1:#ff4500; --ember2:#8b0000; --ember3:#2a0a0a;
+    --gold:#e0b84f; --paper:#f5f1e8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--paper);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  canvas#embers{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(255,69,0,.18), transparent 60%);z-index:1;pointer-events:none}
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:24px clamp(16px,4vw,40px)}
+  header{display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .lockup{font-family:'Cinzel Decorative',serif;font-weight:700;font-size:clamp(18px,2.2vw,24px);letter-spacing:.02em}
+  .lockup em{color:var(--gold);font-style:normal}
+  .lang{display:flex;gap:8px;font-family:'Special Elite';font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.8}
+  .lang button{background:transparent;border:1px solid #333;color:var(--paper);padding:6px 10px;font-family:inherit;cursor:pointer}
+  .lang button.on{background:var(--gold);color:#000;border-color:var(--gold)}
+
+  .hero{margin:32px 0 24px;position:relative;border:1px solid #2a2226;background:linear-gradient(180deg,#1a1418 0%, #0c0a0c 100%);overflow:hidden}
+  .hero img{width:100%;display:block;mix-blend-mode:screen;opacity:.92;filter:contrast(1.05) saturate(1.1)}
+  .hero .stage-call{position:absolute;left:24px;bottom:18px;font-family:'Special Elite';letter-spacing:.4em;color:var(--gold);font-size:11px}
+  .hero h1{position:absolute;left:24px;top:24px;margin:0;font-family:'Cinzel Decorative',serif;font-size:clamp(28px,5vw,56px);line-height:1;text-shadow:0 0 30px rgba(255,69,0,.45)}
+  .hero h1 em{color:var(--gold);font-style:normal}
+
+  .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}}
+
+  .card{background:rgba(20,19,22,.72);backdrop-filter:blur(6px);border:1px solid #2a2226;padding:22px}
+  .eyebrow{font-family:'Special Elite';letter-spacing:.35em;text-transform:uppercase;font-size:11px;color:var(--gold);margin:0 0 8px}
+  h2{font-family:'Cinzel Decorative',serif;margin:0 0 14px;font-size:22px;letter-spacing:.02em}
+  label.field{display:block;margin:14px 0}
+  label.field span{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+  label.field input{width:100%;background:#0a090b;border:1px solid #2a2226;border-bottom:1px solid var(--gold);color:var(--paper);padding:10px 12px;font-family:inherit;font-size:15px}
+
+  .bands{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px;border:1px dashed #2a2226;padding:10px;margin-top:8px}
+  .band{position:relative;display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;font-size:14px;border:1px solid transparent;transition:.2s}
+  .band input{accent-color:var(--ember1)}
+  .band:hover{border-color:#3a2e2e;background:rgba(255,69,0,.06)}
+  .band.on{border-color:var(--ember1);background:linear-gradient(90deg,rgba(255,69,0,.18),transparent);box-shadow:inset 0 0 22px rgba(255,69,0,.18)}
+  .band.on::after{content:"";position:absolute;right:8px;top:50%;width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);transform:translateY(-50%)}
+
+  .actions{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .count strong{color:var(--gold);font-size:22px;font-family:'Cinzel Decorative',serif}
+  .cta{background:var(--gold);color:#0a090b;border:0;padding:12px 22px;font-family:'Cinzel Decorative',serif;letter-spacing:.05em;font-size:14px;cursor:pointer;box-shadow:0 0 0 0 rgba(224,184,79,.6)}
+  .cta:hover{box-shadow:0 0 28px 4px rgba(224,184,79,.45)}
+
+  .ticket{padding:12px 14px;border-left:3px solid var(--ember1);background:rgba(255,69,0,.08);margin-bottom:8px}
+  .ticket .b{font-family:'Cinzel Decorative',serif;font-size:16px}
+  .ticket .t{font-size:12px;opacity:.65;margin-top:3px}
+
+  footer{margin:40px 0 16px;text-align:center;font-family:'Special Elite';font-size:11px;opacity:.5;letter-spacing:.3em}
+</style>
+</head>
+<body>
+<canvas id="embers"></canvas>
+<div class="wrap">
+  <header>
+    <div class="lockup">Play<em>[my W:O:A]</em>list</div>
+    <div class="lang"><span>Lang</span><button class="on">EN</button><button>PT-BR</button></div>
+  </header>
+
+  <section class="hero">
+    <h1>Lineup<br>on <em>fire.</em></h1>
+    <img src="../../wacken_playlist/static/images/banner.png" alt="Bull skull with headphones">
+    <div class="stage-call">· · · NOW SPINNING — WACKEN 2026 · · ·</div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <p class="eyebrow">Stage I — Selection</p>
+      <h2>Choose your bands</h2>
+
+      <label class="field"><span>Playlist name</span><input value="W:O:A 2026 — Embers Mix"></label>
+      <label class="field"><span>Filter bands</span><input placeholder="Search the lineup…"></label>
+
+      <fieldset class="bands" style="border-color:#2a2226">
+        <label class="band on"><input type="checkbox" checked> Iron Maiden</label>
+        <label class="band on"><input type="checkbox" checked> Megadeth</label>
+        <label class="band"><input type="checkbox"> Amon Amarth</label>
+        <label class="band on"><input type="checkbox" checked> Behemoth</label>
+        <label class="band"><input type="checkbox"> Sabaton</label>
+        <label class="band on"><input type="checkbox" checked> Powerwolf</label>
+        <label class="band"><input type="checkbox"> Gojira</label>
+        <label class="band"><input type="checkbox"> Heilung</label>
+      </fieldset>
+
+      <div class="actions">
+        <p class="count"><strong>4</strong> selected of 8</p>
+        <button class="cta">Ignite Preview ›</button>
+      </div>
+    </div>
+
+    <aside class="card">
+      <p class="eyebrow">Setlist Tickets</p>
+      <h2>W:O:A 2026 — Embers Mix</h2>
+      <div class="ticket"><div class="b">Iron Maiden</div><div class="t">5 tracks · The Trooper, Fear of the Dark, Hallowed Be Thy Name…</div></div>
+      <div class="ticket"><div class="b">Megadeth</div><div class="t">5 tracks · Holy Wars, Symphony of Destruction…</div></div>
+      <div class="ticket"><div class="b">Behemoth</div><div class="t">5 tracks · Ov Fire and the Void, Bartzabel…</div></div>
+      <div class="ticket"><div class="b">Powerwolf</div><div class="t">5 tracks · Army of the Night, Sanctified with Dynamite…</div></div>
+    </aside>
+  </section>
+
+  <footer>· · · A1 — EMBERS · · ·</footer>
+</div>
+
+<script>
+  // Lightweight ember particles. Respects prefers-reduced-motion.
+  const c = document.getElementById('embers');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx = c.getContext('2d');
+  let w, h, particles=[];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+  function spawn(){return{x:Math.random()*w,y:h+10,vx:(Math.random()-.5)*.4,vy:-Math.random()*1.2-.4,r:Math.random()*1.6+.4,life:Math.random()*200+120,age:0}}
+  resize(); addEventListener('resize',resize);
+  for(let i=0;i<140;i++){const p=spawn();p.y=Math.random()*h;particles.push(p)}
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      p.x+=p.vx;p.y+=p.vy;p.age++;
+      if(p.age>p.life||p.y<-10){Object.assign(p,spawn())}
+      const a=1-p.age/p.life;
+      const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+      grad.addColorStop(0,`rgba(255,140,40,${.7*a})`);
+      grad.addColorStop(1,'rgba(255,69,0,0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(tick);
+  }
+  tick();
+</script>
+</body>
+</html>
