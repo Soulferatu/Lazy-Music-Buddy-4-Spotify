@@ -15,7 +15,7 @@ Three modules, all plain classes with constructor injection — no Flask globals
 
 **`services/spotify.py`** — `SpotifyClient`
 
-Real implementations land in Stage 2 (auth, artist search, top tracks) and Stage 3 (playlist creation). For now the methods raise `NotImplementedError` and `is_configured` reports whether credentials are present.
+`get_client_credentials_token`, `search_artist`, and `get_top_tracks` were filled in when [Stage 2](stage2_spotify_preview.md) was ported into this architecture. `create_playlist` is still a Stage 3 stub. `is_configured` reports whether credentials are present.
 
 ```python
 class SpotifyClient:
@@ -30,7 +30,7 @@ class SpotifyClient:
 
 **`services/playlist.py`** — `PlaylistBuilder`
 
-Orchestrates a `PlaylistRequest` into a `PlaylistPreview` (today) or `PlaylistResult` (Stage 3). Current `build_preview` does no network I/O — it just multiplies band count by `tracks_per_band`, matching the Stage 1 local preview behavior. The interface is the contract Stage 2 will fill in.
+Orchestrates a `PlaylistRequest` into a `PlaylistPreview` (today) or `PlaylistResult` (Stage 3). After the Stage 2 port `build_preview` iterates the requested bands, calls `SpotifyClient.search_artist` / `get_top_tracks` for each, and assembles `PlaylistPreview(matched=..., unmatched=...)`. `build_and_create` is still a Stage 3 stub.
 
 **`services/setlistfm.py`** — `SetlistFmClient`
 

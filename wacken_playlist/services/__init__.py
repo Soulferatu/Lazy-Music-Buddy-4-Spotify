@@ -1,5 +1,17 @@
 from .playlist import PlaylistBuilder
 from .setlistfm import SetlistFmClient
-from .spotify import SpotifyClient
+from .spotify import (
+    SpotifyAPIError,
+    SpotifyAuthError,
+    SpotifyClient,
+    SpotifyConfigError,
+)
 
-__all__ = ["PlaylistBuilder", "SetlistFmClient", "SpotifyClient"]
+__all__ = [
+    "PlaylistBuilder",
+    "SetlistFmClient",
+    "SpotifyAPIError",
+    "SpotifyAuthError",
+    "SpotifyClient",
+    "SpotifyConfigError",
+]

@@ -1,3 +1,10 @@
+from wacken_playlist.services import (
+    SpotifyAPIError,
+    SpotifyAuthError,
+    SpotifyConfigError,
+)
+
+
 def test_health_endpoint(client):
     response = client.get("/health")
 
@@ -35,7 +42,7 @@ def test_preview_supports_brazilian_portuguese_validation(client):
     assert "Selecione pelo menos uma banda".encode() in response.data
 
 
-def test_preview_shows_selected_bands_and_track_count(client):
+def test_preview_shows_matched_tracks_and_total_count(client):
     response = client.post(
         "/preview",
         data={"playlist_name": "Holy Ground", "bands": ["Def Leppard", "Powerwolf"]},
@@ -45,4 +52,70 @@ def test_preview_shows_selected_bands_and_track_count(client):
     assert b"Holy Ground" in response.data
     assert b"Def Leppard" in response.data
     assert b"Powerwolf" in response.data
-    assert b"20 tracks" in response.data
+    assert b"20 tracks matched" in response.data
+    assert b"Track 1" in response.data
+
+
+def test_preview_shows_unmatched_warning(client, mock_spotify):
+    mock_spotify.search_artist.side_effect = lambda name: (
+        {"id": "id-Powerwolf", "name": "Powerwolf"} if name == "Powerwolf" else None
+    )
+
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Powerwolf", "Def Leppard"]},
+    )
+
+    assert response.status_code == 200
+    assert b"notice-warning" in response.data
+    assert b"Could not find on Spotify" in response.data
+    assert b"Def Leppard" in response.data
+
+
+def test_preview_all_unmatched_renders_zero_tracks(client, mock_spotify):
+    mock_spotify.search_artist.side_effect = lambda name: None
+
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Def Leppard", "Powerwolf"]},
+    )
+
+    assert response.status_code == 200
+    assert b"0 tracks matched" in response.data
+    assert b"Def Leppard" in response.data
+
+
+def test_preview_spotify_config_error(client, mock_spotify):
+    mock_spotify.search_artist.side_effect = SpotifyConfigError("missing")
+
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Def Leppard"]},
+    )
+
+    assert response.status_code == 200
+    assert b"Spotify credentials are not configured" in response.data
+
+
+def test_preview_spotify_auth_error(client, mock_spotify):
+    mock_spotify.search_artist.side_effect = SpotifyAuthError("nope")
+
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Def Leppard"]},
+    )
+
+    assert response.status_code == 200
+    assert b"Could not authenticate with Spotify" in response.data
+
+
+def test_preview_spotify_api_error(client, mock_spotify):
+    mock_spotify.search_artist.side_effect = SpotifyAPIError("boom")
+
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Def Leppard"]},
+    )
+
+    assert response.status_code == 200
+    assert b"Spotify returned an unexpected error" in response.data

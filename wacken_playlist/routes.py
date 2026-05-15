@@ -2,6 +2,7 @@ from flask import Blueprint, current_app, jsonify, render_template, request
 
 from .i18n import load_all_translations, load_translations, normalize_language
 from .models import Band, PlaylistRequest
+from .services import SpotifyAPIError, SpotifyAuthError, SpotifyConfigError
 
 main = Blueprint("main", __name__)
 
@@ -65,12 +66,33 @@ def preview():
             bands=[Band(name=name, year=CURRENT_YEAR) for name in valid_names],
             language=language,
         )
-        preview = current_app.playlist_builder.build_preview(playlist_request)
-        preview_view = {
-            "playlist_name": preview.playlist_name,
-            "bands": [b.name for b in preview.bands],
-            "track_count": preview.track_count,
-        }
+        try:
+            preview = current_app.playlist_builder.build_preview(playlist_request)
+        except SpotifyConfigError:
+            errors.append(build_error("spotify_config_error", language))
+            preview = None
+        except SpotifyAuthError:
+            errors.append(build_error("spotify_auth_error", language))
+            preview = None
+        except SpotifyAPIError:
+            errors.append(build_error("spotify_api_error", language))
+            preview = None
+
+        if preview is not None:
+            preview_view = {
+                "playlist_name": preview.playlist_name,
+                "bands": [b.name for b in preview.bands],
+                "track_count": preview.track_count,
+                "matched": [
+                    {
+                        "band": m.band.name,
+                        "artist_name": m.artist_name,
+                        "tracks": m.tracks,
+                    }
+                    for m in preview.matched
+                ],
+                "unmatched": preview.unmatched,
+            }
 
     return _render({
         "language": language,

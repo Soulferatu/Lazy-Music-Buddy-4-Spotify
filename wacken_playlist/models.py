@@ -18,11 +18,22 @@ class PlaylistRequest:
 
 
 @dataclass
+class MatchedBand:
+    """A band that resolved to a Spotify artist plus its preview tracks."""
+    band: Band
+    artist_id: str
+    artist_name: str
+    tracks: list[dict] = field(default_factory=list)
+
+
+@dataclass
 class PlaylistPreview:
     """Represents a preview of the playlist before creation."""
     playlist_name: str
     bands: list[Band]
     track_count: int
+    matched: list[MatchedBand] = field(default_factory=list)
+    unmatched: list[str] = field(default_factory=list)
 
 
 @dataclass

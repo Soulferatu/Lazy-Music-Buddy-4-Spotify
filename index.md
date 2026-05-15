@@ -12,6 +12,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 | [wiki/spotify_integration.md](wiki/spotify_integration.md) | Captures Spotify OAuth, ownership modes, preview flow, setup responsibilities, and risks. | [Start.MD](Start.MD) | Project overview, development stages, PWA requirements |
 | [wiki/pwa_requirements.md](wiki/pwa_requirements.md) | Captures installability, mobile behavior, local checks, deployment relationship, and PWA risks. | [Start.MD](Start.MD) | Project overview, development stages, Spotify integration |
 | [wiki/stage1_implementation.md](wiki/stage1_implementation.md) | Records what was built in Stage 0 and Stage 1, file responsibilities, routes, and Stage 2 prerequisites. | Codebase, [raw/product_decisions_stage0.md](raw/product_decisions_stage0.md) | Development stages, Spotify integration, PWA requirements |
+| [wiki/stage2_spotify_preview.md](wiki/stage2_spotify_preview.md) | Records what Stage 2 delivers, the Spotify port into the service layer, configuration, and tests. | Codebase, original branch `stage2/spotify-preview` | Phase 4 services, development stages, Spotify integration |
 
 ## Knowledge Areas
 
@@ -20,7 +21,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 - Project brief and staged roadmap: [Start.MD](Start.MD)
 - Wiki workflow: [wiki_start.md](wiki_start.md)
 - Project overview: [wiki/project_overview.md](wiki/project_overview.md)
-- Development stages (current: Stage 2 next): [wiki/development_stages.md](wiki/development_stages.md)
+- Development stages (current: Stage 3 next): [wiki/development_stages.md](wiki/development_stages.md)
 - Spotify integration: [wiki/spotify_integration.md](wiki/spotify_integration.md)
 - PWA requirements: [wiki/pwa_requirements.md](wiki/pwa_requirements.md)
 
@@ -50,6 +51,6 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 
 ## Next Pages To Create
 
-- `wiki/stage2_spotify_preview.md` once Stage 2 Spotify lookup and preview work is done.
+- `wiki/stage3_playlist_creation.md` once Stage 3 app-owned playlist creation lands.
 - `wiki/setlistfm_integration.md` for setlist.fm lookup, matching, fallback rules, and API risks (Stage 6).
 - `wiki/historical_lineup_data.md` for previous Wacken years, source attribution, and curation rules (Stage 7).

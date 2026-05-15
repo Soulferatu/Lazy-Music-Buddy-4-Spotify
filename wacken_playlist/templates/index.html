@@ -105,12 +105,38 @@
           {% if preview %}
             <p class="eyebrow" data-i18n="local_preview">{{ translations.local_preview }}</p>
             <h2>{{ preview.playlist_name }}</h2>
-            <p data-track-count="{{ preview.track_count }}" data-i18n-track-preview>{{ translations.preview_tracks.replace("{count}", preview.track_count|string) }}</p>
-            <ul>
-              {% for band in preview.bands %}
-                <li>{{ band }}</li>
+            <p
+              data-track-count="{{ preview.track_count }}"
+              data-band-count="{{ preview.matched|length }}"
+              data-i18n-track-preview
+            >{{ translations.preview_tracks_matched.replace("{count}", preview.track_count|string).replace("{band_count}", preview.matched|length|string) }}</p>
+
+            {% if preview.unmatched %}
+              <div class="notice notice-warning" role="alert">
+                <p data-i18n="unmatched_warning">{{ translations.unmatched_warning }}</p>
+                <ul class="warning-list">
+                  {% for band in preview.unmatched %}
+                    <li>{{ band }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            <div class="track-groups">
+              {% for entry in preview.matched %}
+                <details class="track-group" open>
+                  <summary class="track-group-header">
+                    {{ entry.band }}
+                    <span class="track-group-count">{{ entry.tracks|length }}</span>
+                  </summary>
+                  <ol class="track-list">
+                    {% for track in entry.tracks %}
+                      <li>{{ track.name }}</li>
+                    {% endfor %}
+                  </ol>
+                </details>
               {% endfor %}
-            </ul>
+            </div>
           {% else %}
             <p class="eyebrow" data-i18n="preview_eyebrow">{{ translations.preview_eyebrow }}</p>
             <h2 data-i18n="ready_title">{{ translations.ready_title }}</h2>

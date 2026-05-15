@@ -69,7 +69,10 @@ function applyLanguage(language) {
 
   document.querySelectorAll("[data-i18n-track-preview]").forEach((element) => {
     const count = Number(element.dataset.trackCount);
-    if (typeof dictionary.preview_tracks === "string") {
+    const bandCount = element.dataset.bandCount != null ? Number(element.dataset.bandCount) : null;
+    if (bandCount != null && typeof dictionary.preview_tracks_matched === "string") {
+      element.textContent = format(dictionary.preview_tracks_matched, { count, band_count: bandCount });
+    } else if (typeof dictionary.preview_tracks === "string") {
       element.textContent = format(dictionary.preview_tracks, { count });
     }
   });
