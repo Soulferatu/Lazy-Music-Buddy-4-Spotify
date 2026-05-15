@@ -1,10 +1,11 @@
-const CACHE_NAME = "wacken-playlist-v3";
+const CACHE_NAME = "wacken-playlist-v4";
 const APP_SHELL = [
   "/",
   "/static/css/styles.css",
   "/static/js/app.js",
   "/static/manifest.webmanifest",
-  "/static/icons/icon.svg"
+  "/static/icons/icon.png",
+  "/static/images/banner.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -17,9 +18,13 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => {
+        console.log("Deleting old cache:", key);
+        return caches.delete(key);
+      }))
     )
   );
+  self.skipWaiting();
   self.clients.claim();
 });
 
