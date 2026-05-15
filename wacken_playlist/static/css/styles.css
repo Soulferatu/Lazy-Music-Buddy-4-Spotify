@@ -102,13 +102,12 @@ body::before {
 /* Banner section — place your image here and adjust opacity as needed */
 .banner {
   min-height: 180px;
-  background-image: url('/static/images/banner.jpg');
+  background-image: url('/static/images/banner.png');
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
   opacity: 0.35;
   /* Adjust opacity above: 0.2–0.5 recommended. Higher = more opaque. */
-}
 }
 
 .language-button.is-active {
