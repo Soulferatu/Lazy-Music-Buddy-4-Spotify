@@ -18,9 +18,10 @@ Complete. The app runs locally and passes the Stage 1 completion gate: a user ca
 | `wacken_playlist/templates/index.html` | Single-page Jinja2 template for band selection, playlist name input, and local preview. |
 | `wacken_playlist/static/css/styles.css` | Dark festival theme styles. |
 | `wacken_playlist/static/js/app.js` | Client-side language switching and checklist interaction. |
-| `wacken_playlist/static/manifest.webmanifest` | PWA manifest stub (to be completed in Stage 4). |
-| `wacken_playlist/static/service-worker.js` | Service worker stub (to be completed in Stage 4). |
-| `wacken_playlist/static/icons/icon.svg` | Placeholder install icon (final icon deferred). |
+| `wacken_playlist/static/manifest.webmanifest` | PWA manifest with icon references and app metadata. |
+| `wacken_playlist/static/service-worker.js` | Service worker for offline support and asset caching (v4). |
+| `wacken_playlist/static/icons/icon.png` | Metal skull logo for PWA install and browser tab favicon. |
+| `wacken_playlist/static/images/banner.png` | Fire-themed banner image displayed below header with parallax effect. |
 | `tests/test_app.py` | Tests for route responses, preview validation, health endpoint, and lineup data. |
 | `scripts/restart-dev.ps1` | PowerShell helper to cleanly restart the local dev server. |
 | `.env.example` | Template for required environment variables (no secrets committed). |
@@ -71,6 +72,28 @@ Before Stage 2 can begin:
 - App-owned OAuth (refresh token) is added at Stage 3, not Stage 2.
 
 See [wiki/spotify_integration.md](spotify_integration.md) for the full Spotify setup responsibilities and risks.
+
+## Post-Alpha Visual Enhancements (v0.1.1)
+
+After initial alpha completion, the following visual assets were added to improve the app presentation:
+
+### Icon
+- Metal skull with headphones logo (`/static/icons/icon.png`)
+- Used in PWA manifest for mobile install
+- Served as favicon in browser tab
+- 793×793 PNG with transparency
+
+### Banner
+- Fire-themed background image (`/static/images/banner.png`)
+- Positioned below header with 734px height
+- Fixed parallax background (stays in place while content scrolls)
+- Semi-transparent (0.35 opacity) via CSS to blend with content
+- Easily customizable: adjust `opacity` in `.banner` CSS rule (0.2–0.5 recommended)
+
+### Service Worker
+- Updated to v4 cache version to ensure fresh asset delivery
+- Now precaches icon and banner assets
+- Implements cache clearing on activation
 
 ## Related Pages
 
