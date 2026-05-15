@@ -99,6 +99,18 @@ body::before {
   color: var(--bone);
 }
 
+/* Banner section — place your image here and adjust opacity as needed */
+.banner {
+  min-height: 180px;
+  background-image: url('/static/images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  opacity: 0.35;
+  /* Adjust opacity above: 0.2–0.5 recommended. Higher = more opaque. */
+}
+}
+
 .language-button.is-active {
   border-color: var(--line-hot);
   background: var(--red-deep);
