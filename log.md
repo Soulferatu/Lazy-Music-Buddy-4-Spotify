@@ -17,6 +17,8 @@ Track every ingest operation here. An ingest operation is any time source materi
 | 2026-05-14 | Updated development stages | Codebase, [Start.MD](Start.MD) | [wiki/development_stages.md](wiki/development_stages.md) | Added Status column. Marked Stage 0 and Stage 1 as Done. Marked Stage 2 as Next. Added Current Stage section. |
 | 2026-05-14 | Created Stage 1 implementation record | Codebase | [wiki/stage1_implementation.md](wiki/stage1_implementation.md), [index.md](index.md) | Documented file responsibilities, routes, language support, preview logic, lineup data, run commands, and Stage 2 prerequisites. |
 | 2026-05-14 | Tagged alpha release | Stage 0 + Stage 1 completion | `v0.1.0-alpha` on main | First tagged release. Stage 0 and Stage 1 complete. App runs locally with band selection, bilingual UI, local preview, PWA stubs. Stage 2 (Spotify lookup) is next. |
+| 2026-05-15 | Visual enhancements post-alpha | Icon and banner assets | `v0.1.1` on main | Added metal skull logo (icon.png) and fire banner (banner.png) with parallax effect. Updated service worker to v4 cache. Improved PWA presentation and visual impact. |
+| 2026-05-15 | Updated Stage 1 wiki | [wiki/stage1_implementation.md](wiki/stage1_implementation.md) | Post-Alpha Visual Enhancements section | Documented icon, banner, and service worker v4 updates in the Stage 1 implementation record. |
 
 ## Ingest Checklist
 
