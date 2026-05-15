@@ -6,70 +6,75 @@ The first implementation target is app-owned playlist creation: visitors choose 
 
 ## Current Status
 
-Stage 1 is the active baseline:
+Stage 1 is the active baseline. The architecture migration (phases 1–6) is complete; see [wiki/development_stages.md](wiki/development_stages.md) for the roadmap and [ARCH_MIGRATION_PLAN.md](ARCH_MIGRATION_PLAN.md) for what each phase delivered.
 
-- Flask app factory.
-- Wacken 2026 starter lineup checklist.
+Working today:
+
+- Flask app factory with typed config (`Development`, `Testing`, `Production`).
+- Wacken 2026 starter lineup checklist (data lives in `wacken_playlist/data/lineups/wacken_2026.json`).
 - Playlist name input.
-- Local playlist preview without Spotify calls.
-- Health endpoint.
-- PWA manifest and service worker placeholders.
+- Local playlist preview without Spotify calls (`PlaylistBuilder.build_preview`).
+- Health endpoint at `/health`.
+- PWA manifest + service worker (`/service-worker.js`) with single-source versioning via `wacken_playlist/version.py`.
+- Bilingual UI (EN / pt-BR) sourced from `wacken_playlist/i18n/*.json`.
+- CSRF protection on all POST forms.
 - Environment variable template.
 
 ## Local Setup
 
-Create and activate a virtual environment:
+### Windows (PowerShell)
 
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```powershell
 pip install -r requirements.txt
-```
-
-Copy the environment template:
-
-```powershell
 Copy-Item .env.example .env
+.\scripts\restart-dev.ps1            # or: .\scripts\restart-dev.ps1 -Port 1338
 ```
 
-Run the app:
+### macOS / Linux (bash or zsh)
 
-```powershell
-py -m flask --app wacken_playlist:create_app --debug run --host 127.0.0.1 --port 1337
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+chmod +x scripts/dev.sh              # first time only
+./scripts/dev.sh                     # or: ./scripts/dev.sh 1338
 ```
 
 Open `http://127.0.0.1:1337`.
 
-Restart the dev server cleanly:
+### Manual run (any platform)
 
-```powershell
-.\scripts\restart-dev.ps1
-```
-
-To use another port:
-
-```powershell
-.\scripts\restart-dev.ps1 -Port 1338
+```bash
+python -m flask --app wacken_playlist:create_app --debug run --host 127.0.0.1 --port 1337
 ```
 
 ## Useful Commands
 
 Run tests:
 
-```powershell
-python -m pytest
+```bash
+python -m pytest                     # full suite
+python -m pytest tests/unit          # unit only — no Flask app, no I/O
+python -m pytest tests/integration   # integration — uses test_client
 ```
 
 Check the health endpoint after starting the server:
 
-```powershell
-Invoke-RestMethod http://127.0.0.1:1337/health
+```bash
+curl http://127.0.0.1:1337/health
+# PowerShell: Invoke-RestMethod http://127.0.0.1:1337/health
 ```
+
+## Production
+
+```bash
+gunicorn wsgi:application
+```
+
+`ProductionConfig.validate()` fails fast if `SECRET_KEY` is not present in the environment.
 
 ## Environment Variables
 

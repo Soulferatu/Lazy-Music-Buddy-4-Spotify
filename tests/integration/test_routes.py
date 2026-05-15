@@ -1,23 +1,11 @@
-from wacken_playlist import create_app
-from wacken_playlist.config import TestingConfig
-
-
-def _client():
-    return create_app(TestingConfig).test_client()
-
-
-def test_health_endpoint():
-    client = _client()
-
+def test_health_endpoint(client):
     response = client.get("/health")
 
     assert response.status_code == 200
     assert response.get_json() == {"status": "ok", "app": "wacken-playlist"}
 
 
-def test_home_page_shows_stage_one_form():
-    client = _client()
-
+def test_home_page_shows_stage_one_form(client):
     response = client.get("/")
 
     assert response.status_code == 200
@@ -28,9 +16,7 @@ def test_home_page_shows_stage_one_form():
     assert b"Def Leppard" in response.data
 
 
-def test_preview_requires_playlist_name_and_band_selection():
-    client = _client()
-
+def test_preview_requires_playlist_name_and_band_selection(client):
     response = client.post("/preview", data={"playlist_name": "", "bands": []})
 
     assert response.status_code == 200
@@ -38,9 +24,7 @@ def test_preview_requires_playlist_name_and_band_selection():
     assert b"Select at least one" in response.data
 
 
-def test_preview_supports_brazilian_portuguese_validation():
-    client = _client()
-
+def test_preview_supports_brazilian_portuguese_validation(client):
     response = client.post(
         "/preview",
         data={"playlist_name": "", "bands": [], "language": "pt-BR"},
@@ -51,9 +35,7 @@ def test_preview_supports_brazilian_portuguese_validation():
     assert "Selecione pelo menos uma banda".encode() in response.data
 
 
-def test_preview_shows_selected_bands_and_track_count():
-    client = _client()
-
+def test_preview_shows_selected_bands_and_track_count(client):
     response = client.post(
         "/preview",
         data={"playlist_name": "Holy Ground", "bands": ["Def Leppard", "Powerwolf"]},
@@ -64,5 +46,3 @@ def test_preview_shows_selected_bands_and_track_count():
     assert b"Def Leppard" in response.data
     assert b"Powerwolf" in response.data
     assert b"20 tracks" in response.data
-
-

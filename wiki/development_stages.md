@@ -63,7 +63,9 @@ Current progress:
 - **Phase 3 — i18n Centralization** ✓ [Details](phase3_i18n.md)
 - **Phase 4 — Service Layer Scaffolding** ✓ [Details](phase4_services.md)
 - **Phase 5 — Security and Platform Hardening** ✓ [Details](phase5_security_platform.md)
-- Phase 6 — Test Architecture (Pending)
+- **Phase 6 — Test Architecture** ✓ [Details](phase6_test_architecture.md)
+
+Architecture migration complete. Next product step is Stage 2 (Spotify lookup).
 
 ## Related Pages
 
