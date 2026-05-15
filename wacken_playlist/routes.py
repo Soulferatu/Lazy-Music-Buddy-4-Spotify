@@ -1,28 +1,26 @@
 from flask import Blueprint, current_app, jsonify, render_template, request
 
+from .i18n import load_all_translations, load_translations, normalize_language
+
 main = Blueprint("main", __name__)
 
 APP_NAME = "Play[my W:O:A]list"
 CURRENT_YEAR = 2026
 
-MESSAGES = {
-    "en": {
-        "playlist_name_required": "Name the playlist before previewing it.",
-        "bands_required": "Select at least one Wacken 2026 band.",
-    },
-    "pt-BR": {
-        "playlist_name_required": "Dê um nome à playlist antes de visualizar.",
-        "bands_required": "Selecione pelo menos uma banda do Wacken 2026.",
-    },
-}
-
-
-def normalize_language(language):
-    return language if language in MESSAGES else "en"
-
 
 def build_error(key, language):
-    return {"key": key, "message": MESSAGES[language][key]}
+    return {"key": key, "message": load_translations(language)[key]}
+
+
+def _render(template_kwargs):
+    language = template_kwargs["language"]
+    return render_template(
+        "index.html",
+        app_name=APP_NAME,
+        translations=load_translations(language),
+        translations_bundle=load_all_translations(),
+        **template_kwargs,
+    )
 
 
 def _lineup_context():
@@ -36,15 +34,13 @@ def _lineup_context():
 @main.get("/")
 def index():
     language = normalize_language(request.args.get("lang", "en"))
-    return render_template(
-        "index.html",
-        app_name=APP_NAME,
-        language=language,
+    return _render({
+        "language": language,
         **_lineup_context(),
-        preview=None,
-        errors=[],
-        form_values={"playlist_name": "", "bands": [], "language": language},
-    )
+        "preview": None,
+        "errors": [],
+        "form_values": {"playlist_name": "", "bands": [], "language": language},
+    })
 
 
 @main.post("/preview")
@@ -69,19 +65,17 @@ def preview():
             "track_count": len(valid_bands) * 10,
         }
 
-    return render_template(
-        "index.html",
-        app_name=APP_NAME,
-        language=language,
+    return _render({
+        "language": language,
         **_lineup_context(),
-        preview=preview_data,
-        errors=errors,
-        form_values={
+        "preview": preview_data,
+        "errors": errors,
+        "form_values": {
             "playlist_name": playlist_name,
             "bands": valid_bands,
             "language": language,
         },
-    )
+    })
 
 
 @main.get("/health")

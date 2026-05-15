@@ -11,14 +11,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v=4) }}">
+    <script>window.__translations = {{ translations_bundle | tojson }};</script>
   </head>
   <body>
     <header class="app-header">
       <a class="app-mark" href="{{ url_for('main.index', lang=language) }}" aria-label="{{ app_name }}">
         <span>Play</span><span class="app-mark-accent">[my W:O:A]</span><span>list</span>
       </a>
-      <div class="language-switch" aria-label="Language">
-        <span class="language-label" data-i18n="language_label">Language</span>
+      <div class="language-switch" aria-label="{{ translations.language_label }}">
+        <span class="language-label" data-i18n="language_label">{{ translations.language_label }}</span>
         <button class="language-button" type="button" data-language-choice="en">EN</button>
         <button class="language-button" type="button" data-language-choice="pt-BR">PT-BR</button>
       </div>
@@ -28,10 +29,8 @@
 
     <main class="app-shell">
       <section class="intro">
-        <p class="eyebrow" data-i18n="hero_eyebrow">Wacken Open Air playlist builder</p>
-        <p class="lede" data-i18n="hero_lede">
-          Select the Wacken 2026 bands you want to hear, name the playlist, and the app will use Spotify artist matches to pick each band's top streamed tracks. The playlist is created through the app account, so visitors can get a Spotify link without connecting their own Spotify account.
-        </p>
+        <p class="eyebrow" data-i18n="hero_eyebrow">{{ translations.hero_eyebrow }}</p>
+        <p class="lede" data-i18n="hero_lede">{{ translations.hero_lede }}</p>
       </section>
 
       <section class="workspace" aria-labelledby="stage-title">
@@ -39,10 +38,10 @@
           <input type="hidden" id="language" name="language" value="{{ form_values.language }}">
           <div class="planner-header">
             <div>
-              <p class="eyebrow" data-i18n="stage_eyebrow">Stage 1</p>
-              <h2 id="stage-title" data-i18n="selection_title">Wacken 2026 selection</h2>
+              <p class="eyebrow" data-i18n="stage_eyebrow">{{ translations.stage_eyebrow }}</p>
+              <h2 id="stage-title" data-i18n="selection_title">{{ translations.selection_title }}</h2>
             </div>
-            <span class="band-count" data-count="{{ bands|length }}" data-i18n-count="band_count">{{ bands|length }} bands</span>
+            <span class="band-count" data-count="{{ bands|length }}" data-i18n-count="band_count">{{ translations.band_count.replace("{count}", bands|length|string) }}</span>
           </div>
 
           {% if errors %}
@@ -54,12 +53,12 @@
           {% endif %}
 
           <label class="field">
-            <span data-i18n="playlist_name_label">Playlist name</span>
+            <span data-i18n="playlist_name_label">{{ translations.playlist_name_label }}</span>
             <input
               type="text"
               name="playlist_name"
               value="{{ form_values.playlist_name }}"
-              placeholder="Wacken 2026 must-see list"
+              placeholder="{{ translations.playlist_name_placeholder }}"
               data-i18n-placeholder="playlist_name_placeholder"
               required
             >
@@ -67,14 +66,14 @@
 
           <div class="tools">
             <label class="field search-field">
-              <span data-i18n="filter_bands_label">Filter bands</span>
-              <input type="search" id="band-search" placeholder="Search lineup" data-i18n-placeholder="search_placeholder">
+              <span data-i18n="filter_bands_label">{{ translations.filter_bands_label }}</span>
+              <input type="search" id="band-search" placeholder="{{ translations.search_placeholder }}" data-i18n-placeholder="search_placeholder">
             </label>
-            <button class="ghost-button" type="button" id="clear-selection" data-i18n="clear_button">Clear</button>
+            <button class="ghost-button" type="button" id="clear-selection" data-i18n="clear_button">{{ translations.clear_button }}</button>
           </div>
 
           <fieldset class="band-grid" aria-describedby="source-note">
-            <legend data-i18n="choose_bands">Choose bands</legend>
+            <legend data-i18n="choose_bands">{{ translations.choose_bands }}</legend>
             {% for band in bands %}
               <label class="band-option" data-band-name="{{ band|lower }}">
                 <input
@@ -89,36 +88,29 @@
           </fieldset>
 
           <p id="source-note" class="source-note">
-            <span data-i18n="source_note">
-            Starter lineup data is curated from official W:O:A 2026 announcements and can be refreshed before Spotify matching.
-            </span>
+            <span data-i18n="source_note">{{ translations.source_note }}</span>
           </p>
 
           <div class="actions">
-            <p><strong id="selected-count">{{ form_values.bands|length }}</strong> <span data-i18n="selected_label">selected</span></p>
-            <button type="submit" data-i18n="preview_button">Preview playlist</button>
+            <p><strong id="selected-count">{{ form_values.bands|length }}</strong> <span data-i18n="selected_label">{{ translations.selected_label }}</span></p>
+            <button type="submit" data-i18n="preview_button">{{ translations.preview_button }}</button>
           </div>
         </form>
 
         <aside class="summary" aria-live="polite">
           {% if preview %}
-            <p class="eyebrow" data-i18n="local_preview">Local preview</p>
+            <p class="eyebrow" data-i18n="local_preview">{{ translations.local_preview }}</p>
             <h2>{{ preview.playlist_name }}</h2>
-            <p data-track-count="{{ preview.track_count }}" data-i18n-track-preview>
-              Spotify will later try to add up to {{ preview.track_count }} tracks:
-              10 top songs for each selected band.
-            </p>
+            <p data-track-count="{{ preview.track_count }}" data-i18n-track-preview>{{ translations.preview_tracks.replace("{count}", preview.track_count|string) }}</p>
             <ul>
               {% for band in preview.bands %}
                 <li>{{ band }}</li>
               {% endfor %}
             </ul>
           {% else %}
-            <p class="eyebrow" data-i18n="preview_eyebrow">Preview</p>
-            <h2 data-i18n="ready_title">Ready for your picks</h2>
-            <p data-i18n="ready_copy">
-              This step stays local. Spotify search, warnings, and playlist creation begin in later stages.
-            </p>
+            <p class="eyebrow" data-i18n="preview_eyebrow">{{ translations.preview_eyebrow }}</p>
+            <h2 data-i18n="ready_title">{{ translations.ready_title }}</h2>
+            <p data-i18n="ready_copy">{{ translations.ready_copy }}</p>
           {% endif %}
         </aside>
       </section>

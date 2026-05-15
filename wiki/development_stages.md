@@ -60,7 +60,7 @@ To support the complexity of Stages 2–9, the codebase is undergoing a structur
 Current progress:
 - **Phase 1 — Config and Models** ✓ [Details](phase1_config_models.md)
 - **Phase 2 — Data Layer** ✓ [Details](phase2_data_layer.md)
-- Phase 3 — i18n Centralization (Pending)
+- **Phase 3 — i18n Centralization** ✓ [Details](phase3_i18n.md)
 - Phase 4 — Service Layer Scaffolding (Pending)
 - Phase 5 — Security and Platform Hardening (Pending)
 - Phase 6 — Test Architecture (Pending)
