@@ -1,6 +1,7 @@
 from flask import Blueprint, current_app, jsonify, render_template, request
 
 from .i18n import load_all_translations, load_translations, normalize_language
+from .models import Band, PlaylistRequest
 
 main = Blueprint("main", __name__)
 
@@ -49,30 +50,36 @@ def preview():
     playlist_name = request.form.get("playlist_name", "").strip()
     language = normalize_language(request.form.get("language", "en"))
     repo = current_app.lineup
-    valid_bands = [b for b in selected_bands if repo.is_valid_band(b, CURRENT_YEAR)]
+    valid_names = [b for b in selected_bands if repo.is_valid_band(b, CURRENT_YEAR)]
     errors = []
 
     if not playlist_name:
         errors.append(build_error("playlist_name_required", language))
-    if not valid_bands:
+    if not valid_names:
         errors.append(build_error("bands_required", language))
 
-    preview_data = None
+    preview_view = None
     if not errors:
-        preview_data = {
-            "playlist_name": playlist_name,
-            "bands": valid_bands,
-            "track_count": len(valid_bands) * 10,
+        playlist_request = PlaylistRequest(
+            playlist_name=playlist_name,
+            bands=[Band(name=name, year=CURRENT_YEAR) for name in valid_names],
+            language=language,
+        )
+        preview = current_app.playlist_builder.build_preview(playlist_request)
+        preview_view = {
+            "playlist_name": preview.playlist_name,
+            "bands": [b.name for b in preview.bands],
+            "track_count": preview.track_count,
         }
 
     return _render({
         "language": language,
         **_lineup_context(),
-        "preview": preview_data,
+        "preview": preview_view,
         "errors": errors,
         "form_values": {
             "playlist_name": playlist_name,
-            "bands": valid_bands,
+            "bands": valid_names,
             "language": language,
         },
     })
