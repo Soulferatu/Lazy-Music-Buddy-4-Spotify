@@ -88,3 +88,14 @@ def preview():
 @main.get("/health")
 def health():
     return jsonify({"status": "ok", "app": "wacken-playlist"})
+
+
+@main.get("/service-worker.js")
+def service_worker():
+    response = current_app.response_class(
+        render_template("service-worker.js"),
+        mimetype="application/javascript",
+    )
+    response.headers["Service-Worker-Allowed"] = "/"
+    response.headers["Cache-Control"] = "no-cache"
+    return response

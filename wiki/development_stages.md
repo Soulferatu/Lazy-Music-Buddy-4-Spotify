@@ -62,7 +62,7 @@ Current progress:
 - **Phase 2 — Data Layer** ✓ [Details](phase2_data_layer.md)
 - **Phase 3 — i18n Centralization** ✓ [Details](phase3_i18n.md)
 - **Phase 4 — Service Layer Scaffolding** ✓ [Details](phase4_services.md)
-- Phase 5 — Security and Platform Hardening (Pending)
+- **Phase 5 — Security and Platform Hardening** ✓ [Details](phase5_security_platform.md)
 - Phase 6 — Test Architecture (Pending)
 
 ## Related Pages

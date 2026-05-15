@@ -1,6 +1,6 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/static/service-worker.js").catch(() => {
+    navigator.serviceWorker.register("/service-worker.js", { scope: "/" }).catch(() => {
       // Local development can still continue when service worker registration fails.
     });
   });

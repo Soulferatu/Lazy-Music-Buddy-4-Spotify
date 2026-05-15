@@ -1,4 +1,4 @@
-const CACHE_NAME = "wacken-playlist-v4";
+const CACHE_NAME = "wacken-playlist-{{ app_version }}";
 const APP_SHELL = [
   "/",
   "/static/css/styles.css",

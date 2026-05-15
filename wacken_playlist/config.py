@@ -1,4 +1,7 @@
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 
 class Config:
@@ -9,11 +12,20 @@ class Config:
     SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI", "")
     SPOTIFY_APP_REFRESH_TOKEN = os.environ.get("SPOTIFY_APP_REFRESH_TOKEN", "")
     SETLISTFM_API_KEY = os.environ.get("SETLISTFM_API_KEY", "")
+    WTF_CSRF_ENABLED = True
 
 
 class DevelopmentConfig(Config):
     """Development configuration. Provides safe fallback for SECRET_KEY."""
     DEBUG = True
+
+    def __init__(self):
+        if not Config.SECRET_KEY:
+            logger.warning(
+                "SECRET_KEY is not set; using insecure development fallback. "
+                "Set SECRET_KEY in your environment before any non-local use."
+            )
+
     SECRET_KEY = Config.SECRET_KEY or "dev-only-insecure"
 
 
@@ -21,8 +33,16 @@ class TestingConfig(Config):
     """Testing configuration. All values are fixed for reproducible tests."""
     TESTING = True
     SECRET_KEY = "test-secret"
+    WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
-    """Production configuration. Requires SECRET_KEY from environment."""
-    pass
+    """Production configuration. Fails loudly if SECRET_KEY is absent."""
+
+    @classmethod
+    def validate(cls):
+        if not os.environ.get("SECRET_KEY"):
+            raise RuntimeError(
+                "SECRET_KEY must be set in the environment before starting "
+                "the app in production."
+            )

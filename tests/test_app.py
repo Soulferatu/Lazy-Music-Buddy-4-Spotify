@@ -1,9 +1,13 @@
 from wacken_playlist import create_app
+from wacken_playlist.config import TestingConfig
+
+
+def _client():
+    return create_app(TestingConfig).test_client()
 
 
 def test_health_endpoint():
-    app = create_app()
-    client = app.test_client()
+    client = _client()
 
     response = client.get("/health")
 
@@ -12,8 +16,7 @@ def test_health_endpoint():
 
 
 def test_home_page_shows_stage_one_form():
-    app = create_app()
-    client = app.test_client()
+    client = _client()
 
     response = client.get("/")
 
@@ -26,8 +29,7 @@ def test_home_page_shows_stage_one_form():
 
 
 def test_preview_requires_playlist_name_and_band_selection():
-    app = create_app()
-    client = app.test_client()
+    client = _client()
 
     response = client.post("/preview", data={"playlist_name": "", "bands": []})
 
@@ -37,8 +39,7 @@ def test_preview_requires_playlist_name_and_band_selection():
 
 
 def test_preview_supports_brazilian_portuguese_validation():
-    app = create_app()
-    client = app.test_client()
+    client = _client()
 
     response = client.post(
         "/preview",
@@ -51,8 +52,7 @@ def test_preview_supports_brazilian_portuguese_validation():
 
 
 def test_preview_shows_selected_bands_and_track_count():
-    app = create_app()
-    client = app.test_client()
+    client = _client()
 
     response = client.post(
         "/preview",
