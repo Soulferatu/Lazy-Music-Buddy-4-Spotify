@@ -1,12 +1,13 @@
-import os
-
 from flask import Flask
 
+from .config import DevelopmentConfig
+from .lineup import LineupRepository
 
-def create_app():
+
+def create_app(config_class=DevelopmentConfig):
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
-    app.config.from_prefixed_env()
+    app.config.from_object(config_class)
+    app.lineup = LineupRepository()
 
     from .routes import main
 

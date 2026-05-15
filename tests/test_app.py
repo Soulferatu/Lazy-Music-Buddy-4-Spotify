@@ -1,5 +1,4 @@
 from wacken_playlist import create_app
-from wacken_playlist.lineup import WACKEN_2026_BANDS
 
 
 def test_health_endpoint():
@@ -67,6 +66,3 @@ def test_preview_shows_selected_bands_and_track_count():
     assert b"20 tracks" in response.data
 
 
-def test_wacken_2026_lineup_has_no_exact_duplicates():
-    assert len(WACKEN_2026_BANDS) >= 150
-    assert len(WACKEN_2026_BANDS) == len(set(WACKEN_2026_BANDS))

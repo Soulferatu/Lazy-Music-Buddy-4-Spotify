@@ -1,11 +1,9 @@
-from flask import Blueprint, jsonify, render_template, request
-
-from .lineup import WACKEN_2026_BANDS, WACKEN_2026_SOURCE_URLS
-
+from flask import Blueprint, current_app, jsonify, render_template, request
 
 main = Blueprint("main", __name__)
 
 APP_NAME = "Play[my W:O:A]list"
+CURRENT_YEAR = 2026
 
 MESSAGES = {
     "en": {
@@ -27,6 +25,14 @@ def build_error(key, language):
     return {"key": key, "message": MESSAGES[language][key]}
 
 
+def _lineup_context():
+    repo = current_app.lineup
+    return {
+        "bands": repo.get_band_names(CURRENT_YEAR),
+        "source_urls": repo.get_source_urls(CURRENT_YEAR),
+    }
+
+
 @main.get("/")
 def index():
     language = normalize_language(request.args.get("lang", "en"))
@@ -34,8 +40,7 @@ def index():
         "index.html",
         app_name=APP_NAME,
         language=language,
-        bands=WACKEN_2026_BANDS,
-        source_urls=WACKEN_2026_SOURCE_URLS,
+        **_lineup_context(),
         preview=None,
         errors=[],
         form_values={"playlist_name": "", "bands": [], "language": language},
@@ -47,7 +52,8 @@ def preview():
     selected_bands = request.form.getlist("bands")
     playlist_name = request.form.get("playlist_name", "").strip()
     language = normalize_language(request.form.get("language", "en"))
-    valid_bands = [band for band in selected_bands if band in WACKEN_2026_BANDS]
+    repo = current_app.lineup
+    valid_bands = [b for b in selected_bands if repo.is_valid_band(b, CURRENT_YEAR)]
     errors = []
 
     if not playlist_name:
@@ -67,8 +73,7 @@ def preview():
         "index.html",
         app_name=APP_NAME,
         language=language,
-        bands=WACKEN_2026_BANDS,
-        source_urls=WACKEN_2026_SOURCE_URLS,
+        **_lineup_context(),
         preview=preview_data,
         errors=errors,
         form_values={

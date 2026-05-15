@@ -1,184 +1,52 @@
-WACKEN_2026_SOURCE_URLS = [
-    "https://www.wacken.com/en/news-details/party-on-the-first-35-bands-for-woa-2026/",
-    "https://s.wacken.com/en/news-details/55-additional-bands-for-wacken-open-air-2026/",
-    "https://www.wacken.com/en/news-details/49-new-bands-for-woa-2026/",
-    "https://www.wacken.com/en/news-details/party-on-with-sabbaton-at-woa-2026/",
-    "https://www.wacken.com/en/news-details/more-bands-for-the-holy-ground/",
-    "https://www.wacken.com/en/line-up/bands/#/bandfilter",
-    "https://www.festivalsunited.com/festivals/wacken-open-air",
-]
+from __future__ import annotations
 
-WACKEN_2026_BANDS = [
-    "5th Avenue",
-    "5th Avenue Hamburg",
-    "9mm Headshot",
-    "Ad Infinitum",
-    "Airbourne",
-    "Alcest",
-    "Alestorm",
-    "Alfahanne",
-    "Alien Ant Farm",
-    "Alien Rockin Explosion",
-    "Allt",
-    "Anaal Nathrakh",
-    "Angelus Apatrida",
-    "Animals As Leaders",
-    "Any Given Day",
-    "Arch Enemy",
-    "Arroganz",
-    "Asrock",
-    "Ballroom DJ Team",
-    "Battlecreek",
-    "Bear McCreary",
-    "Blaas Of Glory",
-    "Black Label Society",
-    "Black Tish",
-    "Bleed From Within",
-    "Blood Command",
-    "Blood Fire Death",
-    "Blood Red Throne",
-    "Broken By The Scream",
-    "Brunhilde",
-    "Castle Rat",
-    "Chaosbay",
-    "Corrosion Of Conformity",
-    "Cowgirls From Hell",
-    "Craft",
-    "Crematory",
-    "Crimson Glory",
-    "Cruachan",
-    "Crypt Sermon",
-    "Cursed Abyss",
-    "Danko Jones",
-    "Deafheaven",
-    "Def Leppard",
-    "Diabolisches Werk",
-    "Dirty Shirt",
-    "Divlje Jagode",
-    "Dritte Wahl",
-    "Dubioza Kolektiv",
-    "E.N.D.",
-    "Einherjer",
-    "Elchivo",
-    "Electric Bassboy",
-    "Eläkeläiset",
-    "Emperor",
-    "Employed To Serve",
-    "Europe",
-    "Evil Jared",
-    "Expellow",
-    "Faun",
-    "Finsterforst",
-    "Firespawn",
-    "Fit For An Autopsy",
-    "Focus",
-    "Force",
-    "Future Palace",
-    "Given By The Flames",
-    "Goodnight Greatness",
-    "Grand Magus",
-    "Guilt Trip",
-    "Gutalax",
-    "H-Blockx",
-    "Hackneyed",
-    "Hardline",
-    "Hatebreed",
-    "Heartless Human Harvest",
-    "Heavysaurus",
-    "Hämatom",
-    "I See Red",
-    "In Flames",
-    "Insanity Alert",
-    "Judas Priest",
-    "Kadavar",
-    "Katerfahrt",
-    "Kärbholz",
-    "Kim Dracula",
-    "Kittie",
-    "Krogi",
-    "Kupfergold",
-    "Lacuna Coil",
-    "Lagwagon",
-    "Lamb Of God",
-    "Life Of Agony",
-    "Lovebites",
-    "Luna Kills",
-    "Mambo Kurt",
-    "Manntra",
-    "Mantar",
-    "Maschine",
-    "Maschine's Late Night Show",
-    "Metaklapa",
-    "Midhaven",
-    "Minotaurus",
-    "Misery Index",
-    "Misþyrming",
-    "Mr. Hurley Und Die Pulveraffen",
-    "Municipal Waste",
-    "Nevermore",
-    "Nita Strauss",
-    "Novelization",
-    "Of Mice & Men",
-    "Orbit Culture",
-    "Our Promise",
-    "P.O.D.",
-    "Paleface Swiss",
-    "Paradise Lost",
-    "Phantom",
-    "Pig Destroyer",
-    "Poison The Preacher",
-    "Powerwolf",
-    "Ricky Warwick",
-    "Rose Tattoo",
-    "Running Wild",
-    "Sabaton",
-    "Sacred Steel",
-    "Sagenbringer",
-    "Savatage",
-    "Saviourself",
-    "Saxon",
-    "Sepultura",
-    "Sinamort",
-    "Skyline",
-    "Skylineband",
-    "Skynd",
-    "Speak In Whispers",
-    "Spectral Wound",
-    "Stonem",
-    "Storm Seeker",
-    "Subway To Sally",
-    "Temple Of The Absurd",
-    "Ten56",
-    "Ten56.",
-    "The Butcher Sisters",
-    "The Gathering",
-    "The Hardkiss",
-    "The Haunted",
-    "The Limit",
-    "The Other",
-    "The Troops Of Doom",
-    "Therapy?",
-    "Thomas Nicholas Band",
-    "Thrown",
-    "Thundermother",
-    "Thy Art Is Murder",
-    "Triptykon",
-    "Trold",
-    "Troops Of Doom",
-    "Turbonegro",
-    "Tuxedoo",
-    "Uli Jon Roth",
-    "Unzucht",
-    "Vanir",
-    "Velvet Rush",
-    "Vended",
-    "Visions Of Atlantis",
-    "Vogelfrey",
-    "Vreid",
-    "Wacken Firefighters",
-    "Wytch Hazel",
-    "Wüstenberg",
-    "Year Of The Goat",
-    "Yngwie Malmsteen",
-    "Zeltinger Band",
-]
+import json
+from pathlib import Path
+
+from .models import Band
+
+
+class LineupNotFoundError(LookupError):
+    """Raised when a requested lineup year has no data file."""
+
+
+class LineupRepository:
+    """Reads festival lineups from JSON files under data/lineups/."""
+
+    def __init__(self, data_dir: Path | None = None):
+        self._data_dir = data_dir or Path(__file__).parent / "data" / "lineups"
+        self._cache: dict[int, dict] = {}
+
+    def _load(self, year: int) -> dict:
+        if year in self._cache:
+            return self._cache[year]
+        path = self._data_dir / f"wacken_{year}.json"
+        if not path.exists():
+            raise LineupNotFoundError(f"No lineup data for year {year}")
+        with path.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._cache[year] = data
+        return data
+
+    def get_bands(self, year: int) -> list[Band]:
+        data = self._load(year)
+        return [Band(name=name, year=year) for name in data["bands"]]
+
+    def get_band_names(self, year: int) -> list[str]:
+        return list(self._load(year)["bands"])
+
+    def get_available_years(self) -> list[int]:
+        if not self._data_dir.exists():
+            return []
+        years: list[int] = []
+        for path in self._data_dir.glob("wacken_*.json"):
+            stem = path.stem.removeprefix("wacken_")
+            if stem.isdigit():
+                years.append(int(stem))
+        return sorted(years)
+
+    def get_source_urls(self, year: int) -> list[str]:
+        return list(self._load(year).get("source_urls", []))
+
+    def is_valid_band(self, name: str, year: int) -> bool:
+        return name in self._load(year)["bands"]

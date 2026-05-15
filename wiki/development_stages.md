@@ -53,9 +53,22 @@ Build stable, testable layers in order:
 5. PWA polish.
 6. More complex ownership, setlist, historical, and shuffle flows.
 
+## Architecture Refactoring
+
+To support the complexity of Stages 2–9, the codebase is undergoing a structured architecture migration. See [Architecture Migration Plan](../ARCH_MIGRATION_PLAN.md) for the full 6-phase plan.
+
+Current progress:
+- **Phase 1 — Config and Models** ✓ [Details](phase1_config_models.md)
+- **Phase 2 — Data Layer** ✓ [Details](phase2_data_layer.md)
+- Phase 3 — i18n Centralization (Pending)
+- Phase 4 — Service Layer Scaffolding (Pending)
+- Phase 5 — Security and Platform Hardening (Pending)
+- Phase 6 — Test Architecture (Pending)
+
 ## Related Pages
 
 - [Project Overview](project_overview.md)
 - [Spotify Integration](spotify_integration.md)
 - [PWA Requirements](pwa_requirements.md)
+- [Architecture Migration Plan](../ARCH_MIGRATION_PLAN.md)
 
