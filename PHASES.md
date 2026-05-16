@@ -24,11 +24,13 @@ This roadmap has **two axes**:
 | 2 | Spotify lookup + preview | Medium–High | ✅ Done |
 | 3 | App-owned playlist creation | High | ✅ Done |
 | 4 | First PWA polish | Medium | ✅ Done |
-| 5 | **Optional personal Spotify login** | **High** | 🔨 **Current** |
+| 5 | **Deployment + public release** | **Medium–High** | 🔨 **Current** |
 | 6 | setlist.fm song source | High | ⏳ Pending |
 | 7 | Previous Wacken years | High | ⏳ Pending |
 | 8 | Mix years + shuffle | Medium–High | ⏳ Pending |
-| 9 | Deployment + production release | Medium–High | ⏳ Pending |
+
+**Optional Stages** (not required for MVP):
+| Opt-1 | Personal Spotify login | High | ⏳ Pending |
 
 Architecture migration: Phases 1–6 all ✅ Done — see [Architecture Phases (Reference)](#architecture-phases-reference) below.
 
@@ -159,41 +161,56 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 
 ---
 
-## Stage 5 — Optional Personal Spotify Login ⏳
+## Stage 5 — Deployment + Public Release ⏳
 
-**Goal:** let users choose to create the playlist in their own Spotify account.
+**Goal:** deploy the app to a public URL so other users can access it, create playlists, and install it as a PWA on their devices.
 
-**Difficulty:** High.
+**Difficulty:** Medium–High.
 
 ### Prerequisites
 
-- Stage 3 complete and stable.
-- ✅ `wsgi.py` + `ProductionConfig` validation (Phases 5B/5C).
+- Stage 4 complete and mobile-friendly.
+- ✅ `wsgi.py` (Phase 5C), `ProductionConfig` validation (Phase 5B), CSRF (5A), single-source SW versioning (5D).
+- ✅ Spotify app account set up with `SPOTIFY_APP_REFRESH_TOKEN` in `.env`.
 
 ### User Actions
 
-- Confirm this mode should be added now (not deferred further).
-- Test Spotify login with your own (non-app) account.
-- Approve the UI copy explaining app-owned vs personal mode.
+- Choose a hosting provider (Render, Fly.io, Railway, PythonAnywhere, or other Flask-friendly host).
+- Register a production domain name (or use provider's default domain).
+- Add the **production redirect URL** in the Spotify Developer dashboard (e.g., `https://yourdomain.com/auth/spotify/callback`).
+- Provide production environment variables securely via host's secret management:
+  - `SECRET_KEY` (strong random secret for session/CSRF)
+  - `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` (from Spotify Developer)
+  - `SPOTIFY_APP_REFRESH_TOKEN` (from Stage 3 setup)
+- Test PWA install from the production URL on a phone.
+- Test the full flow end-to-end: select bands → preview → create playlist → open in Spotify.
+- Monitor for errors and API failures in production logs.
 
 ### Claude's Actions
 
-- Add a mode-selection UI (app-owned link OR create in my Spotify).
-- Add user OAuth login + callback handling.
-- Add secure session storage (likely `Flask-Session` or a small shelve file — no SQLAlchemy).
-- Add user-owned playlist creation path.
-- Add logout + session expiration.
-- Add tests for mode selection and auth-required behavior.
+- Configure `ProductionConfig` with all required environment variables.
+- Set production-safe defaults (DEBUG=False, TESTING=False, secure cookies, etc.).
+- Verify Spotify redirect URL matches exactly in both code and Spotify dashboard.
+- Add production deployment documentation (README section or DEPLOYMENT.md).
+- Configure HTTPS enforcement if the host supports it.
+- Set up security headers (CSP, X-Frame-Options, etc.).
+- Implement basic logging for API failures and unexpected errors.
+- Create a release checklist and deployment walkthrough.
+- Test PWA installability from the production origin.
+- Final responsive/mobile UI review.
+- Document the provider's deployment steps (git push, environment variables, domain setup).
 
 ### Critical Points
 
-- User OAuth adds session and security complexity.
-- Redirect URLs must match for local AND production exactly.
-- Ownership-mode copy must avoid confusing users.
+- **Spotify redirect URL must match exactly** — local development uses `http://127.0.0.1:1337`, production uses `https://yourdomain.com`. Both must be registered in the Spotify dashboard.
+- **Service worker caching** — old versions stay cached even after deployment. Increment `version.py` to force cache busts.
+- **Production secrets are never committed** — use the host's secret store (environment variables, secrets manager, or `.env` files outside Git).
+- **HTTPS required** — most hosts provide free HTTPS; ensure it's enabled before sharing the URL.
+- **Cold starts** — some hosts spin down idle apps; the first request after inactivity may be slow. This is normal.
 
 ### Completion Gate
 
-A user can choose personal mode, log into Spotify, create a playlist in their own account, and log out.
+The app is live at a public URL, installable from phone/desktop, and users can create Spotify playlists without any authentication setup on their end. The app account remains private; users just click "Create" and get a shareable Spotify link.
 
 ---
 
@@ -318,44 +335,6 @@ Goal: pick 10 bands across selected years, pick 5 of each band's top 10 Spotify 
 
 ---
 
-## Stage 9 — Deployment + Production Release ⏳
-
-**Goal:** the app runs reliably on a hosted URL, installable from phone and browser.
-
-**Difficulty:** Medium–High.
-
-### Prerequisites
-
-- ✅ `wsgi.py` (Phase 5C), `ProductionConfig` validation (Phase 5B), CSRF (5A), single-source SW versioning (5D).
-
-### User Actions
-
-- Choose a hosting provider (Render, Fly.io, Railway, PythonAnywhere, or other Flask-friendly host).
-- Add the **production redirect URL** in the Spotify Developer dashboard.
-- Provide production environment variables (`SECRET_KEY`, Spotify creds, refresh token, setlist.fm key) securely — not via Git.
-- Test install behavior on your phone from the hosted URL.
-- Test Spotify flows end-to-end from production.
-- Review final mobile UI.
-
-### Claude's Actions
-
-- Configure production settings + deployment docs.
-- Verify PWA installability from the hosted origin.
-- Responsive/mobile polish pass.
-- Loading / success / warning / error states consistent.
-- Logging for API failures.
-- Basic security headers.
-- Release checklist.
-
-### Critical Points
-
-- Production Spotify redirect URL must match dashboard config exactly.
-- Service worker caching can serve stale assets in production — bump `version.py` deliberately.
-- Production secrets handled only via host's secret store.
-
-### Completion Gate
-
-The app is hosted, installable on a phone, and creates Spotify playlists from the production URL using the enabled ownership modes.
 
 ---
 
@@ -384,6 +363,54 @@ A one-time refactor that prepared the codebase for Stages 2–9. **All six phase
 | Stage 7 — Historical years | `LineupRepository.get_available_years()` from 2C ✅ |
 | Stage 8 — Shuffle | `PlaylistBuilder` from 4A ✅ |
 | Stage 9 — Deployment | `wsgi.py` + `ProductionConfig` validation ✅ |
+
+---
+
+# Optional Stages
+
+These are not required for the MVP but add power-user functionality and may be implemented after Stage 8.
+
+## Optional Stage — Personal Spotify Login
+
+**Goal:** let users optionally create the playlist in their own Spotify account instead of using the app-owned account.
+
+**Difficulty:** High.
+
+**Why it's optional:** the app-owned account works perfectly for sharing playlists. Personal login adds session/security complexity and is only needed for users who want direct control over their own Spotify accounts. Most users are happy with the generated link.
+
+### Prerequisites
+
+- Stage 5 (Deployment) complete and live.
+- All Stages 6–8 features working (optional, but nice to have alongside personal login).
+
+### User Actions
+
+- Test personal login with your own Spotify account (not the app account).
+- Review and approve the UI explaining app-owned vs personal mode.
+- Verify that personal playlists appear in your own Spotify library.
+- Test logout and session expiration.
+
+### Claude's Actions
+
+- Add a **mode-selection UI** before the band selector (app-owned link OR "Create in my Spotify").
+- Implement **user OAuth login** (`GET /auth/spotify/login/user`, callback handling, state-CSRF).
+- Add **secure session storage** (Flask-Session or shelve; no SQLAlchemy).
+- Implement **user-owned playlist creation path** (`POST /create/user`).
+- Add **logout + session expiration** (clear cookies, session cleanup).
+- Update tests for mode selection and auth-required behavior.
+- Document the personal login flow (user sees two options at the start).
+
+### Critical Points
+
+- User OAuth adds session and security complexity — this is why it's optional.
+- Redirect URLs must match for local AND production exactly (as with app account).
+- UX must be clear: "Create in my Spotify" vs "Create & share via app account".
+- Session tokens should not leak to client-side JavaScript.
+- Personal playlists bypass the app account; no cleanup needed on the app side.
+
+### Completion Gate
+
+A user can choose personal mode, log into Spotify with their own account, create a playlist in their own library, and log out. Personal playlists work alongside app-owned playlists.
 
 ---
 

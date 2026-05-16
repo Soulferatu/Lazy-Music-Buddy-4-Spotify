@@ -16,11 +16,12 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 ## Current Stage
 
-**Stage 5 — Optional Personal Spotify Login** (next up).
+**Stage 5 — Deployment + Public Release** (next up).
 
 - Stages 0–4 are complete (2026-05-16). Stage 4 delivered: loading states on Preview/Create, mobile auto-scroll to summary, dynamic countdown to July 29 2026, stale copy fixes, Apple PWA meta tags, manifest `scope`, service worker fix, floating action buttons (FAB) with proper fixed positioning, result page buttons in side-by-side layout, extended Spotify artist search pagination (5 pages), version `0.4.0`. Details: [wiki/stage4_pwa_polish.md](wiki/stage4_pwa_polish.md).
 - Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place.
-- Next milestone: let users optionally create the playlist in their own Spotify account (user OAuth login, session storage, personal playlist creation path, logout).
+- Next milestone: deploy to a public hosting provider so others can access and use the app. The app-owned Spotify account creates playlists for users; no visitor authentication required.
+- Optional: Personal Spotify login deferred to later (low priority; app-owned account works for sharing).
 
 ## Confirmed Product Decisions
 
@@ -39,7 +40,7 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 | Frontend | Server-rendered HTML + vanilla JS + responsive CSS |
 | App icon | Existing placeholder at `wacken_playlist/static/icons/icon.svg` and `icon.png` — used by the PWA manifest. Replace by overwriting those two files when a final icon is approved; no code change needed. |
 
-Open decisions: final logo/install icon (placeholder in use), hosting provider (Stage 9), whether to enable personal Spotify login (Stage 5).
+Open decisions: final logo/install icon (placeholder in use), hosting provider (Stage 5), whether to add personal Spotify login (Optional Stage).
 
 ## Tech Stack
 
