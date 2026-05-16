@@ -119,41 +119,58 @@ def test_get_top_tracks_returns_up_to_ten_with_artist_field():
     assert tracks[0] == {"name": "Track 0", "artist": "Powerwolf", "uri": ""}
 
 
-def test_get_top_tracks_paginates_when_first_page_has_too_few_matches():
-    """When page 0 doesn't yield 10 matches (because some entries are
-    covers or unrelated), the client should fetch page 1 to fill in."""
+def test_get_top_tracks_paginates_across_all_query_strategies():
+    """When the artist: query and the first plain-text page combined don't
+    yield 10 matches, the client moves on to the second plain-text page."""
     from unittest.mock import MagicMock
 
     client = _make_client()
     client._token = "t"
     client._token_expires_at = time.time() + 1000
 
-    page_0 = {
+    # artist: query — 3 reliable matches
+    artist_page = {
         "tracks": {
             "items": [
-                {"name": "P0 cover", "artists": [{"name": "Cover Band"}], "uri": "u:c0"},
+                {"name": f"A hit {i}", "artists": [{"name": "Powerwolf"}], "uri": f"u:a-{i}"}
+                for i in range(3)
             ] + [
-                {"name": f"P0 hit {i}", "artists": [{"name": "Powerwolf"}], "uri": f"u:0-{i}"}
-                for i in range(9)
+                {"name": f"A junk {i}", "artists": [{"name": "Other"}], "uri": f"u:aj-{i}"}
+                for i in range(7)
             ]
         }
     }
-    page_1 = {
+    # plain offset 0 — 5 new matches
+    plain_0 = {
         "tracks": {
             "items": [
-                {"name": "P1 hit", "artists": [{"name": "Powerwolf"}], "uri": "u:1-0"},
-                {"name": "P1 cover", "artists": [{"name": "Cover Band"}], "uri": "u:c1"},
+                {"name": f"P0 hit {i}", "artists": [{"name": "Powerwolf"}], "uri": f"u:p0-{i}"}
+                for i in range(5)
             ] + [
-                {"name": f"P1 filler {i}", "artists": [{"name": "Other"}], "uri": f"u:1-{i+1}"}
-                for i in range(8)
+                {"name": f"P0 junk {i}", "artists": [{"name": "Other"}], "uri": f"u:p0j-{i}"}
+                for i in range(5)
+            ]
+        }
+    }
+    # plain offset 10 — 4 more matches (brings total to 12, capped at 10)
+    plain_10 = {
+        "tracks": {
+            "items": [
+                {"name": f"P1 hit {i}", "artists": [{"name": "Powerwolf"}], "uri": f"u:p1-{i}"}
+                for i in range(4)
+            ] + [
+                {"name": f"P1 junk {i}", "artists": [{"name": "Other"}], "uri": f"u:p1j-{i}"}
+                for i in range(6)
             ]
         }
     }
 
-    responses = [MagicMock(), MagicMock()]
-    for resp, payload in zip(responses, [page_0, page_1]):
+    responses = []
+    for payload in [artist_page, plain_0, plain_10]:
+        resp = MagicMock()
         resp.raise_for_status = lambda: None
         resp.json.return_value = payload
+        responses.append(resp)
 
     with patch(
         "wacken_playlist.services.spotify.requests.get",
@@ -161,49 +178,35 @@ def test_get_top_tracks_paginates_when_first_page_has_too_few_matches():
     ) as mock_get:
         tracks = client.get_top_tracks("Powerwolf")
 
-    assert mock_get.call_count == 2
+    assert mock_get.call_count == 3
     assert len(tracks) == 10
-    names = [t["name"] for t in tracks]
-    assert names[:9] == [f"P0 hit {i}" for i in range(9)]
-    assert names[9] == "P1 hit"
-    # Confirm offsets were 0 then 10.
-    first_offset = mock_get.call_args_list[0].kwargs["params"]["offset"]
-    second_offset = mock_get.call_args_list[1].kwargs["params"]["offset"]
-    assert (first_offset, second_offset) == (0, 10)
+    # Verify query order: artist: first, then plain text with offset 0 and 10
+    assert 'artist:' in mock_get.call_args_list[0].kwargs["params"]["q"]
+    assert mock_get.call_args_list[1].kwargs["params"]["q"] == "Powerwolf"
+    assert mock_get.call_args_list[1].kwargs["params"]["offset"] == 0
+    assert mock_get.call_args_list[2].kwargs["params"]["offset"] == 10
 
 
-def test_get_top_tracks_caps_at_two_pages():
-    """Hard cap at MAX_TOP_TRACKS_PAGES=2 even if neither page filled
-    the bucket — we stop instead of looping indefinitely."""
+def test_get_top_tracks_caps_at_six_queries():
+    """Hard cap: artist: query + MAX_TOP_TRACKS_PAGES(5) plain-text pages = 6
+    total queries, even if none of them filled the bucket."""
     from unittest.mock import MagicMock
 
     client = _make_client()
     client._token = "t"
     client._token_expires_at = time.time() + 1000
 
-    page = {
-        "tracks": {
-            "items": [
-                {"name": "ours", "artists": [{"name": "Sparseband"}], "uri": "u:a"},
-            ] + [
-                {"name": f"junk {i}", "artists": [{"name": "Other"}], "uri": f"u:j-{i}"}
-                for i in range(9)
-            ]
-        }
-    }
-
     responses = []
-    for _ in range(3):
+    for i in range(7):  # 7 prepared; only 6 should be consumed
         resp = MagicMock()
         resp.raise_for_status = lambda: None
-        # Each page must have a fresh items list (we de-dupe by uri).
         resp.json.return_value = {
             "tracks": {
                 "items": [
-                    {"name": f"ours-{len(responses)}", "artists": [{"name": "Sparseband"}], "uri": f"u:a-{len(responses)}"},
+                    {"name": f"hit-{i}", "artists": [{"name": "Sparseband"}], "uri": f"u:h-{i}"},
                 ] + [
-                    {"name": f"junk-{len(responses)}-{i}", "artists": [{"name": "Other"}], "uri": f"u:j-{len(responses)}-{i}"}
-                    for i in range(9)
+                    {"name": f"junk-{i}-{j}", "artists": [{"name": "Other"}], "uri": f"u:j-{i}-{j}"}
+                    for j in range(9)
                 ]
             }
         }
@@ -215,8 +218,8 @@ def test_get_top_tracks_caps_at_two_pages():
     ) as mock_get:
         tracks = client.get_top_tracks("Sparseband")
 
-    assert mock_get.call_count == 2  # capped — would otherwise hit 3
-    assert len(tracks) == 2  # one match per page, two pages
+    assert mock_get.call_count == 6  # artist: + 5 plain pages, never a 7th
+    assert len(tracks) == 6  # one match per query
 
 
 def test_get_top_tracks_filters_out_tracks_by_other_artists():

@@ -6,4 +6,4 @@ Bumping APP_VERSION:
 - Updates the manifest version exposed via window.__appVersion.
 """
 
-APP_VERSION = "0.3.0-embers"
+APP_VERSION = "0.4.0"

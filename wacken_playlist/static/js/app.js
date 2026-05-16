@@ -97,12 +97,15 @@ function applyLanguage(language) {
   });
 }
 
-bandSearch?.addEventListener("input", () => {
-  const query = bandSearch.value.trim().toLowerCase();
+function filterBands() {
+  const query = bandSearch ? bandSearch.value.trim().toLowerCase() : "";
   bandOptions.forEach((option) => {
-    option.hidden = query && !option.dataset.bandName.includes(query);
+    option.classList.toggle("is-hidden", Boolean(query) && !option.dataset.bandName.includes(query));
   });
-});
+}
+
+bandSearch?.addEventListener("input", filterBands);
+bandSearch?.addEventListener("search", filterBands);
 
 clearSelection?.addEventListener("click", () => {
   bandCheckboxes.forEach((checkbox) => {
@@ -229,3 +232,44 @@ languageButtons.forEach((button) => {
 });
 
 applyLanguage(getInitialLanguage());
+
+// ───────── Dynamic countdown ─────────
+
+(function updateCountdown() {
+  const el = document.getElementById("countdown-days");
+  if (!el) return;
+  const target = new Date(el.dataset.targetDate + "T00:00:00");
+  const now = new Date();
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const days = Math.ceil((target - now) / msPerDay);
+  el.textContent = days > 0 ? days : 0;
+})();
+
+// ───────── Loading states on form submit ─────────
+
+function applyLoadingState(fabId, translationKey, fallback) {
+  const fab = document.getElementById(fabId);
+  if (!fab) return;
+  const lang = languageInput?.value || DEFAULT_LANGUAGE;
+  const dict = translations[lang] || translations[DEFAULT_LANGUAGE] || {};
+  fab.textContent = dict[translationKey] || fallback;
+  fab.disabled = true;
+}
+
+document.getElementById("planner-form")?.addEventListener("submit", () => {
+  applyLoadingState("fab-preview", "preview_loading", "Loading…");
+});
+
+document.getElementById("create-form-element")?.addEventListener("submit", () => {
+  applyLoadingState("fab-create", "create_loading", "Creating…");
+});
+
+// ───────── Mobile auto-scroll to summary when there's a result ─────────
+
+(function scrollToResultOnMobile() {
+  const summary = document.querySelector('.summary');
+  if (!summary) return;
+  if (summary.dataset.state === 'idle') return;
+  if (window.innerWidth >= 920) return;
+  summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+})();

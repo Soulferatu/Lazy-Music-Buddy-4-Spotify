@@ -4,8 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#141316">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="My W:O:A">
     <title>{{ app_name }}</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/icon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest', v=app_version) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,17 +30,17 @@
           <span>Play</span><span class="app-mark-accent">[my W:O:A]</span><span>list</span>
         </a>
         <div class="header-meta" aria-label="festival meta">
-          <span>87 acts</span>
-          <span>3 days</span>
-          <span>4 stages</span>
+          <span>{{ bands|length }} bands</span>
+          <span>4 days</span>
+          <span>8 stages</span>
         </div>
       </div>
 
       <div class="header-tools">
         <div class="countdown" title="Days until the Infield (Holy Grounds) opens">
-          <small>Holy Grounds in</small>
-          <b>74</b>
-          <span>days</span>
+          <small data-i18n="countdown_label">{{ translations.countdown_label }}</small>
+          <b id="countdown-days" data-target-date="2026-07-29">–</b>
+          <span data-i18n="countdown_unit">{{ translations.countdown_unit }}</span>
         </div>
 
         <div class="language-switch" aria-label="{{ translations.language_label }}">
@@ -64,7 +68,7 @@
       </section>
 
       <section class="workspace" aria-labelledby="stage-title">
-        <form class="planner" action="{{ url_for('main.preview') }}" method="post">
+        <form class="planner" id="planner-form" action="{{ url_for('main.preview') }}" method="post">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <input type="hidden" id="language" name="language" value="{{ form_values.language }}">
 
@@ -130,18 +134,19 @@
 
           <div class="actions">
             <p><strong id="selected-count">{{ form_values.bands|length }}</strong> <span data-i18n="selected_label">{{ translations.selected_label }}</span></p>
-            <button type="submit" id="preview-button" data-i18n="preview_button">{{ translations.preview_button }}</button>
+            <button type="submit" hidden tabindex="-1" aria-hidden="true"></button>
           </div>
         </form>
 
-        <aside class="summary" aria-live="polite">
+        <aside class="summary" aria-live="polite" data-state="{{ 'result' if result else ('preview' if preview else 'idle') }}">
           {% if result %}
             <p class="eyebrow" data-i18n="create_success_title">{{ translations.create_success_title }}</p>
             <h2>{{ result.playlist_name }}</h2>
             <p>{{ translations.create_success_copy.replace("{count}", result.track_count|string) }}</p>
-            <p>
+            <div class="result-actions">
               <a class="ghost-button" href="{{ result.spotify_url }}" target="_blank" rel="noopener" data-i18n="create_open_link">{{ translations.create_open_link }}</a>
-            </p>
+              <a class="ghost-button" href="{{ url_for('main.index', lang=language) }}" data-i18n="create_back_link">{{ translations.create_back_link }}</a>
+            </div>
             {% if result.skipped_bands %}
               <div class="notice notice-warning" role="alert">
                 <p data-i18n="create_partial_warning">{{ translations.create_partial_warning }}</p>
@@ -152,9 +157,6 @@
                 </ul>
               </div>
             {% endif %}
-            <p>
-              <a href="{{ url_for('main.index', lang=language) }}" data-i18n="create_back_link">{{ translations.create_back_link }}</a>
-            </p>
           {% elif preview %}
             <p class="eyebrow" data-i18n="local_preview">{{ translations.local_preview }}</p>
             <h2>{{ preview.playlist_name }}</h2>
@@ -192,14 +194,14 @@
             </div>
 
             {% if preview.matched %}
-              <form class="create-form" action="{{ url_for('main.create') }}" method="post">
+              <form class="create-form" id="create-form-element" action="{{ url_for('main.create') }}" method="post">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="playlist_name" value="{{ preview.playlist_name }}">
                 <input type="hidden" name="language" value="{{ language }}">
                 {% for band in preview.bands %}
                   <input type="hidden" name="bands" value="{{ band }}">
                 {% endfor %}
-                <button type="submit" data-i18n="create_button">{{ translations.create_button }}</button>
+                <button type="submit" hidden tabindex="-1" aria-hidden="true"></button>
               </form>
             {% endif %}
           {% else %}
@@ -210,6 +212,17 @@
         </aside>
       </section>
     </main>
+
+    <div class="fab-container">
+      {% if not (preview and preview.matched) %}
+      <button type="submit" form="planner-form" class="fab-btn" id="fab-preview"
+              data-i18n="preview_button">{{ translations.preview_button }}</button>
+      {% endif %}
+      {% if preview and preview.matched %}
+      <button type="submit" form="create-form-element" class="fab-btn" id="fab-create"
+              data-i18n="create_button">{{ translations.create_button }}</button>
+      {% endif %}
+    </div>
 
     <script src="{{ url_for('static', filename='js/app.js', v=app_version) }}" defer></script>
   </body>

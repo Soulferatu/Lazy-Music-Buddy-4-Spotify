@@ -1,6 +1,6 @@
 {
-  "hero_eyebrow": "Criador de playlists do Wacken Open Air",
-  "hero_lede": "Selecione as bandas do Wacken 2026 que quer ouvir, dê um nome à playlist e o app usará correspondências de artistas no Spotify para escolher as faixas mais tocadas de cada banda. A playlist é criada pela conta do app, então visitantes recebem um link do Spotify sem conectar a própria conta.",
+  "hero_eyebrow": "Monte seu W:O:A concert preview",
+  "hero_lede": "Selecione as bandas do Wacken 2026 que quer assistir ao vivo, dê um nome à playlist e deixe o app criar uma playlist do Spotify com as faixas mais populares de cada banda. Sem necessidade de login, apenas pegue seu link e rock and roll! 🤘",
   "stage_eyebrow": "Etapa 1",
   "language_label": "Idioma",
   "selection_title": "Seleção Wacken 2026",
@@ -23,7 +23,7 @@
   "spotify_api_error": "O Spotify retornou um erro inesperado.",
   "preview_eyebrow": "Prévia",
   "ready_title": "Pronto para suas escolhas",
-  "ready_copy": "Esta etapa fica local. Busca no Spotify, avisos e criação da playlist começam nas próximas etapas.",
+  "ready_copy": "Selecione as bandas que quer ouvir e clique em 'Pré-visualizar playlist' para ver o que o Spotify tem para cada artista.",
   "playlist_name_required": "Dê um nome à playlist antes de visualizar.",
   "bands_required": "Selecione pelo menos uma banda do Wacken 2026.",
   "create_button": "Criar playlist no Spotify",
@@ -33,5 +33,9 @@
   "create_back_link": "Montar outra playlist",
   "create_partial_warning": "Algumas bandas não foram encontradas e foram ignoradas:",
   "create_no_tracks_error": "Nenhuma das bandas selecionadas foi encontrada no Spotify, então nenhuma playlist foi criada.",
-  "spotify_refresh_token_missing": "A conta do app no Spotify ainda não foi autorizada. O dono do site precisa rodar a configuração inicial."
+  "spotify_refresh_token_missing": "A conta do app no Spotify ainda não foi autorizada. O dono do site precisa rodar a configuração inicial.",
+  "preview_loading": "Buscando bandas no Spotify…",
+  "create_loading": "Criando sua playlist…",
+  "countdown_label": "Holy Grounds em",
+  "countdown_unit": "dias"
 }

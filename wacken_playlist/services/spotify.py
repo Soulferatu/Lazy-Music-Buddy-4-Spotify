@@ -124,25 +124,25 @@ class SpotifyClient:
 
         return max(artists, key=lambda a: a.get("popularity", 0))
 
-    MAX_TOP_TRACKS_PAGES = 2
+    MAX_TOP_TRACKS_PAGES = 5
     _SEARCH_PAGE_SIZE = 10
 
     def get_top_tracks(self, artist_name: str, market: str = "US") -> list[dict]:
         """Return up to 10 top tracks for an artist.
 
-        Uses /search?q=NAME&type=track with `limit=10`, then filters
-        results whose primary artist matches `artist_name`
-        (case-insensitive). Paginates via the `offset` parameter for up
-        to `MAX_TOP_TRACKS_PAGES` pages so we still reach 10 matches when
-        the first page contains covers or unrelated hits.
+        Uses a two-strategy approach to maximise reliable matches:
 
-        Note on the query shape: the dedicated `GET /artists/{id}/top-tracks`
-        endpoint was removed in Spotify's February 2026 changelog. The
-        natural replacement `/search?q=artist:NAME` is silently capped at
-        5 results regardless of `limit`. A plain `q=NAME` query honors
-        `limit=10`, at the cost of returning some non-matching items
-        (covers, tracks that mention the name in their title) that we
-        filter out client-side.
+        1. `artist:"NAME"` qualifier first — highly targeted; Spotify caps
+           this at ~5 results regardless of `limit`, but all results are
+           reliably by the right artist. Essential for bands with generic
+           names (e.g. "The Other", "Allt") where a plain-text query
+           returns mostly unrelated tracks.
+
+        2. Plain `q=NAME` search for up to MAX_TOP_TRACKS_PAGES pages —
+           returns more items but needs client-side primary-artist
+           filtering to discard covers and unrelated hits.
+
+        Results are deduplicated by URI across both strategies.
 
         `market` is accepted for forward compatibility but unused —
         /search is market-agnostic.
@@ -153,10 +153,19 @@ class SpotifyClient:
         tracks: list[dict] = []
         seen_uris: set[str] = set()
 
-        for page in range(self.MAX_TOP_TRACKS_PAGES):
-            offset = page * self._SEARCH_PAGE_SIZE
+        queries: list[tuple[str, int]] = [
+            (f'artist:"{artist_name}"', 0),
+        ] + [
+            (artist_name, page * self._SEARCH_PAGE_SIZE)
+            for page in range(self.MAX_TOP_TRACKS_PAGES)
+        ]
+
+        for query, offset in queries:
+            if len(tracks) >= self.DEFAULT_TOP_TRACKS_PER_ARTIST:
+                break
+
             params = {
-                "q": artist_name,
+                "q": query,
                 "type": "track",
                 "limit": self._SEARCH_PAGE_SIZE,
                 "offset": offset,
@@ -191,9 +200,10 @@ class SpotifyClient:
                 if primary.strip().lower() != target:
                     continue
                 uri = track.get("uri", "")
-                if uri and uri in seen_uris:
+                dedup_key = uri if uri else f"{track.get('name', '').lower()}|{primary.lower()}"
+                if dedup_key in seen_uris:
                     continue
-                seen_uris.add(uri)
+                seen_uris.add(dedup_key)
                 tracks.append({
                     "name": track.get("name", ""),
                     "artist": primary,
@@ -206,18 +216,12 @@ class SpotifyClient:
             logger.info(
                 "Spotify /search?q=%s offset=%d returned %d items; "
                 "%d matched primary artist (total matches so far: %d)",
-                artist_name,
+                query,
                 offset,
                 len(items),
                 page_matches,
                 len(tracks),
             )
-
-            if len(tracks) >= self.DEFAULT_TOP_TRACKS_PER_ARTIST:
-                break
-            if len(items) < self._SEARCH_PAGE_SIZE:
-                # Spotify gave us fewer than a full page; no more pages exist.
-                break
 
         return tracks
 

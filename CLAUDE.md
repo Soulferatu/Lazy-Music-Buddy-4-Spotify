@@ -16,11 +16,11 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 ## Current Stage
 
-**Stage 4 — First PWA Release Polish.**
+**Stage 5 — Optional Personal Spotify Login** (next up).
 
-- Stages 0, 1, 2, 3 are complete. Stage 3 delivered: dev-only OAuth setup at `/auth/spotify/login` → `/auth/spotify/callback` (one-time refresh-token capture), refresh-token-based `SpotifyClient.create_playlist` using the post-Feb-2026 endpoints `/me/playlists` and `/playlists/{id}/items`, `PlaylistBuilder.build_and_create`, CSRF-protected `POST /create`, result UI with skipped-bands reporting, and `get_top_tracks` paginating up to 2 `/search` pages to reliably yield 10 tracks per band. Default visibility public. Details: [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md).
+- Stages 0–4 are complete (2026-05-16). Stage 4 delivered: loading states on Preview/Create, mobile auto-scroll to summary, dynamic countdown to July 29 2026, stale copy fixes, Apple PWA meta tags, manifest `scope`, service worker fix, floating action buttons (FAB) with proper fixed positioning, result page buttons in side-by-side layout, extended Spotify artist search pagination (5 pages), version `0.4.0`. Details: [wiki/stage4_pwa_polish.md](wiki/stage4_pwa_polish.md).
 - Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place.
-- Next milestone: polish PWA install + responsive layout + loading/success/error states so the app-owned flow is pleasant on mobile.
+- Next milestone: let users optionally create the playlist in their own Spotify account (user OAuth login, session storage, personal playlist creation path, logout).
 
 ## Confirmed Product Decisions
 

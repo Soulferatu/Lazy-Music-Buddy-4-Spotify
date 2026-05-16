@@ -14,6 +14,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 | [wiki/stage1_implementation.md](wiki/stage1_implementation.md) | Records what was built in Stage 0 and Stage 1, file responsibilities, routes, and Stage 2 prerequisites. | Codebase, [raw/product_decisions_stage0.md](raw/product_decisions_stage0.md) | Development stages, Spotify integration, PWA requirements |
 | [wiki/stage2_spotify_preview.md](wiki/stage2_spotify_preview.md) | Records what Stage 2 delivers, the Spotify port into the service layer, configuration, and tests. | Codebase, original branch `stage2/spotify-preview` | Phase 4 services, development stages, Spotify integration |
 | [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md) | Records the Stage 3 build: OAuth setup flow, `SpotifyClient` create_playlist, `PlaylistBuilder.build_and_create`, `POST /create`, result UI, and operator setup walkthrough. | Codebase | Stage 2 preview, Spotify integration, development stages |
+| [wiki/stage4_pwa_polish.md](wiki/stage4_pwa_polish.md) | Records Stage 4: loading states, mobile auto-scroll, dynamic countdown, Apple PWA meta tags, manifest scope, SW fix, version bump; known local PWA limitations. | Codebase | PWA requirements, Stage 3 playlist creation |
 
 ## Knowledge Areas
 
@@ -22,7 +23,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 - Project brief and staged roadmap: [Start.MD](Start.MD)
 - Wiki workflow: [wiki_start.md](wiki_start.md)
 - Project overview: [wiki/project_overview.md](wiki/project_overview.md)
-- Development stages (current: Stage 3 next): [wiki/development_stages.md](wiki/development_stages.md)
+- Development stages (current: Stage 5 next): [wiki/development_stages.md](wiki/development_stages.md)
 - Spotify integration: [wiki/spotify_integration.md](wiki/spotify_integration.md)
 - PWA requirements: [wiki/pwa_requirements.md](wiki/pwa_requirements.md)
 

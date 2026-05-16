@@ -20,6 +20,8 @@ foreach ($process in $processes) {
     Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
 }
 
-Write-Host "Starting Flask dev server on http://127.0.0.1:$Port"
+Write-Host "Starting Flask dev server on http://0.0.0.0:$Port (all interfaces)"
+Write-Host "Access from this machine : http://127.0.0.1:$Port"
+Write-Host "Access from phone/tablet : http://<your-PC-IP>:$Port"
 Set-Location $RepoRoot
-py -m flask --app $AppImport --debug run --host 127.0.0.1 --port $Port
+py -m flask --app $AppImport --debug run --host 0.0.0.0 --port $Port

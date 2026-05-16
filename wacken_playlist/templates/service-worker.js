@@ -24,7 +24,6 @@ self.addEventListener("activate", (event) => {
       }))
     )
   );
-  self.skipWaiting();
   self.clients.claim();
 });
 

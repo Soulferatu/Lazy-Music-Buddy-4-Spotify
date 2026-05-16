@@ -23,8 +23,8 @@ This roadmap has **two axes**:
 | 1 | App shell + Wacken 2026 selection | Low–Medium | ✅ Done |
 | 2 | Spotify lookup + preview | Medium–High | ✅ Done |
 | 3 | App-owned playlist creation | High | ✅ Done |
-| 4 | **First PWA polish** | **Medium** | 🔨 **Current** |
-| 5 | Optional personal Spotify login | High | ⏳ Pending |
+| 4 | First PWA polish | Medium | ✅ Done |
+| 5 | **Optional personal Spotify login** | **High** | 🔨 **Current** |
 | 6 | setlist.fm song source | High | ⏳ Pending |
 | 7 | Previous Wacken years | High | ⏳ Pending |
 | 8 | Mix years + shuffle | Medium–High | ⏳ Pending |
@@ -123,37 +123,35 @@ Architecture migration: Phases 1–6 all ✅ Done — see [Architecture Phases (
 
 ---
 
-## Stage 4 — First PWA Release Polish 🔨 CURRENT
+## Stage 4 — First PWA Release Polish ✅
 
 **Goal:** make app-owned mode pleasant on phone and browser before adding more features.
 
 **Difficulty:** Medium.
+
+**Status:** complete (2026-05-16). Details in [wiki/stage4_pwa_polish.md](wiki/stage4_pwa_polish.md).
+
+**What was delivered:**
+
+- **Loading states** — Preview and Create buttons disable and relabel while Spotify calls run (`preview_loading` / `create_loading` i18n keys; `button:disabled` style).
+- **Mobile auto-scroll** — on viewports < 920 px, the page scrolls to the summary panel automatically after Preview/Create so the result is immediately visible without scrolling past 87 band tiles.
+- **Dynamic countdown** — JS calculates days until July 29, 2026 (Holy Grounds opening) from `data-target-date`; no longer hardcoded.
+- **Stale copy fixed** — `ready_copy` no longer says "Spotify search begins in later stages."
+- **Apple PWA meta tags** — `apple-mobile-web-app-capable`, `apple-mobile-web-app-status-bar-style`, `apple-mobile-web-app-title`, `apple-touch-icon` link.
+- **Manifest `scope`** — added `"scope": "/"`.
+- **Service worker fix** — removed redundant `self.skipWaiting()` from the activate handler (was a no-op but incorrect).
+- **Floating action buttons (FAB)** — Preview/Create buttons are now truly fixed-position in bottom-right corner, stay visible while scrolling, with `pointer-events` handling to prevent interference.
+- **Mobile FAB sizing** — on screens ≤760px, buttons adjust padding/position (20px margins, 44px min-height) to prevent cutoff on small devices.
+- **Result page buttons** — "Open in Spotify" and "Build another playlist" buttons now display side-by-side with flexbox layout, both styled as ghost buttons (outline with gold border), gracefully stack on mobile.
+- **Extended Spotify search** — increased pagination from 2 to 5 pages to improve track matching for bands with generic names (The Haunted, Allt, The Other, etc.).
+- **Flask network binding** — changed dev server from `--host 127.0.0.1` to `--host 0.0.0.0` to enable mobile phone testing on local network.
+- **Version** — `version.py` → `0.4.0` (cache-bust SW and static assets).
 
 ### Prerequisites
 
 - ✅ Single-source service worker versioning (Phase 5D) — already in place.
 - ✅ Placeholder app icon already in repo at `wacken_playlist/static/icons/icon.svg` and `icon.png` and wired into `manifest.webmanifest`. Stage 4 can ship with these. To swap in a final icon, just overwrite those two files (same names, same paths) — no code change needed; a `version.py` bump will bust the cache.
 - Stage 3 must be working end-to-end.
-
-### User Actions
-
-- Test the app on your phone (mobile browser + Add to Home Screen).
-- Decide whether the current placeholder icon is good enough for first release or you want a final icon designed. If final: provide updated `icon.svg` and `icon.png` files (Claude will overwrite the existing ones at the same paths).
-- Review the loading / success / warning / error messaging copy.
-
-### Claude's Actions
-
-- Verify and polish the PWA manifest and service worker.
-- Keep using the existing icon files at `wacken_playlist/static/icons/icon.svg` / `icon.png` unless you supply replacements — same filenames, same paths, drop-in replace.
-- Improve responsive layout for narrow viewports.
-- Add explicit loading states while Spotify calls run.
-- Add clear result and failure screens.
-- Document known local PWA limitations.
-
-### Critical Points
-
-- Service worker caching can serve stale files — invalidate via `version.py` bump and verify in incognito.
-- Mobile browsers differ in install behavior (Safari vs Chrome vs Firefox).
 
 ### Completion Gate
 

@@ -244,7 +244,7 @@ body::after {
 .app-shell {
   width: min(1240px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 28px 0 60px;
+  padding: 28px 0 100px;
 }
 
 .intro {
@@ -372,7 +372,7 @@ body::after {
   gap: 16px;
   padding: 22px;
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   background: rgb(20 19 22 / 78%);
   border: 1px solid var(--line);
   border-radius: 2px;
@@ -586,13 +586,14 @@ input[type="search"]:focus {
 .actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
   margin-top: 4px;
   padding-top: 14px;
   border-top: 1px solid rgb(255 255 255 / 6%);
 }
+
+.band-option.is-hidden { display: none; }
 
 .actions p {
   margin: 0;
@@ -620,8 +621,7 @@ button,
   cursor: pointer;
 }
 
-button[type="submit"],
-#preview-button {
+button[type="submit"] {
   position: relative;
   background: linear-gradient(180deg, var(--gold-2), var(--gold));
   color: #0a090b;
@@ -633,8 +633,40 @@ button[type="submit"],
   transition: box-shadow 220ms ease;
 }
 
-button[type="submit"]::after,
-#preview-button::after {
+.fab-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.fab-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  pointer-events: auto;
+  white-space: nowrap;
+  background: linear-gradient(180deg, var(--gold-2), var(--gold));
+  color: #0a090b;
+  font-family: "Cinzel Decorative", Georgia, serif;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  overflow: hidden;
+  min-height: 48px;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 32px rgb(0 0 0 / 75%), 0 0 40px rgb(224 184 79 / 35%), inset 0 0 0 1px rgb(255 255 255 / 12%);
+  transition: box-shadow 220ms ease;
+}
+
+.fab-btn::after,
+button[type="submit"]::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -643,12 +675,27 @@ button[type="submit"]::after,
   transition: transform 0.6s;
 }
 
-button[type="submit"]:hover::after,
-#preview-button:hover::after { transform: translateX(100%); }
+.fab-btn:hover::after,
+button[type="submit"]:hover::after { transform: translateX(100%); }
 
-button[type="submit"]:hover,
-#preview-button:hover {
+.fab-btn:hover {
+  box-shadow: 0 8px 40px rgb(0 0 0 / 80%), 0 0 50px rgb(224 184 79 / 55%), inset 0 0 0 1px rgb(255 255 255 / 20%);
+}
+
+button[type="submit"]:hover {
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 15%), 0 14px 50px rgb(224 184 79 / 50%);
+}
+
+.fab-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .ghost-button {
@@ -666,6 +713,13 @@ button[type="submit"]:hover,
 .ghost-button:hover {
   background: var(--gold);
   color: #000;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 /* ───────── Notices ───────── */
@@ -803,8 +857,13 @@ button[type="submit"]:hover,
   .header-meta { padding-left: 0; border-left: 0; }
   .field-row { grid-template-columns: 1fr; }
   .planner-header { flex-direction: column; align-items: stretch; }
-  .actions { flex-direction: column; align-items: stretch; }
-  .actions button { width: 100%; }
+  .fab-btn {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    font-size: 13px;
+    min-height: 44px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

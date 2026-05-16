@@ -3,6 +3,7 @@
   "short_name": "My W:O:A",
   "description": "Build Spotify playlists from Wacken Open Air band selections.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#121317",
   "theme_color": "#141316",
