@@ -1,0 +1,120 @@
+# Play[my W:O:A]list — Project Brief for Claude
+
+This file is the single entry point for any Claude session on this repo. It states what the project is, where it stands, and how Claude should operate. For the full roadmap and per-phase detail, see [PHASES.md](PHASES.md).
+
+## End Goal
+
+Build a browser-first Progressive Web App (installable on phone or desktop) that lets a user:
+
+1. Pick Wacken Open Air bands (starting with the 2026 lineup, later extending to historical years and cross-year mixes).
+2. Name a playlist.
+3. Receive a real Spotify playlist generated from those bands — either created in a dedicated app-owned Spotify account (and shared via link) or, optionally, in the visitor's own Spotify account.
+4. Choose between Spotify top tracks or the latest setlist.fm setlist as the song source.
+5. Generate shuffle/blended playlists across multiple Wacken years.
+
+The app must be installable as a PWA, work on mobile and desktop, and never commit secrets.
+
+## Current Stage
+
+**Stage 3 — App-owned Spotify playlist creation.**
+
+- Stages 0, 1, 2 are complete.
+- Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place, so Stage 3 drops into existing slots.
+- Next milestone: a visitor can pick bands, hit "Create", and get back a working Spotify link owned by the app account, with no visitor login.
+
+See [PHASES.md](PHASES.md) for what Stage 3 requires from the user (Spotify Developer credentials, dedicated app account, one-time OAuth) and from Claude (OAuth route, refresh-token capture, playlist creation, error handling).
+
+## Confirmed Product Decisions
+
+| Decision | Choice |
+|---|---|
+| App name | Play[my W:O:A]list |
+| Visual style | A1v3 "Embers" — dark festival dashboard. Near-black base (#141316 / #0a090b / #1a1418) with ember orange (#ff4500) and ember-glow (#ff8a3d) as primary accents, blood red (#8b0000) for depth and "blood splatter" radial gradients in the page background, paper-cream (#f5f1e8) for body text. Gold (#e0b84f / #f5d27a) is used sparingly — only the CTA button, the round W mark, and a few headline highlights. |
+| Heading font | Cinzel Decorative Bold |
+| Body font | Inter (Inter Tight in hero/UI) |
+| Accent font | Special Elite (eyebrows, badges, ticket metadata) |
+| Language | Bilingual EN / pt-BR, switchable in UI |
+| Layout | Checklist-first, single-page flow |
+| First Spotify mode | App-owned mode |
+| Local dev | Sufficient through Stage 4 |
+| Backend | Flask |
+| Frontend | Server-rendered HTML + vanilla JS + responsive CSS |
+| App icon | Existing placeholder at `wacken_playlist/static/icons/icon.svg` and `icon.png` — used by the PWA manifest. Replace by overwriting those two files when a final icon is approved; no code change needed. |
+
+Open decisions: final logo/install icon (placeholder in use), hosting provider (Stage 9), whether to enable personal Spotify login (Stage 5).
+
+## Tech Stack
+
+- **Backend:** Flask (app factory pattern, typed `Config` classes).
+- **Frontend:** Jinja2 templates, vanilla JS, responsive CSS, PWA manifest + service worker.
+- **APIs:** Spotify Web API (Stage 2+), setlist.fm API (Stage 6+).
+- **Data:** JSON files in `wacken_playlist/data/lineups/`; SQLite considered later if auth/session storage needs it.
+- **Tests:** `pytest` split into `tests/unit/` and `tests/integration/` with shared `conftest.py`.
+- **i18n:** `wacken_playlist/i18n/{en,pt-BR}.json`, injected into templates and exposed to JS via `window.__translations`.
+- **Production entry:** `wsgi.py` for Gunicorn.
+
+## Repository Map
+
+```
+wacken_playlist/        Flask app package
+  __init__.py           create_app factory + service wiring
+  config.py             Development / Testing / Production configs
+  models.py             Band, PlaylistRequest, PlaylistPreview, MatchedBand, PlaylistResult
+  routes.py             Thin HTTP handlers — no business logic
+  lineup.py             LineupRepository (reads data/lineups/*.json)
+  services/             SpotifyClient, PlaylistBuilder, SetlistFmClient (stub)
+  i18n/                 en.json, pt-BR.json
+  data/lineups/         wacken_2026.json (more years later)
+  templates/            base.html, index.html
+  static/               CSS, JS, service worker, icons
+  version.py            Single source of cache-busting version
+tests/
+  conftest.py
+  unit/                 No Flask, no I/O — pure service tests
+  integration/          Uses test_client + mocked services
+wiki/                   Processed knowledge pages (see Wiki Workflow below)
+raw/                    Original source material (prompts, decisions)
+scripts/                restart-dev.ps1 (Windows), dev.sh (macOS/Linux)
+wsgi.py                 Production entry point
+```
+
+## Operating Rules for Claude
+
+These are durable instructions. Follow them every session.
+
+1. **Never commit without explicit approval.** The user reviews every change before it is committed. Stage and propose; do not run `git commit` unsolicited.
+2. **Update CLAUDE.md and PHASES.md after every meaningful step.** When a phase completes, when the current stage shifts, when a decision is made, or when a new prerequisite appears — reflect it here and in [PHASES.md](PHASES.md) before moving on.
+3. **Never commit secrets.** Spotify and setlist.fm credentials live only in `.env` (and production secret stores). The repo carries `.env.example` only.
+4. **Respect the wiki architecture** — see Wiki Workflow below. New durable knowledge becomes a `wiki/` page; raw sources go in `raw/`; cross-links go through [index.md](index.md); every ingest is logged in [log.md](log.md).
+5. **Ask when uncertain.** The user has minimal dev experience and explicitly wants to be consulted on unclear decisions. Prefer a short clarifying question over guessing.
+6. **One source of truth per concern.** Translations in `i18n/*.json` only. Band data in `data/lineups/*.json` only. Cache version in `version.py` only. Do not duplicate.
+7. **Tests follow the split.** Pure logic → `tests/unit/`. HTTP-touching → `tests/integration/`. Integration tests mock `SpotifyClient` via the `mock_spotify` fixture.
+8. **No premature abstractions.** No DI containers, no ORM, no Blueprint split until a stage actually needs them. See Explicit Non-Goals in [PHASES.md](PHASES.md).
+
+## Wiki Workflow
+
+The project uses an LLM-friendly wiki structure so knowledge stays searchable and auditable across sessions.
+
+- `raw/` — original sources (prompts, decisions, exports). Do not rewrite in place.
+- `wiki/` — processed knowledge pages. One topic per page, lowercase filenames with underscores.
+- [index.md](index.md) — master index linking every wiki page to its purpose and related pages.
+- [log.md](log.md) — chronological record of every ingest or wiki update.
+- [wiki_start.md](wiki_start.md) — the full workflow specification.
+
+When adding knowledge:
+
+1. Put original material in `raw/` if there is a durable source.
+2. Create or update one focused page in `wiki/`.
+3. Link it from `index.md` (including the `Related Pages` column).
+4. Log the change in `log.md`.
+
+Search the wiki with ripgrep from the project root, e.g. `rg "OAuth" raw wiki index.md log.md`.
+
+## Historical / Archived Docs
+
+The following remain for reference but are no longer the primary sources of truth — CLAUDE.md and PHASES.md are:
+
+- [Start.MD](Start.MD) — original product brief and stage-by-stage spec.
+- [ARCH_MIGRATION_PLAN.md](ARCH_MIGRATION_PLAN.md) — full architecture migration plan with rationale.
+- [wiki/project_overview.md](wiki/project_overview.md), [wiki/development_stages.md](wiki/development_stages.md) — earlier roadmap summaries.
+- [wiki/spotify_integration.md](wiki/spotify_integration.md), [wiki/pwa_requirements.md](wiki/pwa_requirements.md), [wiki/stage1_implementation.md](wiki/stage1_implementation.md), [wiki/stage2_spotify_preview.md](wiki/stage2_spotify_preview.md), [wiki/phase1_config_models.md](wiki/phase1_config_models.md) … [wiki/phase6_test_architecture.md](wiki/phase6_test_architecture.md) — deep dives still authoritative for their topics.
