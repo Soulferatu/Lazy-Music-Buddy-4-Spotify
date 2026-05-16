@@ -25,5 +25,13 @@
   "ready_title": "Pronto para suas escolhas",
   "ready_copy": "Esta etapa fica local. Busca no Spotify, avisos e criação da playlist começam nas próximas etapas.",
   "playlist_name_required": "Dê um nome à playlist antes de visualizar.",
-  "bands_required": "Selecione pelo menos uma banda do Wacken 2026."
+  "bands_required": "Selecione pelo menos uma banda do Wacken 2026.",
+  "create_button": "Criar playlist no Spotify",
+  "create_success_title": "Sua playlist está no ar",
+  "create_success_copy": "{count} faixas foram adicionadas à sua playlist do Wacken no Spotify.",
+  "create_open_link": "Abrir no Spotify",
+  "create_back_link": "Montar outra playlist",
+  "create_partial_warning": "Algumas bandas não foram encontradas e foram ignoradas:",
+  "create_no_tracks_error": "Nenhuma das bandas selecionadas foi encontrada no Spotify, então nenhuma playlist foi criada.",
+  "spotify_refresh_token_missing": "A conta do app no Spotify ainda não foi autorizada. O dono do site precisa rodar a configuração inicial."
 }

@@ -22,8 +22,8 @@ This roadmap has **two axes**:
 | 0 | Fresh repository setup | Low | ✅ Done |
 | 1 | App shell + Wacken 2026 selection | Low–Medium | ✅ Done |
 | 2 | Spotify lookup + preview | Medium–High | ✅ Done |
-| 3 | **App-owned playlist creation** | **High** | 🔨 **Current** |
-| 4 | First PWA polish | Medium | ⏳ Pending |
+| 3 | App-owned playlist creation | High | ✅ Done |
+| 4 | **First PWA polish** | **Medium** | 🔨 **Current** |
 | 5 | Optional personal Spotify login | High | ⏳ Pending |
 | 6 | setlist.fm song source | High | ⏳ Pending |
 | 7 | Previous Wacken years | High | ⏳ Pending |
@@ -95,59 +95,35 @@ Architecture migration: Phases 1–6 all ✅ Done — see [Architecture Phases (
 
 ---
 
-## Stage 3 — App-Owned Playlist Creation 🔨 CURRENT
+## Stage 3 — App-Owned Playlist Creation ✅
+
+**Status:** complete (2026-05-16). Details in [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md).
 
 **Goal:** the visitor selects bands, hits "Create", and gets back a Spotify playlist link owned by the dedicated app account. No visitor login.
 
-**Difficulty:** **High** — first stage that mutates Spotify state.
+**Difficulty:** High — first stage that mutates Spotify state.
 
-### Prerequisites
+**What was delivered:**
 
-Architecture-side (already in place):
+- Dev-only OAuth setup flow: `GET /auth/spotify/login` (state-CSRF, `show_dialog=true`) and `GET /auth/spotify/callback` (state verification, refresh-token display). Both 404 outside DEBUG.
+- `SpotifyClient.build_authorize_url`, `exchange_code_for_refresh_token`, `_get_app_access_token` (cached refresh-token flow), `create_playlist(name, uris, public=True, description="")` with 100-URI chunking against the Feb-2026 endpoints `POST /me/playlists` and `POST /playlists/{id}/items`.
+- `get_top_tracks` now returns each track's `uri`, uses plain-text `/search?q=NAME` (the `artist:NAME` qualifier is silently capped at 5 results post Feb 2026), filters results to the requested primary artist, and paginates up to 2 pages (offsets 0 and 10) to reliably reach 10 tracks per band.
+- `PlaylistBuilder.build_and_create` reuses preview matching, collects URIs, raises `NoMatchedTracksError` if empty, otherwise calls `create_playlist` and returns `PlaylistResult`.
+- CSRF-protected `POST /create` route; localized error mapping for config / auth / API / refresh-token-missing / no-matches cases.
+- Summary aside in `index.html` gained a third state (result) with Spotify link + skipped-bands warning + back link.
+- Unit and integration tests covering create_playlist endpoints + chunking, token caching, builder happy + partial + no-match paths, `/create` route success/error paths, pagination kick-in, and 2-page cap. Suite green (64/64).
 
-- ✅ CSRF protection on POST forms (Phase 5A).
-- ✅ `SECRET_KEY` enforcement in production (Phase 5B).
-- ✅ `wsgi.py` production entry (Phase 5C).
-- ✅ `PlaylistBuilder.build_and_create()` interface declared (currently raises `NotImplementedError`).
+**Default visibility:** public (chosen so shareable links are visible to anyone who opens them).
 
-Product-side (need user action — see below).
+**Operator setup walkthrough:** in [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md). One-time: log into the app-owned Spotify account in a browser, visit `/auth/spotify/login`, paste the returned refresh token into `.env` as `SPOTIFY_APP_REFRESH_TOKEN`, restart.
 
-### User Actions
+**Spotify Feb 2026 API migration:** the dedicated `GET /artists/{id}/top-tracks`, `POST /users/{user_id}/playlists`, and `POST /playlists/{id}/tracks` endpoints were removed in Spotify's [February 2026 changelog](https://developer.spotify.com/documentation/web-api/references/changes/february-2026). `SpotifyClient` was migrated to the replacements; see [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md) for the full migration note and the lesson learned (check Spotify changelogs before chasing scope/account theories on bare 403s).
 
-1. **Create Spotify Developer app credentials** at https://developer.spotify.com/dashboard (if not already done).
-2. **Create or choose the dedicated app-owned Spotify account.** This account will own every playlist generated in app-owned mode.
-3. **Register the local redirect URL** in the Spotify Developer dashboard (e.g. `http://127.0.0.1:1337/auth/spotify/callback` — Claude will confirm the exact path before you add it).
-4. **Run the one-time OAuth authorization** from the local app while logged into the app-owned account. Claude will provide a setup route or CLI command for this.
-5. **Decide:** should generated playlists be public or private by default?
-6. **Review a test playlist** end-to-end before declaring the stage done.
-
-### Claude's Actions
-
-1. Add an OAuth route (Authorization Code flow) for one-time app-owned-account authorization, plus a CLI/script alternative.
-2. Capture the resulting **refresh token** and store it via `SPOTIFY_APP_REFRESH_TOKEN` in `.env` (never committed).
-3. Extend `SpotifyClient` with refresh-token-based access-token retrieval and `create_playlist(name, track_uris)`.
-4. Implement `PlaylistBuilder.build_and_create(request) -> PlaylistResult`.
-5. Add a `POST /create` route (CSRF-protected) that runs the preview → create flow and returns the Spotify link.
-6. Add a result page rendering the playlist link + partial-success reporting (unmatched bands, skipped tracks).
-7. Add Spotify rate-limit and error handling.
-8. Add unit tests for playlist payload construction and integration tests for the create flow (mocking Spotify).
-9. Update [CLAUDE.md](CLAUDE.md), this file, and create `wiki/stage3_playlist_creation.md` plus an [index.md](index.md) and [log.md](log.md) entry.
-
-### Critical Points
-
-- OAuth redirect URL, scopes, and env vars must match exactly — small typos cause silent auth failures.
-- Refresh token must never be committed. Verify `.gitignore` covers `.env`.
-- The app-owned account can accumulate many playlists; consider naming convention or cleanup story (deferable).
-- Public vs private default needs an explicit decision before code lands.
-- CSRF token must be present on the new `POST /create` form.
-
-### Completion Gate
-
-A visitor can generate a Wacken 2026 playlist without logging into Spotify, and the app returns a working Spotify link owned by the app account, with partial-success reporting when some bands or tracks are missing.
+**Open / deferred:** duplicate-playlist-name handling — Spotify lets accounts have many playlists with the same name (each has a unique id), and we currently mirror that behavior (every Create click creates a fresh playlist). Naming convention or cleanup story for the app account is on the Stage 9 list. `description` field is supported by `create_playlist` but not wired into the UI; cover-art generation needs `ugc-image-upload` scope (post-Stage 9).
 
 ---
 
-## Stage 4 — First PWA Release Polish ⏳
+## Stage 4 — First PWA Release Polish 🔨 CURRENT
 
 **Goal:** make app-owned mode pleasant on phone and browser before adding more features.
 

@@ -10,6 +10,10 @@ from ..models import MatchedBand, PlaylistPreview, PlaylistRequest, PlaylistResu
 from .spotify import SpotifyClient
 
 
+class NoMatchedTracksError(Exception):
+    """Raised when build_and_create has zero track URIs to add."""
+
+
 class PlaylistBuilder:
     def __init__(
         self,
@@ -48,5 +52,32 @@ class PlaylistBuilder:
             unmatched=unmatched,
         )
 
-    def build_and_create(self, request: PlaylistRequest) -> PlaylistResult:
-        raise NotImplementedError("Spotify playlist creation lands in Stage 3.")
+    def build_and_create(
+        self, request: PlaylistRequest, public: bool = True
+    ) -> PlaylistResult:
+        """Build the preview and create the playlist in the app-owned account.
+
+        Raises NoMatchedTracksError if every selected band failed to match
+        or all matched bands returned zero tracks with URIs.
+        """
+        preview = self.build_preview(request)
+        track_uris = [
+            track["uri"]
+            for matched in preview.matched
+            for track in matched.tracks
+            if track.get("uri")
+        ]
+        if not track_uris:
+            raise NoMatchedTracksError(
+                "No Spotify tracks were resolved for the selected bands."
+            )
+
+        spotify_url = self._spotify.create_playlist(
+            request.playlist_name, track_uris, public=public
+        )
+        return PlaylistResult(
+            playlist_name=request.playlist_name,
+            spotify_url=spotify_url,
+            track_count=len(track_uris),
+            skipped_bands=preview.unmatched,
+        )

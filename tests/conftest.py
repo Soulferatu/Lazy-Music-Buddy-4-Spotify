@@ -17,7 +17,12 @@ def _default_mock_spotify() -> MagicMock:
         "popularity": 50,
     }
     mock.get_top_tracks.side_effect = lambda artist_name, market="US": [
-        {"name": f"Track {i+1}", "artist": artist_name} for i in range(10)
+        {
+            "name": f"Track {i+1}",
+            "artist": artist_name,
+            "uri": f"spotify:track:{artist_name}-{i+1}",
+        }
+        for i in range(10)
     ]
     mock.create_playlist.return_value = "https://open.spotify.com/playlist/xyz"
     return mock

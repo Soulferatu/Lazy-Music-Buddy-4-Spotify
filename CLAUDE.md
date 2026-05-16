@@ -16,13 +16,11 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 ## Current Stage
 
-**Stage 3 — App-owned Spotify playlist creation.**
+**Stage 4 — First PWA Release Polish.**
 
-- Stages 0, 1, 2 are complete.
-- Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place, so Stage 3 drops into existing slots.
-- Next milestone: a visitor can pick bands, hit "Create", and get back a working Spotify link owned by the app account, with no visitor login.
-
-See [PHASES.md](PHASES.md) for what Stage 3 requires from the user (Spotify Developer credentials, dedicated app account, one-time OAuth) and from Claude (OAuth route, refresh-token capture, playlist creation, error handling).
+- Stages 0, 1, 2, 3 are complete. Stage 3 delivered: dev-only OAuth setup at `/auth/spotify/login` → `/auth/spotify/callback` (one-time refresh-token capture), refresh-token-based `SpotifyClient.create_playlist` using the post-Feb-2026 endpoints `/me/playlists` and `/playlists/{id}/items`, `PlaylistBuilder.build_and_create`, CSRF-protected `POST /create`, result UI with skipped-bands reporting, and `get_top_tracks` paginating up to 2 `/search` pages to reliably yield 10 tracks per band. Default visibility public. Details: [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md).
+- Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place.
+- Next milestone: polish PWA install + responsive layout + loading/success/error states so the app-owned flow is pleasant on mobile.
 
 ## Confirmed Product Decisions
 

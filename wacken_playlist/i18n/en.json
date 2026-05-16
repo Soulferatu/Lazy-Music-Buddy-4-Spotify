@@ -25,5 +25,13 @@
   "ready_title": "Ready for your picks",
   "ready_copy": "This step stays local. Spotify search, warnings, and playlist creation begin in later stages.",
   "playlist_name_required": "Name the playlist before previewing it.",
-  "bands_required": "Select at least one Wacken 2026 band."
+  "bands_required": "Select at least one Wacken 2026 band.",
+  "create_button": "Create Spotify playlist",
+  "create_success_title": "Your playlist is live",
+  "create_success_copy": "{count} tracks were added to your Wacken Spotify playlist.",
+  "create_open_link": "Open in Spotify",
+  "create_back_link": "Build another playlist",
+  "create_partial_warning": "Some bands could not be matched and were skipped:",
+  "create_no_tracks_error": "None of the selected bands matched on Spotify, so no playlist was created.",
+  "spotify_refresh_token_missing": "App-owned Spotify account is not authorized yet. The site owner needs to run the one-time setup."
 }

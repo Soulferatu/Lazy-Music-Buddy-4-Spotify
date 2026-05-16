@@ -135,7 +135,27 @@
         </form>
 
         <aside class="summary" aria-live="polite">
-          {% if preview %}
+          {% if result %}
+            <p class="eyebrow" data-i18n="create_success_title">{{ translations.create_success_title }}</p>
+            <h2>{{ result.playlist_name }}</h2>
+            <p>{{ translations.create_success_copy.replace("{count}", result.track_count|string) }}</p>
+            <p>
+              <a class="ghost-button" href="{{ result.spotify_url }}" target="_blank" rel="noopener" data-i18n="create_open_link">{{ translations.create_open_link }}</a>
+            </p>
+            {% if result.skipped_bands %}
+              <div class="notice notice-warning" role="alert">
+                <p data-i18n="create_partial_warning">{{ translations.create_partial_warning }}</p>
+                <ul class="warning-list">
+                  {% for band in result.skipped_bands %}
+                    <li>{{ band }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            <p>
+              <a href="{{ url_for('main.index', lang=language) }}" data-i18n="create_back_link">{{ translations.create_back_link }}</a>
+            </p>
+          {% elif preview %}
             <p class="eyebrow" data-i18n="local_preview">{{ translations.local_preview }}</p>
             <h2>{{ preview.playlist_name }}</h2>
             <p
@@ -170,6 +190,18 @@
                 </details>
               {% endfor %}
             </div>
+
+            {% if preview.matched %}
+              <form class="create-form" action="{{ url_for('main.create') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="playlist_name" value="{{ preview.playlist_name }}">
+                <input type="hidden" name="language" value="{{ language }}">
+                {% for band in preview.bands %}
+                  <input type="hidden" name="bands" value="{{ band }}">
+                {% endfor %}
+                <button type="submit" data-i18n="create_button">{{ translations.create_button }}</button>
+              </form>
+            {% endif %}
           {% else %}
             <p class="eyebrow" data-i18n="preview_eyebrow">{{ translations.preview_eyebrow }}</p>
             <h2 data-i18n="ready_title">{{ translations.ready_title }}</h2>

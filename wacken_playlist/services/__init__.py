@@ -1,4 +1,4 @@
-from .playlist import PlaylistBuilder
+from .playlist import NoMatchedTracksError, PlaylistBuilder
 from .setlistfm import SetlistFmClient
 from .spotify import (
     SpotifyAPIError,
@@ -8,6 +8,7 @@ from .spotify import (
 )
 
 __all__ = [
+    "NoMatchedTracksError",
     "PlaylistBuilder",
     "SetlistFmClient",
     "SpotifyAPIError",
