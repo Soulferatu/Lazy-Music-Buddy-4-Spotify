@@ -16,11 +16,11 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 ## Current Stage
 
-**Stage 5 — Deployment + Public Release** (next up).
+**Stage 6 — setlist.fm Song Source** (next up).
 
-- Stages 0–4 are complete (2026-05-16). Stage 4 delivered: loading states on Preview/Create, mobile auto-scroll to summary, dynamic countdown to July 29 2026, stale copy fixes, Apple PWA meta tags, manifest `scope`, service worker fix, floating action buttons (FAB) with proper fixed positioning, result page buttons in side-by-side layout, extended Spotify artist search pagination (5 pages), version `0.4.0`. Details: [wiki/stage4_pwa_polish.md](wiki/stage4_pwa_polish.md).
+- Stages 0–5 are complete (2026-05-16). Stage 5 delivered: Vercel deployment live with `vercel.json` config, `DEPLOYMENT.md` guide, environment variables configured, app tested end-to-end (band selection, preview, PWA installability), version `0.5.0`. Live URL: see Vercel dashboard. Details: [DEPLOYMENT.md](DEPLOYMENT.md).
 - Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place.
-- Next milestone: deploy to a public hosting provider so others can access and use the app. The app-owned Spotify account creates playlists for users; no visitor authentication required.
+- Next milestone: add setlist.fm as an alternative song source so users can choose between Spotify top tracks or recent live setlists.
 - Optional: Personal Spotify login deferred to later (low priority; app-owned account works for sharing).
 
 ## Confirmed Product Decisions

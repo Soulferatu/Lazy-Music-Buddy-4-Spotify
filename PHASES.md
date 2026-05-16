@@ -24,8 +24,8 @@ This roadmap has **two axes**:
 | 2 | Spotify lookup + preview | Medium–High | ✅ Done |
 | 3 | App-owned playlist creation | High | ✅ Done |
 | 4 | First PWA polish | Medium | ✅ Done |
-| 5 | **Deployment + public release** | **Medium–High** | 🔨 **Current** |
-| 6 | setlist.fm song source | High | ⏳ Pending |
+| 5 | Deployment + public release | Medium–High | ✅ Done |
+| 6 | **setlist.fm song source** | **High** | 🔨 **Current** |
 | 7 | Previous Wacken years | High | ⏳ Pending |
 | 8 | Mix years + shuffle | Medium–High | ⏳ Pending |
 
@@ -161,16 +161,17 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 
 ---
 
-## Stage 5 — Deployment + Public Release 🔨
+## Stage 5 — Deployment + Public Release ✅
 
 **Goal:** deploy the app to a public URL so other users can access it, create playlists, and install it as a PWA on their devices.
 
 **Difficulty:** Medium–High.
 
-**Status:** In progress (2026-05-16). Vercel chosen as hosting provider. Configuration files added:
+**Status:** complete (2026-05-16). Vercel chosen as hosting provider. App is live and tested:
 - `vercel.json` — Python build config, routing, environment variables.
 - `.vercelignore` — exclude tests, docs, git, and cache files from deployment.
 - `DEPLOYMENT.md` — complete walkthrough for Vercel setup.
+- ✅ Band list loads, language toggle works, preview flow tested, PWA installable on mobile/desktop.
 
 ### Prerequisites
 
