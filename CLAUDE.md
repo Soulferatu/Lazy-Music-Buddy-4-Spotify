@@ -40,7 +40,9 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 | Frontend | Server-rendered HTML + vanilla JS + responsive CSS |
 | App icon | Existing placeholder at `wacken_playlist/static/icons/icon.svg` and `icon.png` — used by the PWA manifest. Replace by overwriting those two files when a final icon is approved; no code change needed. |
 
-Open decisions: final logo/install icon (placeholder in use), hosting provider (Stage 5), whether to add personal Spotify login (Optional Stage).
+Open decisions: final logo/install icon (placeholder in use), whether to add personal Spotify login (Optional Stage).
+
+**Hosting provider (Stage 5):** Vercel confirmed — see [DEPLOYMENT.md](DEPLOYMENT.md) for setup instructions.
 
 ## Tech Stack
 

@@ -161,11 +161,16 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 
 ---
 
-## Stage 5 — Deployment + Public Release ⏳
+## Stage 5 — Deployment + Public Release 🔨
 
 **Goal:** deploy the app to a public URL so other users can access it, create playlists, and install it as a PWA on their devices.
 
 **Difficulty:** Medium–High.
+
+**Status:** In progress (2026-05-16). Vercel chosen as hosting provider. Configuration files added:
+- `vercel.json` — Python build config, routing, environment variables.
+- `.vercelignore` — exclude tests, docs, git, and cache files from deployment.
+- `DEPLOYMENT.md` — complete walkthrough for Vercel setup.
 
 ### Prerequisites
 
