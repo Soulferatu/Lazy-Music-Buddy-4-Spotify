@@ -15,7 +15,8 @@
       {"removed": "Troops Of Doom", "kept": "The Troops Of Doom", "reason": "Definite article matches the official band name."},
       {"removed": "Skylineband", "kept": "Skyline", "reason": "Treated as the same act; 'Skyline' is the canonical form."},
       {"removed": "5th Avenue Hamburg", "kept": "5th Avenue", "reason": "Treated as the same act; shorter form is canonical."},
-      {"removed": "Maschine's Late Night Show", "kept": null, "reason": "Stage event, not a band — removed from the band list to avoid duplicate matching against Maschine."}
+      {"removed": "Maschine's Late Night Show", "kept": null, "reason": "Stage event, not a band — removed from the band list to avoid duplicate matching against Maschine."},
+      {"removed": "Nita Strauss", "kept": null, "reason": "Withdrew from Wacken 2026 due to pregnancy (announced after initial lineup release)."}
     ]
   },
   "bands": [
@@ -123,8 +124,9 @@
     "Misþyrming",
     "Mr. Hurley Und Die Pulveraffen",
     "Municipal Waste",
+    "Nergal",
     "Nevermore",
-    "Nita Strauss",
+    "Nothing More",
     "Novelization",
     "Of Mice & Men",
     "Orbit Culture",
@@ -136,6 +138,7 @@
     "Pig Destroyer",
     "Poison The Preacher",
     "Powerwolf",
+    "President",
     "Ricky Warwick",
     "Rose Tattoo",
     "Running Wild",

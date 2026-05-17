@@ -9,6 +9,7 @@
   "playlist_name_placeholder": "Wacken 2026 must-see list",
   "filter_bands_label": "Filter bands",
   "search_placeholder": "Search lineup",
+  "select_all_button": "Select all",
   "clear_button": "Clear",
   "choose_bands": "Choose bands",
   "source_note": "Starter lineup data is curated from official W:O:A 2026 announcements and can be refreshed before Spotify matching.",
@@ -20,7 +21,7 @@
   "unmatched_warning": "Could not find on Spotify:",
   "spotify_config_error": "Spotify credentials are not configured.",
   "spotify_auth_error": "Could not authenticate with Spotify.",
-  "spotify_api_error": "Spotify returned an unexpected error.",
+  "spotify_api_error": "Spotify is temporarily unavailable. The app may have hit a rate limit — please wait a few minutes and try again.",
   "preview_eyebrow": "Preview",
   "ready_title": "Ready for your picks",
   "ready_copy": "Select the bands you want to hear and click 'Preview playlist' to see what Spotify has for each act.",
@@ -36,6 +37,7 @@
   "spotify_refresh_token_missing": "App-owned Spotify account is not authorized yet. The site owner needs to run the one-time setup.",
   "preview_loading": "Looking up bands on Spotify…",
   "create_loading": "Creating your playlist…",
+  "create_loading_text": "Creating your W:O:A experience",
   "countdown_label": "Holy Grounds in",
   "countdown_unit": "days"
 }

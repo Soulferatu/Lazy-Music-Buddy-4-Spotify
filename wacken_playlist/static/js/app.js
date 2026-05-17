@@ -107,6 +107,13 @@ function filterBands() {
 bandSearch?.addEventListener("input", filterBands);
 bandSearch?.addEventListener("search", filterBands);
 
+document.querySelector("#select-all")?.addEventListener("click", () => {
+  bandCheckboxes.forEach((checkbox) => {
+    checkbox.checked = true;
+  });
+  updateSelectedCount();
+});
+
 clearSelection?.addEventListener("click", () => {
   bandCheckboxes.forEach((checkbox) => {
     checkbox.checked = false;
@@ -262,6 +269,7 @@ document.getElementById("planner-form")?.addEventListener("submit", () => {
 
 document.getElementById("create-form-element")?.addEventListener("submit", () => {
   applyLoadingState("fab-create", "create_loading", "Creating…");
+  showCreateOverlay();
 });
 
 // ───────── Mobile auto-scroll to summary when there's a result ─────────
@@ -272,4 +280,122 @@ document.getElementById("create-form-element")?.addEventListener("submit", () =>
   if (summary.dataset.state === 'idle') return;
   if (window.innerWidth >= 920) return;
   summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+})();
+
+// ───────── Create loading overlay ─────────
+
+function showCreateOverlay() {
+  const overlay = document.getElementById("create-overlay");
+  if (!overlay) return;
+
+  const lang = languageInput?.value || DEFAULT_LANGUAGE;
+  const dict = translations[lang] || translations[DEFAULT_LANGUAGE] || {};
+  const textEl = overlay.querySelector("[data-i18n='create_loading_text']");
+  if (textEl && dict.create_loading_text) textEl.textContent = dict.create_loading_text;
+
+  overlay.hidden = false;
+
+  const canvas = document.getElementById("overlay-embers");
+  if (!canvas) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0;
+  const RING_RADIUS = 83;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  function spawnFromRing() {
+    const angle = Math.random() * Math.PI * 2;
+    const cx = w / 2, cy = h / 2;
+    return {
+      x: cx + Math.cos(angle) * RING_RADIUS,
+      y: cy + Math.sin(angle) * RING_RADIUS,
+      vx: Math.cos(angle) * (Math.random() * 1.8 + 0.6),
+      vy: Math.sin(angle) * (Math.random() * 1.8 + 0.6) - Math.random() * 0.8,
+      r: Math.random() * 1.6 + 0.5,
+      life: Math.random() * 160 + 80,
+      age: 0,
+      hue: 15 + Math.random() * 25,
+    };
+  }
+
+  const particles = [];
+  for (let i = 0; i < 80; i++) {
+    const p = spawnFromRing();
+    p.age = Math.random() * p.life;
+    particles.push(p);
+  }
+
+  function tick() {
+    if (overlay.hidden) return;
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98;
+      p.vy *= 0.98;
+      p.age += 1;
+      if (p.age > p.life) Object.assign(p, spawnFromRing());
+      const a = 1 - p.age / p.life;
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      grad.addColorStop(0, `hsla(${p.hue}, 100%, 58%, ${0.75 * a})`);
+      grad.addColorStop(1, "hsla(15, 100%, 40%, 0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+// ───────── Remove individual tracks from preview ─────────
+
+(function initTrackRemoval() {
+  const createForm = document.getElementById("create-form-element");
+  if (!createForm) return;
+
+  const trackCountEl = document.querySelector("[data-i18n-track-preview]");
+
+  document.querySelectorAll(".remove-track").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const li = btn.closest("li");
+      if (!li || li.classList.contains("is-excluded")) return;
+
+      const uri = li.dataset.uri;
+      li.classList.add("is-excluded");
+
+      // Add hidden input so the backend knows to skip this URI.
+      if (uri) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "excluded_uris";
+        input.value = uri;
+        createForm.appendChild(input);
+      }
+
+      // Update the displayed track count.
+      if (trackCountEl) {
+        const current = parseInt(trackCountEl.dataset.trackCount, 10) || 0;
+        const excluded = createForm.querySelectorAll("input[name='excluded_uris']").length;
+        const remaining = Math.max(0, current - excluded);
+        const lang = document.querySelector("#language")?.value || "en";
+        const dict = (window.__translations || {})[lang] || {};
+        const bandCount = Number(trackCountEl.dataset.bandCount);
+        if (dict.preview_tracks_matched) {
+          trackCountEl.textContent = dict.preview_tracks_matched
+            .replace("{count}", remaining)
+            .replace("{band_count}", bandCount);
+        }
+      }
+    });
+  });
 })();

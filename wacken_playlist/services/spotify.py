@@ -95,19 +95,23 @@ class SpotifyClient:
     def search_artist(self, name: str) -> dict | None:
         """Return the best matching artist (exact-name preferred), or None."""
         token = self.get_client_credentials_token()
-        headers = {"Authorization": f"Bearer {token}"}
         params = {"q": name, "type": "artist", "limit": 5}
 
         try:
-            response = requests.get(
-                f"{self._API_BASE}/search",
-                headers=headers,
-                params=params,
-                timeout=self._timeout,
-            )
+            response = self._api_get(token, params)
+            if response.status_code == 429:
+                logger.warning("Spotify still 429 after retry for artist '%s'; skipping", name)
+                return None
+            if not response.ok:
+                logger.error(
+                    "Spotify search_artist HTTP %s: %s", response.status_code, response.text[:300]
+                )
             response.raise_for_status()
         except requests.RequestException as e:
-            raise SpotifyAPIError(f"Failed to search for artist '{name}': {e}")
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            raise SpotifyAPIError(
+                f"Failed to search for artist '{name}' (HTTP {status}): {e}"
+            )
 
         try:
             artists = response.json().get("artists", {}).get("items", [])
@@ -124,31 +128,42 @@ class SpotifyClient:
 
         return max(artists, key=lambda a: a.get("popularity", 0))
 
-    MAX_TOP_TRACKS_PAGES = 5
+    MAX_TOP_TRACKS_PAGES = 2
     _SEARCH_PAGE_SIZE = 10
+    _RATE_LIMIT_MAX_WAIT = 5  # seconds — cap how long we'll sleep on a 429
+
+    def _api_get(self, token: str, params: dict) -> requests.Response:
+        """GET /search with one automatic 429-retry (waits up to _RATE_LIMIT_MAX_WAIT s)."""
+        headers = {"Authorization": f"Bearer {token}"}
+        resp = requests.get(
+            f"{self._API_BASE}/search",
+            headers=headers,
+            params=params,
+            timeout=self._timeout,
+        )
+        if resp.status_code == 429:
+            wait = min(int(resp.headers.get("Retry-After", 2)), self._RATE_LIMIT_MAX_WAIT)
+            logger.warning("Spotify 429 rate limit; retrying after %ds", wait)
+            time.sleep(wait)
+            resp = requests.get(
+                f"{self._API_BASE}/search",
+                headers=headers,
+                params=params,
+                timeout=self._timeout,
+            )
+        return resp
 
     def get_top_tracks(self, artist_name: str, market: str = "US") -> list[dict]:
         """Return up to 10 top tracks for an artist.
 
-        Uses a two-strategy approach to maximise reliable matches:
+        Strategy 1: artist:"NAME" qualifier — exact-artist results, Spotify caps at ~5.
+        Strategy 2: plain NAME search across MAX_TOP_TRACKS_PAGES pages, filtered to
+                    primary artist. Deduped by URI across both strategies.
 
-        1. `artist:"NAME"` qualifier first — highly targeted; Spotify caps
-           this at ~5 results regardless of `limit`, but all results are
-           reliably by the right artist. Essential for bands with generic
-           names (e.g. "The Other", "Allt") where a plain-text query
-           returns mostly unrelated tracks.
-
-        2. Plain `q=NAME` search for up to MAX_TOP_TRACKS_PAGES pages —
-           returns more items but needs client-side primary-artist
-           filtering to discard covers and unrelated hits.
-
-        Results are deduplicated by URI across both strategies.
-
-        `market` is accepted for forward compatibility but unused —
-        /search is market-agnostic.
+        On 429 rate-limit, the current page is skipped and whatever tracks
+        were gathered so far are returned (partial is better than crashing).
         """
         token = self.get_client_credentials_token()
-        headers = {"Authorization": f"Bearer {token}"}
         target = artist_name.strip().lower()
         tracks: list[dict] = []
         seen_uris: set[str] = set()
@@ -172,16 +187,22 @@ class SpotifyClient:
             }
 
             try:
-                response = requests.get(
-                    f"{self._API_BASE}/search",
-                    headers=headers,
-                    params=params,
-                    timeout=self._timeout,
-                )
+                response = self._api_get(token, params)
+                if response.status_code == 429:
+                    logger.warning(
+                        "Spotify still 429 after retry for '%s'; stopping early", artist_name
+                    )
+                    break
+                if not response.ok:
+                    logger.error(
+                        "Spotify get_top_tracks HTTP %s q=%r: %s",
+                        response.status_code, query, response.text[:300],
+                    )
                 response.raise_for_status()
             except requests.RequestException as e:
+                status = getattr(getattr(e, "response", None), "status_code", None)
                 raise SpotifyAPIError(
-                    f"Failed to fetch tracks for artist '{artist_name}': {e}"
+                    f"Failed to fetch tracks for artist '{artist_name}' (HTTP {status}): {e}"
                 )
 
             try:
@@ -214,14 +235,107 @@ class SpotifyClient:
                     break
 
             logger.info(
-                "Spotify /search?q=%s offset=%d returned %d items; "
-                "%d matched primary artist (total matches so far: %d)",
-                query,
-                offset,
-                len(items),
-                page_matches,
-                len(tracks),
+                "Spotify /search?q=%s offset=%d → %d items; %d matched (total: %d)",
+                query, offset, len(items), page_matches, len(tracks),
             )
+
+        if not tracks:
+            tracks = self._recover_tracks(artist_name, token, seen_uris)
+
+        return tracks
+
+    @staticmethod
+    def _name_variants(name: str) -> list[str]:
+        """Generate alternate spellings to try when primary search yields nothing."""
+        variants = []
+        lower = name.lower()
+        # Strip leading article
+        for article in ("the ", "a ", "an "):
+            if lower.startswith(article):
+                variants.append(name[len(article):])
+        # Add "The" prefix if not already there
+        if not lower.startswith("the "):
+            variants.append(f"The {name}")
+        # Swap & ↔ and
+        if " & " in name:
+            variants.append(name.replace(" & ", " and "))
+        if " and " in lower:
+            variants.append(name.replace(" and ", " & ").replace(" And ", " & "))
+        # Strip trailing punctuation (e.g. "Ten56.")
+        stripped = name.rstrip(".,!?")
+        if stripped != name:
+            variants.append(stripped)
+        return list(dict.fromkeys(v for v in variants if v and v != name))
+
+    def _recover_tracks(
+        self, artist_name: str, token: str, seen_uris: set[str]
+    ) -> list[dict]:
+        """Last-resort search: try name variants and a broad any-artist filter."""
+        tracks: list[dict] = []
+        target = artist_name.strip().lower()
+
+        # Recovery A — artist:"VARIANT" queries for alternate spellings.
+        for variant in self._name_variants(artist_name):
+            if len(tracks) >= self.DEFAULT_TOP_TRACKS_PER_ARTIST:
+                break
+            params = {
+                "q": f'artist:"{variant}"',
+                "type": "track",
+                "limit": self._SEARCH_PAGE_SIZE,
+                "offset": 0,
+            }
+            try:
+                resp = self._api_get(token, params)
+                if not resp.ok:
+                    continue
+                items = resp.json().get("tracks", {}).get("items", [])
+            except Exception:
+                continue
+
+            variant_lower = variant.strip().lower()
+            for track in items:
+                artists = track.get("artists") or []
+                if not artists:
+                    continue
+                primary = artists[0].get("name", "").strip().lower()
+                if primary not in (target, variant_lower):
+                    continue
+                uri = track.get("uri", "")
+                key = uri if uri else f"{track.get('name','').lower()}|{primary}"
+                if key in seen_uris:
+                    continue
+                seen_uris.add(key)
+                tracks.append({"name": track.get("name", ""), "artist": artists[0].get("name", ""), "uri": uri})
+                if len(tracks) >= self.DEFAULT_TOP_TRACKS_PER_ARTIST:
+                    break
+
+        # Recovery B — broad match: any artist in the track contains the name.
+        if not tracks:
+            params = {
+                "q": artist_name,
+                "type": "track",
+                "limit": self._SEARCH_PAGE_SIZE,
+                "offset": 0,
+            }
+            try:
+                resp = self._api_get(token, params)
+                if resp.ok:
+                    items = resp.json().get("tracks", {}).get("items", [])
+                    for track in items:
+                        if len(tracks) >= 5:
+                            break
+                        all_artists = [a.get("name", "").strip().lower() for a in (track.get("artists") or [])]
+                        if not any(target in a or a in target for a in all_artists):
+                            continue
+                        uri = track.get("uri", "")
+                        key = uri if uri else f"{track.get('name','').lower()}|{all_artists[0] if all_artists else ''}"
+                        if key in seen_uris:
+                            continue
+                        seen_uris.add(key)
+                        primary_name = (track.get("artists") or [{}])[0].get("name", "")
+                        tracks.append({"name": track.get("name", ""), "artist": primary_name, "uri": uri})
+            except Exception:
+                pass
 
         return tracks
 

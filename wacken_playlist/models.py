@@ -15,6 +15,7 @@ class PlaylistRequest:
     bands: list[Band]
     language: str = "en"
     song_source: str = "spotify_top"
+    excluded_uris: list[str] = field(default_factory=list)
 
 
 @dataclass

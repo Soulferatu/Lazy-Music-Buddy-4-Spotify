@@ -9,6 +9,7 @@
   "playlist_name_placeholder": "Lista imperdível Wacken 2026",
   "filter_bands_label": "Filtrar bandas",
   "search_placeholder": "Buscar na escalação",
+  "select_all_button": "Selecionar tudo",
   "clear_button": "Limpar",
   "choose_bands": "Escolha as bandas",
   "source_note": "A escalação inicial foi curada a partir de anúncios oficiais do W:O:A 2026 e pode ser atualizada antes da busca no Spotify.",
@@ -20,7 +21,7 @@
   "unmatched_warning": "Não foi encontrado no Spotify:",
   "spotify_config_error": "As credenciais do Spotify não estão configuradas.",
   "spotify_auth_error": "Não foi possível autenticar com o Spotify.",
-  "spotify_api_error": "O Spotify retornou um erro inesperado.",
+  "spotify_api_error": "O Spotify está temporariamente indisponível. O app pode ter atingido o limite de requisições — aguarde alguns minutos e tente novamente.",
   "preview_eyebrow": "Prévia",
   "ready_title": "Pronto para suas escolhas",
   "ready_copy": "Selecione as bandas que quer ouvir e clique em 'Pré-visualizar playlist' para ver o que o Spotify tem para cada artista.",
@@ -36,6 +37,7 @@
   "spotify_refresh_token_missing": "A conta do app no Spotify ainda não foi autorizada. O dono do site precisa rodar a configuração inicial.",
   "preview_loading": "Buscando bandas no Spotify…",
   "create_loading": "Criando sua playlist…",
+  "create_loading_text": "Criando sua experiência W:O:A",
   "countdown_label": "Holy Grounds em",
   "countdown_unit": "dias"
 }

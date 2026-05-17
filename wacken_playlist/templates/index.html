@@ -45,8 +45,10 @@
 
         <div class="language-switch" aria-label="{{ translations.language_label }}">
           <span class="language-label" data-i18n="language_label">{{ translations.language_label }}</span>
-          <button class="language-button" type="button" data-language-choice="en">EN</button>
-          <button class="language-button" type="button" data-language-choice="pt-BR">PT-BR</button>
+          <div class="language-switch-btns">
+            <button class="language-button" type="button" data-language-choice="en">EN</button>
+            <button class="language-button" type="button" data-language-choice="pt-BR">PT</button>
+          </div>
         </div>
       </div>
     </header>
@@ -109,6 +111,7 @@
           </div>
 
           <div class="tools">
+            <button class="ghost-button" type="button" id="select-all" data-i18n="select_all_button">{{ translations.select_all_button }}</button>
             <button class="ghost-button" type="button" id="clear-selection" data-i18n="clear_button">{{ translations.clear_button }}</button>
           </div>
 
@@ -186,7 +189,10 @@
                   </summary>
                   <ol class="track-list">
                     {% for track in entry.tracks %}
-                      <li>{{ track.name }}</li>
+                      <li data-uri="{{ track.uri }}">
+                        <span class="track-name">{{ track.name }}</span>
+                        <button type="button" class="remove-track" aria-label="Remove track" title="Remove this track">&#x2715;</button>
+                      </li>
                     {% endfor %}
                   </ol>
                 </details>
@@ -222,6 +228,16 @@
       <button type="submit" form="create-form-element" class="fab-btn" id="fab-create"
               data-i18n="create_button">{{ translations.create_button }}</button>
       {% endif %}
+    </div>
+
+    <div id="create-overlay" class="create-overlay" hidden aria-live="assertive" role="status">
+      <canvas id="overlay-embers" aria-hidden="true"></canvas>
+      <div class="create-overlay-inner">
+        <div class="overlay-spinner">
+          <span class="overlay-spinner-mark">W</span>
+        </div>
+        <p class="overlay-text" data-i18n="create_loading_text">Creating your W:O:A experience</p>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/app.js', v=app_version) }}" defer></script>

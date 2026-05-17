@@ -146,12 +146,14 @@ def create():
     if not valid_names:
         errors.append(build_error("bands_required", language))
 
+    excluded_uris = request.form.getlist("excluded_uris")
     result_view = None
     if not errors:
         playlist_request = PlaylistRequest(
             playlist_name=playlist_name,
             bands=[Band(name=name, year=CURRENT_YEAR) for name in valid_names],
             language=language,
+            excluded_uris=excluded_uris,
         )
         try:
             result = current_app.playlist_builder.build_and_create(playlist_request)
@@ -190,6 +192,46 @@ def create():
             "language": language,
         },
     })
+
+
+@main.get("/debug/spotify-check")
+def spotify_check():
+    """Dev-only: tests Spotify connectivity step by step and shows the exact HTTP response."""
+    if not current_app.config.get("DEBUG"):
+        return Response("Not available outside development.", status=404)
+
+    spotify = current_app.spotify
+    lines = ["<h1>Spotify connectivity check</h1><pre>"]
+
+    def s(text):
+        lines.append(text + "\n")
+
+    s(f"client_id set:     {bool(spotify.client_id)}")
+    s(f"client_secret set: {bool(spotify.client_secret)}")
+    s(f"refresh_token set: {bool(spotify.app_refresh_token)}")
+
+    try:
+        token = spotify.get_client_credentials_token()
+        s(f"\n[OK] Client Credentials token fetched (first 20 chars): {token[:20]}…")
+    except Exception as e:
+        s(f"\n[FAIL] Client Credentials token fetch: {e}")
+        lines.append("</pre>")
+        return Response("".join(lines), mimetype="text/html", status=200)
+
+    import requests as req
+    url = f"{spotify._API_BASE}/search"
+    params = {"q": "Metallica", "type": "artist", "limit": 1}
+    headers = {"Authorization": f"Bearer {token}"}
+    try:
+        r = req.get(url, headers=headers, params=params, timeout=10)
+        s(f"\n[INFO] GET /search?q=Metallica&type=artist&limit=1")
+        s(f"  status: {r.status_code}")
+        s(f"  body:   {r.text[:500]}")
+    except Exception as e:
+        s(f"\n[FAIL] /search request: {e}")
+
+    lines.append("</pre>")
+    return Response("".join(lines), mimetype="text/html", status=200)
 
 
 @main.get("/auth/spotify/login")

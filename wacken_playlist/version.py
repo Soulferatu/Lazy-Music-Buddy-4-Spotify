@@ -6,4 +6,4 @@ Bumping APP_VERSION:
 - Updates the manifest version exposed via window.__appVersion.
 """
 
-APP_VERSION = "0.5.0"
+APP_VERSION = "0.5.1"

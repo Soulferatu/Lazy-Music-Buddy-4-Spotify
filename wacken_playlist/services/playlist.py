@@ -61,11 +61,12 @@ class PlaylistBuilder:
         or all matched bands returned zero tracks with URIs.
         """
         preview = self.build_preview(request)
+        excluded = set(request.excluded_uris)
         track_uris = [
             track["uri"]
             for matched in preview.matched
             for track in matched.tracks
-            if track.get("uri")
+            if track.get("uri") and track["uri"] not in excluded
         ]
         if not track_uris:
             raise NoMatchedTracksError(

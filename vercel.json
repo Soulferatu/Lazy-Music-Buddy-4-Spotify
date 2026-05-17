@@ -16,8 +16,6 @@
     "PYTHON_VERSION": "3.11"
   },
   "git": {
-    "deploymentEnabled": {
-      "main": true
-    }
+    "deploymentEnabled": true
   }
 }
