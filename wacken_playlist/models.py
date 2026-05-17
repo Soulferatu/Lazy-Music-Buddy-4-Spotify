@@ -1,4 +1,12 @@
 from dataclasses import dataclass, field
+from typing import Optional
+
+
+@dataclass(frozen=True)
+class Track:
+    """Represents a Spotify track."""
+    uri: str
+    name: str
 
 
 @dataclass(frozen=True)
@@ -6,6 +14,10 @@ class Band:
     """Represents a band playing at Wacken Open Air."""
     name: str
     year: int
+    spotify_id: Optional[str] = None
+    tracks: tuple[Track, ...] = field(default_factory=tuple)
+    track_count: int = 0
+    unresolved: bool = False
 
 
 @dataclass

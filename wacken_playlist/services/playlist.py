@@ -24,24 +24,33 @@ class PlaylistBuilder:
         self._tracks_per_band = tracks_per_band
 
     def build_preview(self, request: PlaylistRequest) -> PlaylistPreview:
-        """Resolve each band against Spotify and assemble preview tracks."""
+        """Assemble preview from pre-resolved band tracks.
+
+        With the pre-resolution system, every band already has Spotify data embedded.
+        We just assemble it into preview format. No runtime Spotify calls.
+        """
         matched: list[MatchedBand] = []
         unmatched: list[str] = []
 
         for band in request.bands:
-            artist = self._spotify.search_artist(band.name)
-            if artist is None:
-                unmatched.append(band.name)
-                continue
-            tracks = self._spotify.get_top_tracks(artist.get("name", band.name))
-            matched.append(
-                MatchedBand(
-                    band=band,
-                    artist_id=artist["id"],
-                    artist_name=artist.get("name", band.name),
-                    tracks=tracks,
+            # Check if band has pre-resolved tracks
+            if band.track_count > 0 and band.spotify_id:
+                # Convert Track objects to dict format for compatibility with frontend
+                track_dicts = [
+                    {"uri": t.uri, "name": t.name, "artist": band.name}
+                    for t in band.tracks
+                ]
+                matched.append(
+                    MatchedBand(
+                        band=band,
+                        artist_id=band.spotify_id,
+                        artist_name=band.name,
+                        tracks=track_dicts,
+                    )
                 )
-            )
+            else:
+                # Band has no pre-resolved tracks
+                unmatched.append(band.name)
 
         track_count = sum(len(m.tracks) for m in matched)
         return PlaylistPreview(

@@ -128,6 +128,46 @@ class SpotifyClient:
 
         return max(artists, key=lambda a: a.get("popularity", 0))
 
+    def search_tracks_by_artist(
+        self, artist_name: str, limit: int = 10, offset: int = 0
+    ) -> list[dict]:
+        """Search for tracks by artist name with pagination.
+
+        Used by the offline resolution script to collect tracks per band.
+        Returns raw track objects with uri, name, artists, etc.
+        """
+        token = self.get_client_credentials_token()
+        params = {
+            "q": f'artist:"{artist_name}"',
+            "type": "track",
+            "limit": limit,
+            "offset": offset,
+        }
+
+        try:
+            response = self._api_get(token, params)
+            if response.status_code == 429:
+                logger.warning("Spotify 429 for artist '%s' at offset %d", artist_name, offset)
+                return []
+            if not response.ok:
+                logger.error(
+                    "Spotify search_tracks_by_artist HTTP %s: %s",
+                    response.status_code, response.text[:300],
+                )
+                response.raise_for_status()
+        except requests.RequestException as e:
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            raise SpotifyAPIError(
+                f"Failed to search tracks for artist '{artist_name}' (HTTP {status}): {e}"
+            )
+
+        try:
+            items = response.json().get("tracks", {}).get("items", [])
+        except ValueError as e:
+            raise SpotifyAPIError(f"Invalid search response for artist '{artist_name}': {e}")
+
+        return items
+
     MAX_TOP_TRACKS_PAGES = 2
     _SEARCH_PAGE_SIZE = 10
     _RATE_LIMIT_MAX_WAIT = 5  # seconds — cap how long we'll sleep on a 429
