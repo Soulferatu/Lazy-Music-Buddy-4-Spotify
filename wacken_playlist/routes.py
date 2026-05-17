@@ -85,9 +85,12 @@ def preview():
 
     preview_view = None
     if not errors:
+        # Load full band objects with pre-resolved Spotify data from lineup
+        all_bands = {b.name: b for b in repo.get_bands(CURRENT_YEAR)}
+        selected_bands = [all_bands[name] for name in valid_names if name in all_bands]
         playlist_request = PlaylistRequest(
             playlist_name=playlist_name,
-            bands=[Band(name=name, year=CURRENT_YEAR) for name in valid_names],
+            bands=selected_bands,
             language=language,
         )
         try:
@@ -149,9 +152,12 @@ def create():
     excluded_uris = request.form.getlist("excluded_uris")
     result_view = None
     if not errors:
+        # Load full band objects with pre-resolved Spotify data from lineup
+        all_bands = {b.name: b for b in repo.get_bands(CURRENT_YEAR)}
+        selected_bands = [all_bands[name] for name in valid_names if name in all_bands]
         playlist_request = PlaylistRequest(
             playlist_name=playlist_name,
-            bands=[Band(name=name, year=CURRENT_YEAR) for name in valid_names],
+            bands=selected_bands,
             language=language,
             excluded_uris=excluded_uris,
         )

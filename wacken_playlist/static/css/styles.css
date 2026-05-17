@@ -862,21 +862,27 @@ button:disabled {
   padding: 0 2px;
   font-size: 0.78rem;
   line-height: 1;
-  color: var(--muted);
+  color: var(--gold);
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: color 120ms, opacity 120ms;
 }
 
 .remove-track:hover {
-  color: var(--ember-1);
+  color: var(--gold-2);
   opacity: 1;
 }
 
 .track-list li.is-excluded {
-  opacity: 0.3;
+  opacity: 0.5;
+  pointer-events: auto;
+}
+
+.track-list li.is-excluded .track-name {
   text-decoration: line-through;
-  pointer-events: none;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }
 
 /* ───────── Responsive ───────── */

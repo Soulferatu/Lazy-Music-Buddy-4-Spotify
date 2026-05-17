@@ -365,37 +365,54 @@ function showCreateOverlay() {
 
   const trackCountEl = document.querySelector("[data-i18n-track-preview]");
 
+  function updateTrackCount() {
+    if (trackCountEl) {
+      const current = parseInt(trackCountEl.dataset.trackCount, 10) || 0;
+      const excluded = createForm.querySelectorAll("input[name='excluded_uris']").length;
+      const remaining = Math.max(0, current - excluded);
+      const lang = document.querySelector("#language")?.value || "en";
+      const dict = (window.__translations || {})[lang] || {};
+      const bandCount = Number(trackCountEl.dataset.bandCount);
+      if (dict.preview_tracks_matched) {
+        trackCountEl.textContent = dict.preview_tracks_matched
+          .replace("{count}", remaining)
+          .replace("{band_count}", bandCount);
+      }
+    }
+  }
+
   document.querySelectorAll(".remove-track").forEach((btn) => {
     btn.addEventListener("click", () => {
       const li = btn.closest("li");
-      if (!li || li.classList.contains("is-excluded")) return;
+      if (!li) return;
 
       const uri = li.dataset.uri;
-      li.classList.add("is-excluded");
+      const isExcluded = li.classList.contains("is-excluded");
 
-      // Add hidden input so the backend knows to skip this URI.
-      if (uri) {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "excluded_uris";
-        input.value = uri;
-        createForm.appendChild(input);
-      }
-
-      // Update the displayed track count.
-      if (trackCountEl) {
-        const current = parseInt(trackCountEl.dataset.trackCount, 10) || 0;
-        const excluded = createForm.querySelectorAll("input[name='excluded_uris']").length;
-        const remaining = Math.max(0, current - excluded);
-        const lang = document.querySelector("#language")?.value || "en";
-        const dict = (window.__translations || {})[lang] || {};
-        const bandCount = Number(trackCountEl.dataset.bandCount);
-        if (dict.preview_tracks_matched) {
-          trackCountEl.textContent = dict.preview_tracks_matched
-            .replace("{count}", remaining)
-            .replace("{band_count}", bandCount);
+      if (isExcluded) {
+        // Un-exclude: remove the class and delete the hidden input
+        li.classList.remove("is-excluded");
+        if (uri) {
+          const inputs = createForm.querySelectorAll("input[name='excluded_uris']");
+          inputs.forEach((input) => {
+            if (input.value === uri) {
+              input.remove();
+            }
+          });
+        }
+      } else {
+        // Exclude: add the class and add a hidden input
+        li.classList.add("is-excluded");
+        if (uri) {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "excluded_uris";
+          input.value = uri;
+          createForm.appendChild(input);
         }
       }
+
+      updateTrackCount();
     });
   });
 })();
