@@ -16,12 +16,13 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 ## Current Stage
 
-**Stage 6 — setlist.fm Song Source** (next up).
+**Stage 6 — setlist.fm Song Source** (next up, not started).
 
 - Stages 0–5 complete (2026-05-16). Stage 5: Vercel deployment live with full PWA support.
 - **Hotfix (2026-05-17, v0.5.4)**: Pre-resolution system deployed to fix 17-hour Spotify rate-limit shadow ban. All 169 bands now have tracks resolved offline at build time. Zero Spotify search calls per user session. Track removal UX improved (yellow X, toggle un-exclude).
+- **Band resolution improvement (2026-05-17, v0.5.5)**: Rewrote offline resolution system to use artist ID-based filtering instead of name matching. Two-strategy search (artist-qualifier + plain text) with URI deduplication. Resolved 24 of 42 unresolved bands, reducing count to 18 (57% improvement). Remaining 18 include genuinely low-availability artists (e.g., Mantar 4 tracks, niche local bands).
 - Architecture migration (Phases 1–6) complete — service layer, config, models, i18n, security, test split all in place.
-- Next: add setlist.fm as alternative song source (no longer blocked by rate limits).
+- **Next:** still pending Stage 6 (setlist.fm integration). No timeline change.
 - Optional: Personal Spotify login deferred (app-owned account works for sharing).
 
 ## Confirmed Product Decisions
@@ -55,6 +56,27 @@ Open decisions: final logo/install icon (placeholder in use), whether to add per
 - **i18n:** `wacken_playlist/i18n/{en,pt-BR}.json`, injected into templates and exposed to JS via `window.__translations`.
 - **Production entry:** `wsgi.py` for Gunicorn.
 
+## Band Track Resolution Strategy
+
+**Offline pre-resolution** (Stage 5, v0.5.4+): all Spotify track lookups happen at build time via `scripts/resolve_lineup.py`, not during user sessions. This eliminates per-session Spotify API calls and rate-limit exposure.
+
+**Artist ID-based filtering** (v0.5.5): the resolution script uses **Spotify artist IDs** (not name strings) to match tracks to bands. This solves ambiguity from:
+- Case/capitalization differences (e.g., "Corrosion of Conformity" vs "Corrosion Of Conformity").
+- Generic band names (Europe, Focus, Saxon, etc.) that appear multiple times in search results.
+- Covers and alternate recordings that share song titles but are by different artists.
+
+**Two-strategy search** (v0.5.5): `scripts/resolve_lineup.py::_collect_tracks_for_artist()` runs both:
+1. **artist:"NAME" qualifier** — capped at ~5 results per page post-Feb 2026 Spotify update, but catches official releases.
+2. **Plain-text NAME search** — unlimited pagination, catches remixes, live versions, covers (filtered by artist ID to stay on-brand).
+
+Results from both strategies are deduplicated by track URI and filtered to return only tracks where the artist ID matches. Maximum 10 tracks per band.
+
+**Retry modes**:
+- `py scripts/resolve_lineup.py --retry-unresolved` — re-resolve all bands from `unresolved_bands.json` (both zero-track and below-threshold).
+- `py scripts/resolve_lineup.py --retry-unresolved --below-threshold-only` — re-resolve only bands with 1-4 tracks; skip those with zero (likely genuinely absent from Spotify).
+
+**Data:** resolved band metadata stored in `wacken_playlist/data/lineups/wacken_2026.json` with embedded track URIs; unresolved outliers in `unresolved_bands.json` for auditing.
+
 ## Repository Map
 
 ```
@@ -66,7 +88,7 @@ wacken_playlist/        Flask app package
   lineup.py             LineupRepository (reads data/lineups/*.json)
   services/             SpotifyClient, PlaylistBuilder, SetlistFmClient (stub)
   i18n/                 en.json, pt-BR.json
-  data/lineups/         wacken_2026.json (more years later)
+  data/lineups/         wacken_2026.json (with embedded resolved tracks); unresolved_bands.json (for auditing)
   templates/            base.html, index.html
   static/               CSS, JS, service worker, icons
   version.py            Single source of cache-busting version
@@ -76,7 +98,10 @@ tests/
   integration/          Uses test_client + mocked services
 wiki/                   Processed knowledge pages (see Wiki Workflow below)
 raw/                    Original source material (prompts, decisions)
-scripts/                restart-dev.ps1 (Windows), dev.sh (macOS/Linux)
+scripts/
+    resolve_lineup.py   Offline Spotify track pre-resolution with artist ID filtering
+    restart-dev.ps1     Windows dev startup
+    dev.sh              macOS/Linux dev startup
 wsgi.py                 Production entry point
 ```
 

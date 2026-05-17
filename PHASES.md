@@ -25,7 +25,7 @@ This roadmap has **two axes**:
 | 3 | App-owned playlist creation | High | ✅ Done |
 | 4 | First PWA polish | Medium | ✅ Done |
 | 5 | Deployment + public release | Medium–High | ✅ Done |
-| 6 | **setlist.fm song source** | **High** | 🔨 **Current** |
+| 6 | **setlist.fm song source** | **High** | ⏳ **Pending** |
 | 7 | Previous Wacken years | High | ⏳ Pending |
 | 8 | Mix years + shuffle | Medium–High | ⏳ Pending |
 
@@ -173,6 +173,13 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 - `DEPLOYMENT.md` — complete walkthrough for Vercel setup.
 - ✅ Band list loads, language toggle works, preview flow tested, PWA installable on mobile/desktop.
 
+**Post-deployment improvement (2026-05-17, v0.5.5):** improved offline band track resolution:
+- **Artist ID-based filtering** — track matching now uses Spotify's unique artist IDs instead of name string matching, eliminating ambiguity from case differences, generic names, and covers.
+- **Two-strategy search** — `scripts/resolve_lineup.py` runs both `artist:"NAME"` qualifier search and plain-text search, deduplicating by track URI and filtering by artist ID. Catches official releases and alternate recordings on-brand.
+- **Retry modes** — added `--retry-unresolved` and `--below-threshold-only` flags for targeted re-resolution of 42 problematic bands.
+- **Results** — 24 of 42 unresolved bands now resolved (20 below-threshold → 5+ tracks, 4 zero-track → 5+ tracks). Remaining 18 are genuinely low-availability or local artists.
+- **Version** — bumped to 0.5.5 to cache-bust after lineup data changes.
+
 ### Prerequisites
 
 - Stage 4 complete and mobile-friendly.
@@ -226,9 +233,12 @@ The app is live at a public URL, installable from phone/desktop, and users can c
 
 **Difficulty:** High.
 
+**Status:** pending. Not started. Band resolution improvements (v0.5.5) unblocked Stage 6, but implementation has been deferred pending user decision.
+
 ### Prerequisites
 
 - ✅ `SetlistFmClient` stub already exists from Phase 4A — interface is in place.
+- ✅ Offline band resolution (v0.5.5) eliminates per-session Spotify rate-limit exposure.
 
 ### User Actions
 
