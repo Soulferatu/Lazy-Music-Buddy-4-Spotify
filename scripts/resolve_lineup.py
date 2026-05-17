@@ -33,6 +33,16 @@ MAX_PAGES_ARTIST = 3     # pages to try with artist: qualifier
 MAX_PAGES_PLAIN = 5      # pages to try with plain-text query
 DATA_FILE = Path("wacken_playlist/data/lineups/wacken_2026.json")
 UNRESOLVED_FILE = Path("wacken_playlist/data/lineups/unresolved_bands.json")
+OVERRIDES_FILE = Path("wacken_playlist/data/lineups/artist_overrides.json")
+
+
+def _load_overrides() -> dict[str, str]:
+    """Return {band_name: spotify_artist_id} from artist_overrides.json, or {}."""
+    if not OVERRIDES_FILE.exists():
+        return {}
+    with OVERRIDES_FILE.open(encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("overrides", {})
 
 
 def _collect_tracks_for_artist(
@@ -106,6 +116,7 @@ def resolve_band(
     client: SpotifyClient,
     band_name: str,
     current_delay: float,
+    override_id: Optional[str] = None,
 ) -> tuple[dict, float]:
     """
     Resolve up to MAX_TRACKS track URIs for a band.
@@ -113,18 +124,22 @@ def resolve_band(
     Uses artist ID (not name) for filtering so generic names like "Europe" or
     "Phantom" are unambiguous — only tracks where the exact Spotify artist appears.
 
+    If override_id is provided, skips search_artist entirely and uses it directly.
+
     Returns (resolved_data, updated_delay).
     """
     try:
-        artist = client.search_artist(band_name)
-        if not artist:
-            return (
-                {"spotify_id": None, "tracks": [], "track_count": 0, "unresolved": True},
-                current_delay,
-            )
-
-        artist_id = artist["id"]
-        time.sleep(current_delay)
+        if override_id:
+            artist_id = override_id
+        else:
+            artist = client.search_artist(band_name)
+            if not artist:
+                return (
+                    {"spotify_id": None, "tracks": [], "track_count": 0, "unresolved": True},
+                    current_delay,
+                )
+            artist_id = artist["id"]
+            time.sleep(current_delay)
 
         tracks, updated_delay = _collect_tracks_for_artist(
             client, band_name, artist_id, current_delay
@@ -207,13 +222,20 @@ def run(test_mode: bool = False, resume_from_band: Optional[int] = None) -> None
     unresolved_entries: list[dict] = []
     current_delay = RATE_LIMIT_DELAY
     today = date.today().isoformat()
+    overrides = _load_overrides()
+    if overrides:
+        print(f"[OVERRIDES] {len(overrides)} manual artist-ID overrides loaded\n")
 
     for i, name in enumerate(band_names, 1):
         if i <= start_idx:
             continue
 
-        print(f"[{i}/{len(band_names)}] Resolving: {name}")
-        result, current_delay = resolve_band(client, name, current_delay)
+        override_id = overrides.get(name)
+        if override_id:
+            print(f"[{i}/{len(band_names)}] Resolving: {name}  (override -> {override_id})")
+        else:
+            print(f"[{i}/{len(band_names)}] Resolving: {name}")
+        result, current_delay = resolve_band(client, name, current_delay, override_id=override_id)
         result["name"] = name
         result["resolved_at"] = today
 
@@ -283,11 +305,14 @@ def retry_unresolved(below_threshold_only: bool = False) -> None:
         unresolved_data = json.load(f)
 
     candidates = unresolved_data.get("unresolved", [])
+    # Always skip entries explicitly marked as permanently unresolved
+    # (e.g. Wacken-local acts, tribute bands with no Spotify presence).
+    candidates = [b for b in candidates if not b.get("permanently_unresolved")]
     if below_threshold_only:
         candidates = [b for b in candidates if b.get("reason", "").startswith("Below threshold")]
         mode_label = "below-threshold bands only"
     else:
-        mode_label = "all unresolved bands"
+        mode_label = "all unresolved bands (excluding permanently-unresolved)"
 
     if not candidates:
         print(f"No {mode_label} found in unresolved_bands.json.")
@@ -307,6 +332,10 @@ def retry_unresolved(below_threshold_only: bool = False) -> None:
         b["name"]: b for b in lineup.get("bands", []) if isinstance(b, dict)
     }
 
+    overrides = _load_overrides()
+    if overrides:
+        print(f"[OVERRIDES] {len(overrides)} manual artist-ID overrides loaded\n")
+
     improved: list[str] = []
     still_unresolved: list[dict] = []
     today = date.today().isoformat()
@@ -316,16 +345,20 @@ def retry_unresolved(below_threshold_only: bool = False) -> None:
         old_reason = entry.get("reason", "")
         print(f"[{i}/{len(candidates)}] Retrying: {name}  ({old_reason})")
 
-        artist = client.search_artist(name)
-        if not artist:
-            print(f"  ! Artist still not found on Spotify")
-            still_unresolved.append({"name": name, "reason": "Not found on Spotify", "attempted_at": today})
+        override_id = overrides.get(name)
+        if override_id:
+            artist_id = override_id
+            print(f"  > artist ID (override): {artist_id}")
+        else:
+            artist = client.search_artist(name)
+            if not artist:
+                print(f"  ! Artist still not found on Spotify")
+                still_unresolved.append({"name": name, "reason": "Not found on Spotify", "attempted_at": today})
+                time.sleep(RATE_LIMIT_DELAY)
+                continue
+            artist_id = artist["id"]
+            print(f"  > artist ID: {artist_id} ({artist['name']})")
             time.sleep(RATE_LIMIT_DELAY)
-            continue
-
-        artist_id = artist["id"]
-        print(f"  > artist ID: {artist_id} ({artist['name']})")
-        time.sleep(RATE_LIMIT_DELAY)
 
         tracks, _ = _collect_tracks_for_artist(client, name, artist_id, RATE_LIMIT_DELAY)
         new_count = len(tracks)

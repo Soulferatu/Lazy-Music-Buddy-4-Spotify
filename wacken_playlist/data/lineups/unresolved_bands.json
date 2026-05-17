@@ -8,17 +8,23 @@
     {
       "name": "Ballroom DJ Team",
       "reason": "Zero tracks found on Spotify",
-      "attempted_at": "2026-05-17"
+      "attempted_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
     {
       "name": "Blood Fire Death",
       "reason": "Zero tracks found on Spotify",
-      "attempted_at": "2026-05-17"
+      "attempted_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
     {
       "name": "Cowgirls From Hell",
       "reason": "Below threshold: 2 tracks",
-      "attempted_at": "2026-05-17"
+      "attempted_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
     {
       "name": "Craft",
@@ -78,7 +84,9 @@
     {
       "name": "Wacken Firefighters",
       "reason": "Not found on Spotify",
-      "attempted_at": "2026-05-17"
+      "attempted_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
     {
       "name": "Mantar",

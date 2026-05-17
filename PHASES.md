@@ -180,6 +180,13 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 - **Results** — 24 of 42 unresolved bands now resolved (20 below-threshold → 5+ tracks, 4 zero-track → 5+ tracks). Remaining 18 are genuinely low-availability or local artists.
 - **Version** — bumped to 0.5.5 to cache-bust after lineup data changes.
 
+**Override-system work (2026-05-17, in progress — pending Spotify rate-limit clearance):**
+- Added `wacken_playlist/data/lineups/artist_overrides.json` — manual band-name → Spotify-artist-ID map. Resolver consults it before `search_artist` to bypass disambiguation failures on generic names. **10 verified IDs staged:** The Haunted, Mantar, Craft, Mr. Hurley Und Die Pulveraffen, The Other, Focus, Trold, Krogi (= EVIL JARED x KROGI), Phantom (= Phantom G.D.L), 9mm Headshot (= 9MM).
+- Added `permanently_unresolved: true` flag on `unresolved_bands.json` entries for 4 Wacken-local / tribute acts that have no Spotify presence (Wacken Firefighters, Ballroom DJ Team, Blood Fire Death, Cowgirls From Hell). `--retry-unresolved` now skips them.
+- Updated `scripts/resolve_lineup.py`: `_load_overrides()` helper, `resolve_band(override_id=...)` parameter, override-aware `retry_unresolved`.
+- **Blocked:** first retry hit a fresh Spotify shadow ban (every request 429). Damaged `wacken_2026.json` was restored from HEAD. Retry pending once ban clears.
+- **Update (later 2026-05-17):** user supplied IDs for all 4 remaining bands. `artist_overrides.json` now has 14 entries. Novelization and Maschine (Dieter "Maschine" Birr) each have only 1 song on Spotify — to be marked `permanently_unresolved` **after** tomorrow's retry captures that 1 track.
+
 ### Prerequisites
 
 - Stage 4 complete and mobile-friendly.

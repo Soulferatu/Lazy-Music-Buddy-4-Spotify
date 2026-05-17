@@ -1,0 +1,24 @@
+{
+  "_comment": "Manual Spotify artist-ID overrides for bands whose name is ambiguous on Spotify search (e.g. generic names that match a more popular act, or bands listed under a slightly different spelling). The resolver consults this file before calling search_artist. Keys are the band name as it appears in wacken_2026.json; values are Spotify artist IDs (the part after open.spotify.com/artist/).",
+  "overrides": {
+    "The Haunted": "2WLmgv66Uq4vt2i36vwkAq",
+    "Mantar": "6rVRU7I6r1lt6bhXGYTRQL",
+    "Craft": "0hkIlpV0isEixFIr74VfZm",
+    "Mr. Hurley Und Die Pulveraffen": "1Q5sHMaELij3vfxK4DpMOa",
+    "The Other": "0a3Gua6g9TZBKlDSqebL7W",
+    "Focus": "34my5PBbL8TiTcfJc2YoPD",
+    "Trold": "6HIvZLuHKMGYGzx9oHShD9",
+    "Krogi": "766CPWJo4muxhGzhTmI8dv",
+    "Phantom": "6f9WeAPRDSevpjBAyGfVmV",
+    "9mm Headshot": "0hYxXnnFEBBK8JDab4lIEM",
+    "E.N.D.": "7cJcHV7KcFh4BT9OCUjC44",
+    "Force": "527C8v9EOKmi9W2tApAIag",
+    "Novelization": "3poazkVxpS4USWiABaOBAZ",
+    "Maschine": "05K6aFMiBdDWGP1PhQtfIH"
+  },
+  "low_track_count_notes": {
+    "Novelization": "Only 1 song available on Spotify; mark permanently_unresolved after retry captures it.",
+    "Maschine": "Dieter 'Maschine' Birr — only 1 song available on Spotify; mark permanently_unresolved after retry captures it."
+  },
+  "updated_at": "2026-05-17"
+}

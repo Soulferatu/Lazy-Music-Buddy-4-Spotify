@@ -21,6 +21,7 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 - Stages 0–5 complete (2026-05-16). Stage 5: Vercel deployment live with full PWA support.
 - **Hotfix (2026-05-17, v0.5.4)**: Pre-resolution system deployed to fix 17-hour Spotify rate-limit shadow ban. All 169 bands now have tracks resolved offline at build time. Zero Spotify search calls per user session. Track removal UX improved (yellow X, toggle un-exclude).
 - **Band resolution improvement (2026-05-17, v0.5.5)**: Rewrote offline resolution system to use artist ID-based filtering instead of name matching. Two-strategy search (artist-qualifier + plain text) with URI deduplication. Resolved 24 of 42 unresolved bands, reducing count to 18 (57% improvement). Remaining 18 include genuinely low-availability artists (e.g., Mantar 4 tracks, niche local bands).
+- **Artist-ID overrides + permanent-unresolved flag (2026-05-17, in progress)**: Added `wacken_playlist/data/lineups/artist_overrides.json` (manual band-name → Spotify-artist-ID map) for bands where Spotify's search picks the wrong top hit (generic names like "Phantom", "Focus", "The Haunted"). Resolver now consults overrides before `search_artist`. Also added `permanently_unresolved: true` flag on `unresolved_bands.json` entries (4 Wacken-local / tribute acts) so `--retry-unresolved` skips them. **10 overrides staged for verification**; re-run blocked by an active Spotify shadow ban — retry pending once rate limit clears.
 - Architecture migration (Phases 1–6) complete — service layer, config, models, i18n, security, test split all in place.
 - **Next:** still pending Stage 6 (setlist.fm integration). No timeline change.
 - Optional: Personal Spotify login deferred (app-owned account works for sharing).
@@ -71,8 +72,12 @@ Open decisions: final logo/install icon (placeholder in use), whether to add per
 
 Results from both strategies are deduplicated by track URI and filtered to return only tracks where the artist ID matches. Maximum 10 tracks per band.
 
+**Artist-ID overrides** (2026-05-17): `wacken_playlist/data/lineups/artist_overrides.json` maps band names to Spotify artist IDs for cases where `search_artist` picks the wrong artist (generic names like "Phantom", "Focus", "The Haunted"). The resolver consults this map first; if a name is present, it skips `search_artist` and uses the override ID directly. Override IDs are looked up manually on `open.spotify.com/artist/<ID>` and verified before being added.
+
+**Permanently-unresolved bands**: entries in `unresolved_bands.json` with `"permanently_unresolved": true` (and a `"note"` explaining why) are skipped by `--retry-unresolved`. Used for Wacken-local acts (e.g. Wacken Firefighters), house DJs, and tribute bands that have no recorded Spotify presence.
+
 **Retry modes**:
-- `py scripts/resolve_lineup.py --retry-unresolved` — re-resolve all bands from `unresolved_bands.json` (both zero-track and below-threshold).
+- `py scripts/resolve_lineup.py --retry-unresolved` — re-resolve all non-permanent unresolved bands (uses overrides + skips permanently-unresolved).
 - `py scripts/resolve_lineup.py --retry-unresolved --below-threshold-only` — re-resolve only bands with 1-4 tracks; skip those with zero (likely genuinely absent from Spotify).
 
 **Data:** resolved band metadata stored in `wacken_playlist/data/lineups/wacken_2026.json` with embedded track URIs; unresolved outliers in `unresolved_bands.json` for auditing.
@@ -88,7 +93,7 @@ wacken_playlist/        Flask app package
   lineup.py             LineupRepository (reads data/lineups/*.json)
   services/             SpotifyClient, PlaylistBuilder, SetlistFmClient (stub)
   i18n/                 en.json, pt-BR.json
-  data/lineups/         wacken_2026.json (with embedded resolved tracks); unresolved_bands.json (for auditing)
+  data/lineups/         wacken_2026.json (with embedded resolved tracks); unresolved_bands.json (for auditing); artist_overrides.json (manual band-name → Spotify-artist-ID map)
   templates/            base.html, index.html
   static/               CSS, JS, service worker, icons
   version.py            Single source of cache-busting version
