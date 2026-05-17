@@ -18,10 +18,11 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 
 **Stage 6 — setlist.fm Song Source** (next up).
 
-- Stages 0–5 are complete (2026-05-16). Stage 5 delivered: Vercel deployment live with `vercel.json` config, `DEPLOYMENT.md` guide, environment variables configured, app tested end-to-end (band selection, preview, PWA installability), version `0.5.0`. Live URL: see Vercel dashboard. Details: [DEPLOYMENT.md](DEPLOYMENT.md).
-- Architecture migration (Phases 1–6) is complete — the service layer, config, models, i18n, security hardening, and test split are all in place.
-- Next milestone: add setlist.fm as an alternative song source so users can choose between Spotify top tracks or recent live setlists.
-- Optional: Personal Spotify login deferred to later (low priority; app-owned account works for sharing).
+- Stages 0–5 complete (2026-05-16). Stage 5: Vercel deployment live with full PWA support.
+- **Hotfix (2026-05-17, v0.5.4)**: Pre-resolution system deployed to fix 17-hour Spotify rate-limit shadow ban. All 169 bands now have tracks resolved offline at build time. Zero Spotify search calls per user session. Track removal UX improved (yellow X, toggle un-exclude).
+- Architecture migration (Phases 1–6) complete — service layer, config, models, i18n, security, test split all in place.
+- Next: add setlist.fm as alternative song source (no longer blocked by rate limits).
+- Optional: Personal Spotify login deferred (app-owned account works for sharing).
 
 ## Confirmed Product Decisions
 
