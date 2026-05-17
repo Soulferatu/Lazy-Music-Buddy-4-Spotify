@@ -27,7 +27,7 @@ def _make_builder(search_results=None, top_tracks_per_artist=2):
         return search_results.get(name)
 
     mock_spotify.search_artist.side_effect = search
-    mock_spotify.get_top_tracks.side_effect = lambda artist_name, market="US": [
+    mock_spotify.get_top_tracks.side_effect = lambda artist_name: [
         {
             "name": f"Song {i+1}",
             "artist": artist_name,

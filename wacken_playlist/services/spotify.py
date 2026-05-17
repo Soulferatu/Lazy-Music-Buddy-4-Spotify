@@ -168,6 +168,46 @@ class SpotifyClient:
 
         return items
 
+    def search_tracks_plain(
+        self, query: str, limit: int = 10, offset: int = 0
+    ) -> list[dict]:
+        """Search for tracks using a plain-text query (no artist: qualifier).
+
+        Used alongside search_tracks_by_artist in the offline resolution script.
+        Returns raw track objects with uri, name, artists, etc.
+        """
+        token = self.get_client_credentials_token()
+        params = {
+            "q": query,
+            "type": "track",
+            "limit": limit,
+            "offset": offset,
+        }
+
+        try:
+            response = self._api_get(token, params)
+            if response.status_code == 429:
+                logger.warning("Spotify 429 for plain query '%s' at offset %d", query, offset)
+                return []
+            if not response.ok:
+                logger.error(
+                    "Spotify search_tracks_plain HTTP %s: %s",
+                    response.status_code, response.text[:300],
+                )
+                response.raise_for_status()
+        except requests.RequestException as e:
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            raise SpotifyAPIError(
+                f"Failed to search tracks for query '{query}' (HTTP {status}): {e}"
+            )
+
+        try:
+            items = response.json().get("tracks", {}).get("items", [])
+        except ValueError as e:
+            raise SpotifyAPIError(f"Invalid search response for query '{query}': {e}")
+
+        return items
+
     MAX_TOP_TRACKS_PAGES = 2
     _SEARCH_PAGE_SIZE = 10
     _RATE_LIMIT_MAX_WAIT = 5  # seconds — cap how long we'll sleep on a 429
@@ -193,7 +233,7 @@ class SpotifyClient:
             )
         return resp
 
-    def get_top_tracks(self, artist_name: str, market: str = "US") -> list[dict]:
+    def get_top_tracks(self, artist_name: str) -> list[dict]:
         """Return up to 10 top tracks for an artist.
 
         Strategy 1: artist:"NAME" qualifier — exact-artist results, Spotify caps at ~5.

@@ -94,8 +94,21 @@
     },
     {
       "spotify_id": "2Sm4rGKWBnOQhdqDy4JJh0",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:6yRz2tVRLuDjsOZdPnRLL3",
+          "name": "EQUINOX - from “PUTAIN”"
+        },
+        {
+          "uri": "spotify:track:2GPZnfoMxz7ymVX0tWVyI8",
+          "name": "10•05•94"
+        },
+        {
+          "uri": "spotify:track:4CixVLgModpFtm0LU2OTuo",
+          "name": "Curlen"
+        }
+      ],
+      "track_count": 3,
       "name": "9mm Headshot",
       "resolved_at": "2026-05-17"
     },
@@ -297,8 +310,49 @@
     },
     {
       "spotify_id": "2GgqtN4rfpLZosbLI3PnpP",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:31IXxMysvxE1NbRMK7A3oH",
+          "name": "Noch Einmal"
+        },
+        {
+          "uri": "spotify:track:46Qou86KHTSA6hIlfyM9He",
+          "name": "Save a Song for Me"
+        },
+        {
+          "uri": "spotify:track:1CwCqVKT7Ec0dxfpWSDoCI",
+          "name": "Alien Mojo"
+        },
+        {
+          "uri": "spotify:track:5qIQ4fB7LkhIHQdnSbZ2uU",
+          "name": "Save a song for me"
+        },
+        {
+          "uri": "spotify:track:0TngdDwtlw2tG184q3WcgB",
+          "name": "We Will Rock You (Fast) - Queen Alien Version"
+        },
+        {
+          "uri": "spotify:track:6Cbbm1SfLmRKWTFrzAOFug",
+          "name": "We A.R.E. Rock!!"
+        },
+        {
+          "uri": "spotify:track:3Sm5EZXyy8d0KXLWKTtEMG",
+          "name": "Fight for Your Right to Party"
+        },
+        {
+          "uri": "spotify:track:5SDit45NxM03qkwTsUtNsk",
+          "name": "Walkin' Away"
+        },
+        {
+          "uri": "spotify:track:7mdPskPSwaktBZ46wWuspz",
+          "name": "La Isla Bonita - Live in \"El Callejón\""
+        },
+        {
+          "uri": "spotify:track:0cBZ6rfyno6NVXfW1RmH1y",
+          "name": "Demons in the Night"
+        }
+      ],
+      "track_count": 10,
       "name": "Alien Rockin Explosion",
       "resolved_at": "2026-05-17"
     },
@@ -316,9 +370,37 @@
         {
           "uri": "spotify:track:1d5nFX4jDlZicUbdD3GNP8",
           "name": "The Deep Blue Silent"
+        },
+        {
+          "uri": "spotify:track:3LeOJGqZ62QPSvWueSeL7Q",
+          "name": "Severance"
+        },
+        {
+          "uri": "spotify:track:3ziTknZahiwT3RTAlwN5a1",
+          "name": "Echoes"
+        },
+        {
+          "uri": "spotify:track:2xSwQiedcTLtI1N2tZHwrF",
+          "name": "Blindsight"
+        },
+        {
+          "uri": "spotify:track:0PGM2WP90WPQA2WHJ4uYmo",
+          "name": "Odium"
+        },
+        {
+          "uri": "spotify:track:4vEptPvxV74RFE2b2lyk3o",
+          "name": "The Seed"
+        },
+        {
+          "uri": "spotify:track:34GiFSmz7n93p8VwjmrFNK",
+          "name": "Rupture"
+        },
+        {
+          "uri": "spotify:track:5xpgIW5o8cD8n4ZhDI3dvT",
+          "name": "Covenant"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Allt",
       "resolved_at": "2026-05-17"
     },
@@ -583,7 +665,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Ballroom DJ Team",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "2wUKcOuW5xBpCKxnWOoxnI",
@@ -862,7 +945,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Blood Fire Death",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "38shFuJO9k0kOEQSf854u4",
@@ -1094,15 +1178,65 @@
     },
     {
       "spotify_id": "1BBIIH0h76KN8gYeXFcPjR",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:5Z7U8TRHAlX2uL2lVYv5Wa",
+          "name": "Vote with a Bullet"
+        },
+        {
+          "uri": "spotify:track:3CtKSQyQPdzA2u7n9tjJw2",
+          "name": "Albatross"
+        },
+        {
+          "uri": "spotify:track:6g48vpikqU2atsrDXdGzKo",
+          "name": "Clean My Wounds"
+        },
+        {
+          "uri": "spotify:track:2tI78SEx3HpdqSdEG8G00L",
+          "name": "Gimme Some Moore"
+        },
+        {
+          "uri": "spotify:track:7cogq4R9JdtuLknzp6nelD",
+          "name": "Good God? / Final Dawn"
+        },
+        {
+          "uri": "spotify:track:4PqdAqAffcFFL2rvGWTzaT",
+          "name": "Stare Too Long"
+        },
+        {
+          "uri": "spotify:track:0Mj1guCpGjbw6pqBbAbfGa",
+          "name": "You Or Me"
+        },
+        {
+          "uri": "spotify:track:6K0Av403T8gWOHLJGsw1vw",
+          "name": "Dance Of The Dead"
+        },
+        {
+          "uri": "spotify:track:7irZEd8aOhHegUd6Kw4Y9b",
+          "name": "The Handler"
+        },
+        {
+          "uri": "spotify:track:3ATmJ2j9jJyC6BMz8WnRCE",
+          "name": "Asleep On The Killing Floor"
+        }
+      ],
+      "track_count": 10,
       "name": "Corrosion Of Conformity",
       "resolved_at": "2026-05-17"
     },
     {
       "spotify_id": "2BJzRLleDH2jTAArbI4Xod",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:5zBl6p7SKTxW26sdPAE3JY",
+          "name": "ghost girl"
+        },
+        {
+          "uri": "spotify:track:5hJowFVUUMkvbb7MsADFZa",
+          "name": "castlevania"
+        }
+      ],
+      "track_count": 2,
       "name": "Cowgirls From Hell",
       "resolved_at": "2026-05-17"
     },
@@ -1111,7 +1245,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Craft",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "4q2uhIfBHCNlwXYvQdnzvS",
@@ -1335,9 +1470,33 @@
         {
           "uri": "spotify:track:2ZS87ydp7TZyJbqr8xqL4i",
           "name": "Guess Who's Back"
+        },
+        {
+          "uri": "spotify:track:2PIrlAdig9MxYLMYId11rg",
+          "name": "Black Rose"
+        },
+        {
+          "uri": "spotify:track:5pguZW7MjFQBJvoRFduqsw",
+          "name": "Good Time"
+        },
+        {
+          "uri": "spotify:track:0jnTz7CcNUjCx5nrEfT7wx",
+          "name": "I Think Bad Thoughts"
+        },
+        {
+          "uri": "spotify:track:6qsagpCMdR07Uj2KxDzLb1",
+          "name": "Baby Hates Me"
+        },
+        {
+          "uri": "spotify:track:6KJfHOfaQ6vvU1wC8zOWku",
+          "name": "Code Of The Road"
+        },
+        {
+          "uri": "spotify:track:0uo3Uk1PZtCNHT4vpUYjGF",
+          "name": "I Gotta Rock"
         }
       ],
-      "track_count": 4,
+      "track_count": 10,
       "name": "Danko Jones",
       "resolved_at": "2026-05-17"
     },
@@ -1638,7 +1797,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "E.N.D.",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "0iGkBvuI18nxqJR8Ipg1cu",
@@ -1750,9 +1910,25 @@
         {
           "uri": "spotify:track:0gm0QMvhuN1tKaBdPs3E78",
           "name": "We Got the Moves - RIOT Remix"
+        },
+        {
+          "uri": "spotify:track:2nOQgWpDJ3AV9CGrQXZTmH",
+          "name": "Pump It - Harris & Ford Remix"
+        },
+        {
+          "uri": "spotify:track:67RukXK6BgQp6I73yaYw27",
+          "name": "Hypa Hypa - Gestört aber GeiL Remix"
+        },
+        {
+          "uri": "spotify:track:5IpXLGVFDsQGXNyaJNbwIh",
+          "name": "Pump It - Velvet Remix"
+        },
+        {
+          "uri": "spotify:track:0KQNLVaNKznbXFiXzkFgn4",
+          "name": "Hypa Hypa - Gestört aber GeiL Remix"
         }
       ],
-      "track_count": 3,
+      "track_count": 7,
       "name": "Electric Bassboy",
       "resolved_at": "2026-05-17"
     },
@@ -1808,10 +1984,6 @@
       "spotify_id": "6jPWrSmxOd9mj7Xaj4EP2Y",
       "tracks": [
         {
-          "uri": "spotify:track:59gao4J29p9PyrTRADCQb0",
-          "name": "Still"
-        },
-        {
           "uri": "spotify:track:4jjlYfhduOrGY4mySof5C3",
           "name": "I Am The Black Wizards"
         },
@@ -1822,9 +1994,33 @@
         {
           "uri": "spotify:track:5LtWEwhRSj1RSfMNC3Y2iw",
           "name": "Ye Entrancemperium"
+        },
+        {
+          "uri": "spotify:track:3ahDVapPPxzrD7KOlR6XzH",
+          "name": "Into The Infinity Of Thoughts"
+        },
+        {
+          "uri": "spotify:track:43zq8Cz9qD1i5iuRrDAlX6",
+          "name": "A Fine Day To Die"
+        },
+        {
+          "uri": "spotify:track:3NCD67eC4NNxamKMKejzhJ",
+          "name": "Cosmic Keys To My Creations And Times"
+        },
+        {
+          "uri": "spotify:track:0GkMvnua2Tn8B2td4JMv1o",
+          "name": "The Wanderer"
+        },
+        {
+          "uri": "spotify:track:5856pb0FONA9h2FQkb2Ha2",
+          "name": "Curse You All Men"
+        },
+        {
+          "uri": "spotify:track:4djxiWZpOSMwVlIggTUUuw",
+          "name": "The Burning Shadows Of Silence"
         }
       ],
-      "track_count": 4,
+      "track_count": 9,
       "name": "Emperor",
       "resolved_at": "2026-05-17"
     },
@@ -1868,18 +2064,75 @@
           "name": "The Final Countdown"
         },
         {
+          "uri": "spotify:track:21bk4m2BIbuHZ6GKiPqFsG",
+          "name": "The Final Countdown 2025"
+        },
+        {
           "uri": "spotify:track:3J9NEWkd9Cx1MwSSvDySkL",
           "name": "Rock the Night"
+        },
+        {
+          "uri": "spotify:track:00AdnLQexne2adipm3n8Ip",
+          "name": "One on One"
+        },
+        {
+          "uri": "spotify:track:3pVj1Dpgf45D4yCG7w8f6M",
+          "name": "The Final Countdown"
+        },
+        {
+          "uri": "spotify:track:2Gah9qQMVdxCZJllU9HmnZ",
+          "name": "Cherokee"
+        },
+        {
+          "uri": "spotify:track:1fUl0jZAnH3oWVqAcQfPNc",
+          "name": "Superstitious"
+        },
+        {
+          "uri": "spotify:track:4cPE441DlsfXRh57rl1PAX",
+          "name": "Open Your Heart"
+        },
+        {
+          "uri": "spotify:track:7c5lMuvtz2gddhDyG5MjB6",
+          "name": "The Final Countdown"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Europe",
       "resolved_at": "2026-05-17"
     },
     {
       "spotify_id": "6GuheeWvmKVL49zes8CYoW",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:2LS9OxKuCnfVoNuD8gttrL",
+          "name": "Jägermeister"
+        },
+        {
+          "uri": "spotify:track:3DblNPqjWtSsHTj2oaoh0i",
+          "name": "Jägermeister"
+        },
+        {
+          "uri": "spotify:track:6tpAcqE2BLXp9uRPMTqeea",
+          "name": "Jägermeister"
+        },
+        {
+          "uri": "spotify:track:01BTOHmgdMJ9SiUcZNt2zL",
+          "name": "König Fußball"
+        },
+        {
+          "uri": "spotify:track:3MSoXQqt3tNRqNucQOtmBT",
+          "name": "A.M.S."
+        },
+        {
+          "uri": "spotify:track:2Aeka9bP5iKTETyCSeULU9",
+          "name": "A.M.S."
+        },
+        {
+          "uri": "spotify:track:1gGT7oyuFmysXQPP0LDahY",
+          "name": "Ready 4 Action"
+        }
+      ],
+      "track_count": 7,
       "name": "Evil Jared",
       "resolved_at": "2026-05-17"
     },
@@ -1941,9 +2194,29 @@
         {
           "uri": "spotify:track:3zodQoSA9p2jwSlFrYkzHF",
           "name": "Tanz mit mir"
+        },
+        {
+          "uri": "spotify:track:119lJoX079K9b6veWvf4OO",
+          "name": "Satyros"
+        },
+        {
+          "uri": "spotify:track:1nASpVxrdY4hLM482NpjHB",
+          "name": "Gwydion"
+        },
+        {
+          "uri": "spotify:track:41pPyia2I4AI3PBnYUviO1",
+          "name": "Walpurgisnacht"
+        },
+        {
+          "uri": "spotify:track:7f6quubDoOpftaFgfjpRNz",
+          "name": "Diese kalte Nacht"
+        },
+        {
+          "uri": "spotify:track:55HIlhwCFDlQlWyRCj5a2V",
+          "name": "Rhiannon"
         }
       ],
-      "track_count": 2,
+      "track_count": 7,
       "name": "Faun",
       "resolved_at": "2026-05-17"
     },
@@ -2065,8 +2338,17 @@
     },
     {
       "spotify_id": "0ifzzRKdmtgaHy9cfnnyCR",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:2uzyiRdvfNI5WxUiItv1y9",
+          "name": "Hocus Pocus"
+        },
+        {
+          "uri": "spotify:track:6iZtDWu3FTuxu7AprIqA3Y",
+          "name": "Hocus Pocus - Extended Version"
+        }
+      ],
+      "track_count": 2,
       "name": "Focus",
       "resolved_at": "2026-05-17"
     },
@@ -2075,7 +2357,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Force",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "4QnuZOyl4C9d1keyOZXJ21",
@@ -2513,15 +2796,31 @@
       "spotify_id": "6uyCfgv8FWIc2mifriVXqw",
       "tracks": [
         {
+          "uri": "spotify:track:75gq7sxtQbUNnDF3xXlSTn",
+          "name": "Trotzdem beste Freunde"
+        },
+        {
           "uri": "spotify:track:7yiniadReuTROuH1hO8kXO",
           "name": "Dinofreunde"
         },
         {
           "uri": "spotify:track:1CjLZs75qw15f2x3tTmIE2",
           "name": "Dinofreunde"
+        },
+        {
+          "uri": "spotify:track:0frveaBlGZKYnsjoGue2l9",
+          "name": "Trotzdem beste Freunde"
+        },
+        {
+          "uri": "spotify:track:4qe63MP1r9igOAoSxcxA9n",
+          "name": "Trotzdem beste Freunde"
+        },
+        {
+          "uri": "spotify:track:2s7PvtApb5d8eOk7Ktd4ia",
+          "name": "Trotzdem beste Freunde"
         }
       ],
-      "track_count": 2,
+      "track_count": 6,
       "name": "Heavysaurus",
       "resolved_at": "2026-05-17"
     },
@@ -2539,9 +2838,37 @@
         {
           "uri": "spotify:track:0ocfH73CHnPwvKfy5WMNSn",
           "name": "Wir haben Dorf"
+        },
+        {
+          "uri": "spotify:track:5RZ0U12eEwWI31nXcfkMTn",
+          "name": "Spielmannsschwur (United)"
+        },
+        {
+          "uri": "spotify:track:5K55rh2C73pHCNsy6TNfMM",
+          "name": "Ü30"
+        },
+        {
+          "uri": "spotify:track:2yXuUK5IOV1QfDXyyCkwzr",
+          "name": "Kids"
+        },
+        {
+          "uri": "spotify:track:7GmUfSuPQjpTlPVgnmCYQB",
+          "name": "Bleibst du heute mit mir wach?"
+        },
+        {
+          "uri": "spotify:track:7E0bOQjA9j2PzMKqUTBmMg",
+          "name": "GAGA"
+        },
+        {
+          "uri": "spotify:track:6UYOOZTk553Mu53otIJqD2",
+          "name": "Ficken unsren Kopf"
+        },
+        {
+          "uri": "spotify:track:0o1dksHZxRuzNnjroGxz4I",
+          "name": "Gott muss ein Arschloch sein"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Hämatom",
       "resolved_at": "2026-05-17"
     },
@@ -2611,9 +2938,33 @@
         {
           "uri": "spotify:track:7fw1s9GkS288i2HQxMMlas",
           "name": "Cloud Connected"
+        },
+        {
+          "uri": "spotify:track:2lN6G35gsXkA3xzPYqmis5",
+          "name": "Self vs Self (feat. In Flames)"
+        },
+        {
+          "uri": "spotify:track:0cEZ1p68dXFoN5diP3aEEV",
+          "name": "Take This Life"
+        },
+        {
+          "uri": "spotify:track:2gUrjc9fWHZytKm6FtBY7E",
+          "name": "The Quiet Place"
+        },
+        {
+          "uri": "spotify:track:24fWeFwEJQlce7B3grrgR1",
+          "name": "Deliver Us"
+        },
+        {
+          "uri": "spotify:track:6kk4G7WCvFrYuiotuDnH2N",
+          "name": "Foregone, Pt. 2"
+        },
+        {
+          "uri": "spotify:track:5qZMqZspIglsy4SJxtJt0S",
+          "name": "Meet Your Maker"
         }
       ],
-      "track_count": 4,
+      "track_count": 10,
       "name": "In Flames",
       "resolved_at": "2026-05-17"
     },
@@ -2870,7 +3221,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Krogi",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "5ziUNRAHfR28SgsINMc66V",
@@ -3058,9 +3410,37 @@
         {
           "uri": "spotify:track:1keFX6pFBmFgvp1MNgkSVt",
           "name": "The Castaway"
+        },
+        {
+          "uri": "spotify:track:4sNfEL2D6Qgy370ajeldtJ",
+          "name": "Can You Hear Me"
+        },
+        {
+          "uri": "spotify:track:2Ug1VlivaycFTEo93kML3f",
+          "name": "Can You Hear Me"
+        },
+        {
+          "uri": "spotify:track:6HeFVPPbiuMdHT7CYtQdxi",
+          "name": "Forbidden Thirst"
+        },
+        {
+          "uri": "spotify:track:5yEiK8SquGLJQ3amtzH4nd",
+          "name": "THE HAMMER OF WRATH"
+        },
+        {
+          "uri": "spotify:track:2GLVZAL2hqZmToZr5hiE7m",
+          "name": "Blazing Halo"
+        },
+        {
+          "uri": "spotify:track:1nkpHq21ZgPuDdCgPefh4Q",
+          "name": "Dream Of King"
+        },
+        {
+          "uri": "spotify:track:5wW9rLCL7SRL948VvdgSh9",
+          "name": "Soldier Stands Solitarily"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Lovebites",
       "resolved_at": "2026-05-17"
     },
@@ -3198,9 +3578,21 @@
         {
           "uri": "spotify:track:55rwgxxKmOKwux5LVXWvHU",
           "name": "Era Borealis"
+        },
+        {
+          "uri": "spotify:track:3jHZe8pDJHezOSRiNkR7kZ",
+          "name": "Hang 'Em Low (So the Rats Can Get 'Em)"
+        },
+        {
+          "uri": "spotify:track:3xIgId6mSvKr2EgEav9e0H",
+          "name": "Halsgericht"
+        },
+        {
+          "uri": "spotify:track:38EVDsDWOIt7TBfxGZzbcl",
+          "name": "Astral Kannibal"
         }
       ],
-      "track_count": 1,
+      "track_count": 4,
       "name": "Mantar",
       "resolved_at": "2026-05-17"
     },
@@ -3209,7 +3601,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Maschine",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "3dorOgTVQn7PWrqn7aHkWy",
@@ -3428,7 +3821,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Mr. Hurley Und Die Pulveraffen",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "2Ah9OuOj7B57gPD1cbwiaE",
@@ -3708,9 +4102,37 @@
         {
           "uri": "spotify:track:1X4Ntw6Lbaa1ACgilCqMpr",
           "name": "Alive - Chris Lord-Alge Mix"
+        },
+        {
+          "uri": "spotify:track:5tJjQIhH6mH3PhG1DjW3gD",
+          "name": "Southtown"
+        },
+        {
+          "uri": "spotify:track:0KSpHNE0VOgOh9esiCb0ut",
+          "name": "Alive"
+        },
+        {
+          "uri": "spotify:track:6UO0TGTr33kZLXG4PxRYZx",
+          "name": "Goodbye for Now"
+        },
+        {
+          "uri": "spotify:track:3zAIrDlrGJ5cwBHMR1YaLl",
+          "name": "Satellite"
+        },
+        {
+          "uri": "spotify:track:5LwqDzyg1wpNzJIwTvfIFz",
+          "name": "Soundboy Killa"
+        },
+        {
+          "uri": "spotify:track:4H1JIMTpgDtwo1Ln876RlK",
+          "name": "Don’t Let Me Down"
+        },
+        {
+          "uri": "spotify:track:0zWpwuXCLmAM5VRV0g0mpW",
+          "name": "Will You"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "P.O.D.",
       "resolved_at": "2026-05-17"
     },
@@ -3783,7 +4205,8 @@
       "tracks": [],
       "track_count": 0,
       "name": "Phantom",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "4raqfuxaWjPjrOQGb6zoa7",
@@ -3911,9 +4334,33 @@
         {
           "uri": "spotify:track:156gjKaMoJgvTRhhD2w5qp",
           "name": "Angel Wings"
+        },
+        {
+          "uri": "spotify:track:3wtmfJg7Y59193gisXjdmR",
+          "name": "RAGE"
+        },
+        {
+          "uri": "spotify:track:3KmFFR1CInXTFKMvZiAmgL",
+          "name": "Mercy"
+        },
+        {
+          "uri": "spotify:track:5sdqwzp1kSHHqTFsyfhrZW",
+          "name": "Destroy Me"
+        },
+        {
+          "uri": "spotify:track:3xQSG1eYo06kXI3JkPKllf",
+          "name": "In the Name of the Father"
+        },
+        {
+          "uri": "spotify:track:16oBX63zAQRkNeNa2SDYo1",
+          "name": "Dionysus"
+        },
+        {
+          "uri": "spotify:track:4jzkI6V7fTvOR8lMBhl2XQ",
+          "name": "Conclave"
         }
       ],
-      "track_count": 2,
+      "track_count": 8,
       "name": "President",
       "resolved_at": "2026-05-17"
     },
@@ -4233,15 +4680,39 @@
           "name": "Crusader"
         },
         {
+          "uri": "spotify:track:6CaVpbOmyDAaRsNtdKGXIu",
+          "name": "Ride Like the Wind"
+        },
+        {
           "uri": "spotify:track:181bQUGjSDPa0mZoPVGJes",
           "name": "Wheels of Steel - 2009 Remaster"
         },
         {
-          "uri": "spotify:track:6CaVpbOmyDAaRsNtdKGXIu",
-          "name": "Ride Like the Wind"
+          "uri": "spotify:track:3MpcisMq2eMJzmRqvtWgBI",
+          "name": "Saxons and Vikings"
+        },
+        {
+          "uri": "spotify:track:46WKQbgvgnSDlP0SqbJnBB",
+          "name": "747 (Strangers in the Night) - 2009 Remaster"
+        },
+        {
+          "uri": "spotify:track:2Quz6deYulrojpI9Bi3lXl",
+          "name": "Princess of the Night"
+        },
+        {
+          "uri": "spotify:track:11T0hjw6ZIoR6Y4C3EcKbf",
+          "name": "Denim & Leather"
+        },
+        {
+          "uri": "spotify:track:4jcYSu2qg9si6dPOwsCd8j",
+          "name": "Never Surrender - 2009 Remaster"
+        },
+        {
+          "uri": "spotify:track:479ZbAIoSuZvyvRR5NmZkc",
+          "name": "Power and the Glory - 1999 Remaster"
         }
       ],
-      "track_count": 4,
+      "track_count": 10,
       "name": "Saxon",
       "resolved_at": "2026-05-17"
     },
@@ -4319,8 +4790,49 @@
     },
     {
       "spotify_id": "6X3KrNqyquFDYia4Oz5dDM",
-      "tracks": [],
-      "track_count": 0,
+      "tracks": [
+        {
+          "uri": "spotify:track:48tm531D0F9nDyJA96Ywrs",
+          "name": "Shatta Lisboa"
+        },
+        {
+          "uri": "spotify:track:4NFtrPQce7fQsIrF6dgUn0",
+          "name": "Love toute la night"
+        },
+        {
+          "uri": "spotify:track:6ZjNZDsh253YoiENKlgzHw",
+          "name": "Ride Gyal"
+        },
+        {
+          "uri": "spotify:track:6vhQcAMS0QYEfTxSRL9EZL",
+          "name": "T'es fou - Sans toi"
+        },
+        {
+          "uri": "spotify:track:0GtwkhvRWhtif5VF75dhhP",
+          "name": "Accro à la Vitesse"
+        },
+        {
+          "uri": "spotify:track:2btFaeqY1ohjhjVITk97p6",
+          "name": "Position Interdite - Shatta"
+        },
+        {
+          "uri": "spotify:track:0CpHLeVv9ipjiTERw09NNE",
+          "name": "MoteurGyal"
+        },
+        {
+          "uri": "spotify:track:1qsZ6kgSbl7MILx9s0WDCT",
+          "name": "100% Portugaise"
+        },
+        {
+          "uri": "spotify:track:6FWn4VYHPQ6Y9Q7wzJsTXS",
+          "name": "Pauline - Shatta"
+        },
+        {
+          "uri": "spotify:track:49kMbpoXBsuavZAtHb3O4H",
+          "name": "Pipo Boy - Shatta"
+        }
+      ],
+      "track_count": 10,
       "name": "Skyline",
       "resolved_at": "2026-05-17"
     },
@@ -4534,9 +5046,33 @@
         {
           "uri": "spotify:track:6ZOx4ehXa8K2LESIQzIaqA",
           "name": "Set the Sails"
+        },
+        {
+          "uri": "spotify:track:2Q794ts5rRRHF468tySB35",
+          "name": "After Dark"
+        },
+        {
+          "uri": "spotify:track:6ZCavaMoehoM5UV4Ipelcw",
+          "name": "Side by Side"
+        },
+        {
+          "uri": "spotify:track:27D0cOhQ9SQZIMCnaOMeqW",
+          "name": "How to be a Pirate"
+        },
+        {
+          "uri": "spotify:track:39YdxOK7bxBzO89H9yu7Gj",
+          "name": "Homeward Bound"
+        },
+        {
+          "uri": "spotify:track:2EaIcKrECdPWk4bHtWjGuE",
+          "name": "Set the Sails"
+        },
+        {
+          "uri": "spotify:track:1OkLSutP1bJgtP4vrEvaE7",
+          "name": "Wellerman - Sea Shanty Folk Session"
         }
       ],
-      "track_count": 4,
+      "track_count": 10,
       "name": "Storm Seeker",
       "resolved_at": "2026-05-17"
     },
@@ -4552,11 +5088,39 @@
           "name": "Stahl auf Stahl (feat. Warkings)"
         },
         {
+          "uri": "spotify:track:78B9RvFjcpSQgGFtjy1zBE",
+          "name": "Kaufmann und Maid"
+        },
+        {
           "uri": "spotify:track:4ssMg8rAeeUUGwzzEbGRAv",
           "name": "Veitstanz (2014 Version) (feat. Saltatio Mortis, Schandmaul, Feuerschwanz, Chris Harms, MajorVoice, Patty Gurdy)"
+        },
+        {
+          "uri": "spotify:track:5RZ0U12eEwWI31nXcfkMTn",
+          "name": "Spielmannsschwur (United)"
+        },
+        {
+          "uri": "spotify:track:42wTuVQUJRkpc5UGaNxCFZ",
+          "name": "Minne Duett"
+        },
+        {
+          "uri": "spotify:track:1wLOor7thf6HRJgi4mgDCU",
+          "name": "Sieben"
+        },
+        {
+          "uri": "spotify:track:0qWDpZXNtk0qtLTcUKkjr0",
+          "name": "Eisblumen"
+        },
+        {
+          "uri": "spotify:track:3axBjRa1ZPk0Z7io9D8iJn",
+          "name": "Kleid aus Rosen"
+        },
+        {
+          "uri": "spotify:track:6M0RMEWjGeYUzjhCUVa0X2",
+          "name": "Island"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Subway To Sally",
       "resolved_at": "2026-05-17"
     },
@@ -4622,9 +5186,37 @@
         {
           "uri": "spotify:track:2I2lcRhPdvzfpC8Q3Eb6uO",
           "name": "Diazepam"
+        },
+        {
+          "uri": "spotify:track:2EdhMG30ix1ItYPW067c9D",
+          "name": "Reckoning"
+        },
+        {
+          "uri": "spotify:track:2CxtAvvLfMJSke9gTM2F5o",
+          "name": "trauma/response"
+        },
+        {
+          "uri": "spotify:track:5q2oiS8mE760W3lyYNK3Xp",
+          "name": "Older Days"
+        },
+        {
+          "uri": "spotify:track:1Lea7nKBWygjZlmuogmseD",
+          "name": "Earwig"
+        },
+        {
+          "uri": "spotify:track:2Fm1b9cFtMU5e5AgUoYBkQ",
+          "name": "Yenta"
+        },
+        {
+          "uri": "spotify:track:0Ouq3WXXqcmBe1eI8me4ck",
+          "name": "Copium"
+        },
+        {
+          "uri": "spotify:track:7lGyHbIwKbbYaGWrmwucWU",
+          "name": "Shitspitter"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Ten56.",
       "resolved_at": "2026-05-17"
     },
@@ -4733,25 +5325,38 @@
       "tracks": [],
       "track_count": 0,
       "name": "The Haunted",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "unresolved": true
     },
     {
       "spotify_id": "3nV9wzwFVAOJAjiSeFvcaf",
       "tracks": [
         {
-          "uri": "spotify:track:2sHmscm6NClVLvPtqk1A73",
-          "name": "Say Yeah"
-        },
-        {
-          "uri": "spotify:track:5QQ4BuGUeS1HxvFpBMCcVR",
-          "name": "Say Yeah"
-        },
-        {
           "uri": "spotify:track:33tTxBLklnh27xT04rlEon",
           "name": "Part Two, Screw You"
+        },
+        {
+          "uri": "spotify:track:1oo49tERW76PEl5Jt99lIq",
+          "name": "Black Sea"
+        },
+        {
+          "uri": "spotify:track:1TsVSDsoR44sBxaqwLfhfg",
+          "name": "Over Rover"
+        },
+        {
+          "uri": "spotify:track:7a615I1dZIL2qrN4cIsZTZ",
+          "name": "Sir Lancelot"
+        },
+        {
+          "uri": "spotify:track:2hbqbkZoy0VRCT0bShY7fh",
+          "name": "These Days"
+        },
+        {
+          "uri": "spotify:track:0FFA6hfLDkAEAAr6EJcpWb",
+          "name": "Caveman Logic"
         }
       ],
-      "track_count": 3,
+      "track_count": 6,
       "name": "The Limit",
       "resolved_at": "2026-05-17"
     },
@@ -4824,9 +5429,37 @@
         {
           "uri": "spotify:track:368RLF0YBCX8FyB4RGkaVq",
           "name": "Nowhere"
+        },
+        {
+          "uri": "spotify:track:3oOGK5EgPe7q1jL6G6di60",
+          "name": "Stories"
+        },
+        {
+          "uri": "spotify:track:6AXZm9PDOhrG99M1dDBAbp",
+          "name": "Screamager"
+        },
+        {
+          "uri": "spotify:track:3vZXNphWKGgW0TePYEtW0S",
+          "name": "Knives"
+        },
+        {
+          "uri": "spotify:track:1nReA2xhCwVExayajQilDT",
+          "name": "Trigger Inside"
+        },
+        {
+          "uri": "spotify:track:7GvVUakABpplf13KOuRd2F",
+          "name": "Stop It You're Killing Me"
+        },
+        {
+          "uri": "spotify:track:6ShQBbSp7QDfqNgvoGc3h5",
+          "name": "A Moment Of Clarity"
+        },
+        {
+          "uri": "spotify:track:0bSIRERqd8Sx6tk0g8EGV2",
+          "name": "Isolation"
         }
       ],
-      "track_count": 3,
+      "track_count": 10,
       "name": "Therapy?",
       "resolved_at": "2026-05-17"
     },
@@ -5227,9 +5860,45 @@
         {
           "uri": "spotify:track:49iA1o85yzomQPEXXiW4PI",
           "name": "Sons of the North"
+        },
+        {
+          "uri": "spotify:track:5e3KMluAyvPbDvwfXiv9f1",
+          "name": "Thor - The Powerhead"
+        },
+        {
+          "uri": "spotify:track:52aiz8cFSiRrdkcWFEMH94",
+          "name": "Against the Storm"
+        },
+        {
+          "uri": "spotify:track:1b7WG9qvYFILVhl5Mukpgd",
+          "name": "Braavalla"
+        },
+        {
+          "uri": "spotify:track:0sny9Sbdgd0gFxMZuND4QA",
+          "name": "Raise Your Horns"
+        },
+        {
+          "uri": "spotify:track:0vngh1woEyWmFF51PU1kRF",
+          "name": "By The Hammer They Fall"
+        },
+        {
+          "uri": "spotify:track:02jeEgBjkD3VOBCg7aRjB0",
+          "name": "Nine"
+        },
+        {
+          "uri": "spotify:track:79GL4MPERawKQBTOyFjjVD",
+          "name": "Never Surrender"
+        },
+        {
+          "uri": "spotify:track:33rrk3PsnPBQF8sMMJIKXf",
+          "name": "Boudica"
+        },
+        {
+          "uri": "spotify:track:7gviqIzbjRYJAcuiXqQPbN",
+          "name": "Gods of War"
         }
       ],
-      "track_count": 1,
+      "track_count": 10,
       "name": "Vanir",
       "resolved_at": "2026-05-17"
     },
@@ -5327,9 +5996,33 @@
         {
           "uri": "spotify:track:4CJNS7yGQfbwARiM7FUUhq",
           "name": "Legion of the Seas"
+        },
+        {
+          "uri": "spotify:track:3ucn4ytlqkm4Shw4LnGEpw",
+          "name": "The Riddle (feat. Visions Of Atlantis)"
+        },
+        {
+          "uri": "spotify:track:45EIlvPpw158SVbOQRUbWa",
+          "name": "Armada"
+        },
+        {
+          "uri": "spotify:track:1p4xEz6fyTjXq1BVvIGoHg",
+          "name": "Pirates & Kings"
+        },
+        {
+          "uri": "spotify:track:1bGs0xiAlMdKBpNSOq7Z9F",
+          "name": "The Deep & The Dark"
+        },
+        {
+          "uri": "spotify:track:31ih4zSrfyoFtMvm7PEw43",
+          "name": "Master the Hurricane"
+        },
+        {
+          "uri": "spotify:track:6kdP8ELxGOxuTo5kAm2k1F",
+          "name": "Tonight I'm Alive"
         }
       ],
-      "track_count": 4,
+      "track_count": 10,
       "name": "Visions Of Atlantis",
       "resolved_at": "2026-05-17"
     },
