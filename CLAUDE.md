@@ -30,7 +30,8 @@ The app must be installable as a PWA, work on mobile and desktop, and never comm
 - **Result:** 136 of 169 bands at the 10-track cap (was 74). Total tracks 1,234 → 1,485 (+251). Below-cap remainder: 5 at 9, 7 at 8, 1 at 6, 2 at 4, 1 at 3, 3 at 2, 1 at 1, 13 at 0 — these are real Spotify ceilings, name-collision casualties (e.g. Minotaurus and Sacred Steel: Spotify's `artist:"NAME"` search now ranks a different artist first, the filter correctly rejects), or already flagged. **Heavysaurus** (`6uyCfgv8FWIc2mifriVXqw`) flagged `permanently_unresolved` — only 2 unique songs across 6 release URIs.
 - Handling guide and per-band rationale: [wiki/track_topup_plan.md](wiki/track_topup_plan.md). Handling guide: [wiki/track_topup_plan.md](wiki/track_topup_plan.md).
 - Architecture migration (Phases 1–6) complete — service layer, config, models, i18n, security, test split all in place.
-- **Next:** still pending Stage 6 (setlist.fm integration). No timeline change.
+- **Library refactor (2026-05-18, in flight)**: bookkeeping opened in [wiki/library_refactor.md](wiki/library_refactor.md). Splitting `wacken_2026.json` into a thin lineup pointer file plus `data/library/{artists,spotify_tracks,unresolved,setlists}.json`. Folded 4-phase plan (1+2, 3, 4, 5+6) per [LIBRARY_REFACTOR_PLAN.md](LIBRARY_REFACTOR_PLAN.md). Targeted to land before Stage 6 so setlist.fm data uses the new layout from day one.
+- **Next:** complete the library refactor, then begin Stage 6 (setlist.fm integration). No external-timeline change.
 - Optional: Personal Spotify login deferred (app-owned account works for sharing).
 
 ## Confirmed Product Decisions

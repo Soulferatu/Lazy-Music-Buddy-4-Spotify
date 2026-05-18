@@ -1,51 +1,10 @@
 {
-  "year": 2026,
-  "source_urls": [
-    "https://www.wacken.com/en/news-details/party-on-the-first-35-bands-for-woa-2026/",
-    "https://s.wacken.com/en/news-details/55-additional-bands-for-wacken-open-air-2026/",
-    "https://www.wacken.com/en/news-details/49-new-bands-for-woa-2026/",
-    "https://www.wacken.com/en/news-details/party-on-with-sabbaton-at-woa-2026/",
-    "https://www.wacken.com/en/news-details/more-bands-for-the-holy-ground/",
-    "https://www.wacken.com/en/line-up/bands/#/bandfilter",
-    "https://www.festivalsunited.com/festivals/wacken-open-air"
-  ],
-  "notes": {
-    "dedup_decisions": [
-      {
-        "removed": "Ten56",
-        "kept": "Ten56.",
-        "reason": "Trailing period matches official band styling on Spotify."
-      },
-      {
-        "removed": "Troops Of Doom",
-        "kept": "The Troops Of Doom",
-        "reason": "Definite article matches the official band name."
-      },
-      {
-        "removed": "Skylineband",
-        "kept": "Skyline",
-        "reason": "Treated as the same act; 'Skyline' is the canonical form."
-      },
-      {
-        "removed": "5th Avenue Hamburg",
-        "kept": "5th Avenue",
-        "reason": "Treated as the same act; shorter form is canonical."
-      },
-      {
-        "removed": "Maschine's Late Night Show",
-        "kept": null,
-        "reason": "Stage event, not a band — removed from the band list to avoid duplicate matching against Maschine."
-      },
-      {
-        "removed": "Nita Strauss",
-        "kept": null,
-        "reason": "Withdrew from Wacken 2026 due to pregnancy (announced after initial lineup release)."
-      }
-    ]
+  "_meta": {
+    "description": "Per-artist Spotify track cache. Keyed by Spotify artist ID.",
+    "updated_at": "2026-05-18"
   },
-  "bands": [
-    {
-      "spotify_id": "1biWH85uIGqR8Nj7oKU5J9",
+  "artists": {
+    "1biWH85uIGqR8Nj7oKU5J9": {
       "tracks": [
         {
           "uri": "spotify:track:2YCJBTkQlFmj6LcRCsKNfe",
@@ -89,11 +48,9 @@
         }
       ],
       "track_count": 10,
-      "name": "5th Avenue",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0hYxXnnFEBBK8JDab4lIEM",
+    "0hYxXnnFEBBK8JDab4lIEM": {
       "tracks": [
         {
           "uri": "spotify:track:4HdGGZl3L9PUQ3HQSSGs6J",
@@ -137,11 +94,9 @@
         }
       ],
       "track_count": 10,
-      "name": "9mm Headshot",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "2X3qFQFHkm1sOGo5ppIoSD",
+    "2X3qFQFHkm1sOGo5ppIoSD": {
       "tracks": [
         {
           "uri": "spotify:track:4zwRfbIQHfZNm9CWQMh4TA",
@@ -185,11 +140,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Ad Infinitum",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6urzdpGY5yUimWZsgJUoTb",
+    "6urzdpGY5yUimWZsgJUoTb": {
       "tracks": [
         {
           "uri": "spotify:track:71fSn6OIF7HnCbgCzOBqpj",
@@ -233,11 +186,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Airbourne",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0d5ZwMtCer8dQdOPAgWhe7",
+    "0d5ZwMtCer8dQdOPAgWhe7": {
       "tracks": [
         {
           "uri": "spotify:track:5DFnmcshyxsonqTvanqZPY",
@@ -281,11 +232,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Alcest",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3OpqU68JpZlzvjAJj3B2Da",
+    "3OpqU68JpZlzvjAJj3B2Da": {
       "tracks": [
         {
           "uri": "spotify:track:0SPHbfBIe0mdRnae2MWuzr",
@@ -329,11 +278,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Alestorm",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0DhxBb7HKgksv0K7p3cIFj",
+    "0DhxBb7HKgksv0K7p3cIFj": {
       "tracks": [
         {
           "uri": "spotify:track:3DaSB9H9DJTJ8nhdv01CKR",
@@ -377,11 +324,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Alfahanne",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6TZdvF1kFzwnQLgHQynzsO",
+    "6TZdvF1kFzwnQLgHQynzsO": {
       "tracks": [
         {
           "uri": "spotify:track:5z6xHjCZr7a7AIcy8sPBKy",
@@ -425,11 +370,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Alien Ant Farm",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "2GgqtN4rfpLZosbLI3PnpP",
+    "2GgqtN4rfpLZosbLI3PnpP": {
       "tracks": [
         {
           "uri": "spotify:track:31IXxMysvxE1NbRMK7A3oH",
@@ -473,11 +416,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Alien Rockin Explosion",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6YRr0btzGqfQ5K7r23qjEM",
+    "6YRr0btzGqfQ5K7r23qjEM": {
       "tracks": [
         {
           "uri": "spotify:track:49LZHvYu1hUWIlR5Di3LWJ",
@@ -521,11 +462,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Allt",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7vrrJ5YlL3I8XUrh1ktGJV",
+    "7vrrJ5YlL3I8XUrh1ktGJV": {
       "tracks": [
         {
           "uri": "spotify:track:38XmF28XW6a7g44JhZdsDT",
@@ -569,11 +508,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Anaal Nathrakh",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3bnPBquC93vbHmamojAf59",
+    "3bnPBquC93vbHmamojAf59": {
       "tracks": [
         {
           "uri": "spotify:track:3qy8XCdTUJI7UGynBI7Hkn",
@@ -617,11 +554,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Angelus Apatrida",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "65C6Unk7nhg2aCnVuAPMo8",
+    "65C6Unk7nhg2aCnVuAPMo8": {
       "tracks": [
         {
           "uri": "spotify:track:7JGqk4qLVlOCFAKP5uoBJT",
@@ -665,11 +600,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Animals As Leaders",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4p6RoajGbtqLSfYZpFxHyU",
+    "4p6RoajGbtqLSfYZpFxHyU": {
       "tracks": [
         {
           "uri": "spotify:track:6pdb2eGQGwjn0HK0jGJVEf",
@@ -713,11 +646,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Any Given Day",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0DCw6lHkzh9t7f8Hb4Z0Sx",
+    "0DCw6lHkzh9t7f8Hb4Z0Sx": {
       "tracks": [
         {
           "uri": "spotify:track:27sTzAelgljD6Uxp88BqA3",
@@ -761,11 +692,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Arch Enemy",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7eSVSGjrGmW6f8t21v3gHl",
+    "7eSVSGjrGmW6f8t21v3gHl": {
       "tracks": [
         {
           "uri": "spotify:track:4HMqKbU3RpxBW4ldJCh97r",
@@ -809,11 +738,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Arroganz",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7A6bQKckcNVXkQGGPwyGWt",
+    "7A6bQKckcNVXkQGGPwyGWt": {
       "tracks": [
         {
           "uri": "spotify:track:0FIIFjByMzWCbDDkTzMjNF",
@@ -857,19 +784,16 @@
         }
       ],
       "track_count": 10,
-      "name": "Asrock",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3kcwSBHk3lMgHMHuxjJLNZ",
+    "3kcwSBHk3lMgHMHuxjJLNZ": {
       "tracks": [],
       "track_count": 0,
-      "name": "Ballroom DJ Team",
       "resolved_at": "2026-05-17",
-      "unresolved": true
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
-    {
-      "spotify_id": "2wUKcOuW5xBpCKxnWOoxnI",
+    "2wUKcOuW5xBpCKxnWOoxnI": {
       "tracks": [
         {
           "uri": "spotify:track:60Ywfl0cCvIK4fMoSl0Wci",
@@ -913,11 +837,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Battlecreek",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2ifvIECHAlEgPMBuBOJ0lG",
+    "2ifvIECHAlEgPMBuBOJ0lG": {
       "tracks": [
         {
           "uri": "spotify:track:10VIsMEvM4K2xgFvh9plJi",
@@ -961,11 +883,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Bear McCreary",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3qjpqpwTo3qdYJ3GjQ84GR",
+    "3qjpqpwTo3qdYJ3GjQ84GR": {
       "tracks": [
         {
           "uri": "spotify:track:7amTA8uvmquUxeJMavntNv",
@@ -1009,11 +929,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Blaas Of Glory",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0zfT626RwO6zN3RDYeRit5",
+    "0zfT626RwO6zN3RDYeRit5": {
       "tracks": [
         {
           "uri": "spotify:track:6S7qPKFaHfotXNN52NixcN",
@@ -1057,11 +975,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Black Label Society",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3zgdqcPEdYpDTSCsyjXePd",
+    "3zgdqcPEdYpDTSCsyjXePd": {
       "tracks": [
         {
           "uri": "spotify:track:34gtzItsfhE2f6e0vx4zQQ",
@@ -1105,11 +1021,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Black Tish",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "5ZvwJikDgdP1PFU4PkAPVG",
+    "5ZvwJikDgdP1PFU4PkAPVG": {
       "tracks": [
         {
           "uri": "spotify:track:3nzC7h6uULmlCuLHoeMGJ7",
@@ -1153,11 +1067,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Bleed From Within",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4WfUbvICLrqPW9rzuNGS1f",
+    "4WfUbvICLrqPW9rzuNGS1f": {
       "tracks": [
         {
           "uri": "spotify:track:6GT8vcEC3ZtWuhrNgFeBGf",
@@ -1201,19 +1113,16 @@
         }
       ],
       "track_count": 10,
-      "name": "Blood Command",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7FDSyIKRi2pQDXHpvfYZCd",
+    "7FDSyIKRi2pQDXHpvfYZCd": {
       "tracks": [],
       "track_count": 0,
-      "name": "Blood Fire Death",
       "resolved_at": "2026-05-17",
-      "unresolved": true
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
-    {
-      "spotify_id": "38shFuJO9k0kOEQSf854u4",
+    "38shFuJO9k0kOEQSf854u4": {
       "tracks": [
         {
           "uri": "spotify:track:74O70gj74vYjURPbt6Ygft",
@@ -1257,11 +1166,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Blood Red Throne",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0QJjaDqswcLyjDOgcBBf1Z",
+    "0QJjaDqswcLyjDOgcBBf1Z": {
       "tracks": [
         {
           "uri": "spotify:track:5D7jsJ5g8SHauhcqRZ3v72",
@@ -1305,11 +1212,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Broken By The Scream",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0J0ZiqA0aDxmkQye4wohwb",
+    "0J0ZiqA0aDxmkQye4wohwb": {
       "tracks": [
         {
           "uri": "spotify:track:2b7VEmylhawgCheEYh7ZHp",
@@ -1353,11 +1258,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Brunhilde",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2g5gjeZJLGcWPAF0o9KdJj",
+    "2g5gjeZJLGcWPAF0o9KdJj": {
       "tracks": [
         {
           "uri": "spotify:track:0RP5sfBPpemUuD099XJ3jk",
@@ -1401,11 +1304,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Castle Rat",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7GNTvmIi6DDF2XDJKYKoUk",
+    "7GNTvmIi6DDF2XDJKYKoUk": {
       "tracks": [
         {
           "uri": "spotify:track:6dSZv23B2KEFYwUFT9rqbl",
@@ -1449,11 +1350,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Chaosbay",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "1BBIIH0h76KN8gYeXFcPjR",
+    "1BBIIH0h76KN8gYeXFcPjR": {
       "tracks": [
         {
           "uri": "spotify:track:5Z7U8TRHAlX2uL2lVYv5Wa",
@@ -1497,11 +1396,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Corrosion Of Conformity",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2BJzRLleDH2jTAArbI4Xod",
+    "2BJzRLleDH2jTAArbI4Xod": {
       "tracks": [
         {
           "uri": "spotify:track:5zBl6p7SKTxW26sdPAE3JY",
@@ -1513,19 +1410,16 @@
         }
       ],
       "track_count": 2,
-      "name": "Cowgirls From Hell",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
-    {
-      "spotify_id": "0hkIlpV0isEixFIr74VfZm",
+    "0hkIlpV0isEixFIr74VfZm": {
       "tracks": [],
       "track_count": 0,
-      "name": "Craft",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4q2uhIfBHCNlwXYvQdnzvS",
+    "4q2uhIfBHCNlwXYvQdnzvS": {
       "tracks": [
         {
           "uri": "spotify:track:0JObTNfSbzxAy2ENhsmuBl",
@@ -1569,11 +1463,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Crematory",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "2B73nUiRlcSwjTyVaIAwhR",
+    "2B73nUiRlcSwjTyVaIAwhR": {
       "tracks": [
         {
           "uri": "spotify:track:0rWGcgm8zjg6w5Y00V0W8r",
@@ -1617,11 +1509,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Crimson Glory",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6QpbkfyEQJ3JiQw2AbTRUH",
+    "6QpbkfyEQJ3JiQw2AbTRUH": {
       "tracks": [
         {
           "uri": "spotify:track:1A7cp7bEenm3bRijF0WbDb",
@@ -1665,11 +1555,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Cruachan",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "363ih5wuNGWBFcjeKFG8cc",
+    "363ih5wuNGWBFcjeKFG8cc": {
       "tracks": [
         {
           "uri": "spotify:track:09b99GnXKcgzQmgb6rhXsB",
@@ -1713,11 +1601,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Crypt Sermon",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "18inV5ouPlVcntsdYFWwiJ",
+    "18inV5ouPlVcntsdYFWwiJ": {
       "tracks": [
         {
           "uri": "spotify:track:4M5puEJdoYKuGR77jUh0he",
@@ -1753,11 +1639,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Cursed Abyss",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7CGoviGsNXYmGOBkXk8dtW",
+    "7CGoviGsNXYmGOBkXk8dtW": {
       "tracks": [
         {
           "uri": "spotify:track:3d86dWq9Hk1D8ZhQelLlQs",
@@ -1801,11 +1685,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Danko Jones",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4XpPveeg7RuYS3CgLo75t9",
+    "4XpPveeg7RuYS3CgLo75t9": {
       "tracks": [
         {
           "uri": "spotify:track:3zdMs3UPyhMUCmXOsbFzQ7",
@@ -1849,11 +1731,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Deafheaven",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6H1RjVyNruCmrBEWRbD0VZ",
+    "6H1RjVyNruCmrBEWRbD0VZ": {
       "tracks": [
         {
           "uri": "spotify:track:2PFIZFcGry0po3ZfRZkzKc",
@@ -1897,11 +1777,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Def Leppard",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0mdu8tTvytKczjlIVh78oJ",
+    "0mdu8tTvytKczjlIVh78oJ": {
       "tracks": [
         {
           "uri": "spotify:track:1cJoeRRuosaxzOTjIk7ZlL",
@@ -1945,11 +1823,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Diabolisches Werk",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7lnoKzE5unKzShIzkjlTX7",
+    "7lnoKzE5unKzShIzkjlTX7": {
       "tracks": [
         {
           "uri": "spotify:track:3pXFfSI69qQdJ8HJDPAWvU",
@@ -1993,11 +1869,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Dirty Shirt",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6mMlq8oWkHZwC2rd2RZbYF",
+    "6mMlq8oWkHZwC2rd2RZbYF": {
       "tracks": [
         {
           "uri": "spotify:track:1sX5wgNyQH5UQXIU2BB4DU",
@@ -2041,11 +1915,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Divlje Jagode",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7zhSE4Ry047wUsemXtAzq9",
+    "7zhSE4Ry047wUsemXtAzq9": {
       "tracks": [
         {
           "uri": "spotify:track:74sfYW9x307NcyFYMqcC1I",
@@ -2089,11 +1961,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Dritte Wahl",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "02IFYoziC7CpQRK8fbehUY",
+    "02IFYoziC7CpQRK8fbehUY": {
       "tracks": [
         {
           "uri": "spotify:track:3AjZd2FYElRKklkiXIKTx6",
@@ -2137,19 +2007,14 @@
         }
       ],
       "track_count": 10,
-      "name": "Dubioza Kolektiv",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0cnovHZTwq7jWzzzGQWt58",
+    "0cnovHZTwq7jWzzzGQWt58": {
       "tracks": [],
       "track_count": 0,
-      "name": "E.N.D.",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0iGkBvuI18nxqJR8Ipg1cu",
+    "0iGkBvuI18nxqJR8Ipg1cu": {
       "tracks": [
         {
           "uri": "spotify:track:6c8pDHKejSMGnnKyDGWgOe",
@@ -2193,11 +2058,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Einherjer",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4irE4oDcl1EOiQxc4T9kNc",
+    "4irE4oDcl1EOiQxc4T9kNc": {
       "tracks": [
         {
           "uri": "spotify:track:61zLesVvrbUW1AwPyg4HHu",
@@ -2241,11 +2104,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Elchivo",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5OhB4WP6o9odTeJS6rEC9g",
+    "5OhB4WP6o9odTeJS6rEC9g": {
       "tracks": [
         {
           "uri": "spotify:track:2faF108muc7FuJ3nfLehOF",
@@ -2273,11 +2134,9 @@
         }
       ],
       "track_count": 6,
-      "name": "Electric Bassboy",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3HKoyHD86fikvLBdecyl5j",
+    "3HKoyHD86fikvLBdecyl5j": {
       "tracks": [
         {
           "uri": "spotify:track:2x2gf1sNO86Le8V1vFrKCa",
@@ -2321,11 +2180,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Eläkeläiset",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6jPWrSmxOd9mj7Xaj4EP2Y",
+    "6jPWrSmxOd9mj7Xaj4EP2Y": {
       "tracks": [
         {
           "uri": "spotify:track:4jjlYfhduOrGY4mySof5C3",
@@ -2369,11 +2226,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Emperor",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "58d50jBQXhOetEGuSBgu64",
+    "58d50jBQXhOetEGuSBgu64": {
       "tracks": [
         {
           "uri": "spotify:track:6WuWxcSMhQ6ntve4zT84RF",
@@ -2417,11 +2272,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Employed To Serve",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7Js6Lde8thlIHXggv2SCBz",
+    "7Js6Lde8thlIHXggv2SCBz": {
       "tracks": [
         {
           "uri": "spotify:track:29wJiSQcze8HEmxkUQykyp",
@@ -2457,11 +2310,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Europe",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6GuheeWvmKVL49zes8CYoW",
+    "6GuheeWvmKVL49zes8CYoW": {
       "tracks": [
         {
           "uri": "spotify:track:2LS9OxKuCnfVoNuD8gttrL",
@@ -2481,11 +2332,9 @@
         }
       ],
       "track_count": 4,
-      "name": "Evil Jared",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7n7ZqJDzdKrZul0UjAWUhC",
+    "7n7ZqJDzdKrZul0UjAWUhC": {
       "tracks": [
         {
           "uri": "spotify:track:6qcB83Mtr8Onsd8iWaEa85",
@@ -2529,11 +2378,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Expellow",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2wPOgnQ6eW3X73uIJZ4YFE",
+    "2wPOgnQ6eW3X73uIJZ4YFE": {
       "tracks": [
         {
           "uri": "spotify:track:0a0eWptMSFinwTAg1zfndE",
@@ -2577,11 +2424,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Faun",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "1Gh3UMZ0WVesXifHfziSx9",
+    "1Gh3UMZ0WVesXifHfziSx9": {
       "tracks": [
         {
           "uri": "spotify:track:65CoGJHdL9vsSujClt4dS7",
@@ -2625,11 +2470,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Finsterforst",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6iuACyGPyhtixKHUiJ8mNu",
+    "6iuACyGPyhtixKHUiJ8mNu": {
       "tracks": [
         {
           "uri": "spotify:track:7eR6wBI1PIFLQe2fvPiEWi",
@@ -2673,11 +2516,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Firespawn",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0qJpY7K8p7g6sacvaGNt6i",
+    "0qJpY7K8p7g6sacvaGNt6i": {
       "tracks": [
         {
           "uri": "spotify:track:4JAG6UjYhX5JZwsHQz4jm7",
@@ -2721,11 +2562,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Fit For An Autopsy",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0ifzzRKdmtgaHy9cfnnyCR",
+    "0ifzzRKdmtgaHy9cfnnyCR": {
       "tracks": [
         {
           "uri": "spotify:track:2uzyiRdvfNI5WxUiItv1y9",
@@ -2737,19 +2576,14 @@
         }
       ],
       "track_count": 2,
-      "name": "Focus",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2E9JlIDz7c0Ufmbs1YEjIX",
+    "2E9JlIDz7c0Ufmbs1YEjIX": {
       "tracks": [],
       "track_count": 0,
-      "name": "Force",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4QnuZOyl4C9d1keyOZXJ21",
+    "4QnuZOyl4C9d1keyOZXJ21": {
       "tracks": [
         {
           "uri": "spotify:track:6Nx2v8RqzBZZicfvZStGep",
@@ -2793,11 +2627,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Future Palace",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3zig081GzEy52hB4SLF41Z",
+    "3zig081GzEy52hB4SLF41Z": {
       "tracks": [
         {
           "uri": "spotify:track:2QicwvVbxtKTstZOEFYVvW",
@@ -2841,11 +2673,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Given By The Flames",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4jjB1JrODqyxFVDDCLM4YV",
+    "4jjB1JrODqyxFVDDCLM4YV": {
       "tracks": [
         {
           "uri": "spotify:track:1A3CFHEeIPPSigjoErCh1A",
@@ -2889,11 +2719,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Goodnight Greatness",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7GTkjp7qsfmx8iJzBUQLmN",
+    "7GTkjp7qsfmx8iJzBUQLmN": {
       "tracks": [
         {
           "uri": "spotify:track:5lGBBvxRtB1M74bVQKNPjC",
@@ -2937,11 +2765,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Grand Magus",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "07mhRucOGu6NJvRNVzqoxU",
+    "07mhRucOGu6NJvRNVzqoxU": {
       "tracks": [
         {
           "uri": "spotify:track:6PQA6MBU3xAsZKmahjF9Bg",
@@ -2985,11 +2811,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Guilt Trip",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5CmgfDQq0YVKMP6zpjYhPR",
+    "5CmgfDQq0YVKMP6zpjYhPR": {
       "tracks": [
         {
           "uri": "spotify:track:4DDzqBrwoho6Tx4N038WhG",
@@ -3033,11 +2857,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Gutalax",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "1V3Nl0Y3EZwqP38KHws6vB",
+    "1V3Nl0Y3EZwqP38KHws6vB": {
       "tracks": [
         {
           "uri": "spotify:track:0bNy44pnceCNyMgMAV3Xil",
@@ -3081,11 +2903,9 @@
         }
       ],
       "track_count": 10,
-      "name": "H-Blockx",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6Vp7LKfnmi4ONEUww3IjCj",
+    "6Vp7LKfnmi4ONEUww3IjCj": {
       "tracks": [
         {
           "uri": "spotify:track:2qMHzfeY653Gfoy7KE34Po",
@@ -3129,11 +2949,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Hackneyed",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3caJ5Uy9aHZv7wVSNqwwjc",
+    "3caJ5Uy9aHZv7wVSNqwwjc": {
       "tracks": [
         {
           "uri": "spotify:track:7lzgj0uN57IYLUvtRJouxq",
@@ -3177,11 +2995,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Hardline",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "17Mb968quDHpjCkIyq30QV",
+    "17Mb968quDHpjCkIyq30QV": {
       "tracks": [
         {
           "uri": "spotify:track:4Lxn1JlGJwmmXpODrNvPA6",
@@ -3225,11 +3041,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Hatebreed",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6b5VGR6r36WvU3vbrl9HbG",
+    "6b5VGR6r36WvU3vbrl9HbG": {
       "tracks": [
         {
           "uri": "spotify:track:5FSqloif7Zsq8ZwxBLyqhD",
@@ -3273,11 +3087,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Heartless Human Harvest",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6uyCfgv8FWIc2mifriVXqw",
+    "6uyCfgv8FWIc2mifriVXqw": {
       "tracks": [
         {
           "uri": "spotify:track:75gq7sxtQbUNnDF3xXlSTn",
@@ -3289,11 +3101,11 @@
         }
       ],
       "track_count": 2,
-      "name": "Heavysaurus",
-      "resolved_at": "2026-05-18"
+      "resolved_at": "2026-05-18",
+      "permanently_unresolved": true,
+      "note": "Artist 6uyCfgv8FWIc2mifriVXqw has only 2 unique songs on Spotify (\"Trotzdem beste Freunde\" and \"Dinofreunde\"). Resolver originally returned 6 URIs (re-releases / singles / compilations of the same 2 songs); deduped by title 2026-05-18. Skip future retries."
     },
-    {
-      "spotify_id": "6vg9BW5gHSjidGbypXQku2",
+    "6vg9BW5gHSjidGbypXQku2": {
       "tracks": [
         {
           "uri": "spotify:track:6jeM1OMTY7FpJd6RVqL6kp",
@@ -3337,11 +3149,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Hämatom",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7eHLiXFTjoywQZCWvsTaNh",
+    "7eHLiXFTjoywQZCWvsTaNh": {
       "tracks": [
         {
           "uri": "spotify:track:3Ndtx68XbYnSd6N6ljjjOd",
@@ -3381,11 +3191,9 @@
         }
       ],
       "track_count": 9,
-      "name": "I See Red",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "57ylwQTnFnIhJh4nu4rxCs",
+    "57ylwQTnFnIhJh4nu4rxCs": {
       "tracks": [
         {
           "uri": "spotify:track:2t1G0rDxUY9zjML3f5mObb",
@@ -3429,11 +3237,9 @@
         }
       ],
       "track_count": 10,
-      "name": "In Flames",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "7371n3dNMRdoAuDOiweQJx",
+    "7371n3dNMRdoAuDOiweQJx": {
       "tracks": [
         {
           "uri": "spotify:track:0amgTTnQK7rmkXTUFFRZsY",
@@ -3477,11 +3283,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Insanity Alert",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2tRsMl4eGxwoNabM08Dm4I",
+    "2tRsMl4eGxwoNabM08Dm4I": {
       "tracks": [
         {
           "uri": "spotify:track:0L7zm6afBEtrNKo6C6Gj08",
@@ -3525,11 +3329,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Judas Priest",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0FfuujZJUa7Z2JzhhiPI2z",
+    "0FfuujZJUa7Z2JzhhiPI2z": {
       "tracks": [
         {
           "uri": "spotify:track:5JWT9cWwbLttKe7zrfNnn7",
@@ -3573,11 +3375,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Kadavar",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4WsOnJW1h3znXnbMGQ2mpP",
+    "4WsOnJW1h3znXnbMGQ2mpP": {
       "tracks": [
         {
           "uri": "spotify:track:07sZCCZ0eKMStFcnux5KcC",
@@ -3621,59 +3421,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Katerfahrt",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7LNFSNejKjCEEwneXJQwXL",
-      "tracks": [
-        {
-          "uri": "spotify:track:72suyZA0E3vaA1qhLspoZW",
-          "name": "Tiefflieger"
-        },
-        {
-          "uri": "spotify:track:55BLayUosqcqnEd8gtqEsL",
-          "name": "Mutmacher"
-        },
-        {
-          "uri": "spotify:track:0kTersR7xv2NViznYz5oSm",
-          "name": "Vollgas"
-        },
-        {
-          "uri": "spotify:track:1XcAqRv2Hz5koDJsDiNiS0",
-          "name": "Fallen & fliegen"
-        },
-        {
-          "uri": "spotify:track:2KYH083vnOglWFz1LIGV5h",
-          "name": "Seite an Seite"
-        },
-        {
-          "uri": "spotify:track:5o71t1oemfjbwuvrtYeXPw",
-          "name": "Das hier ist ewig"
-        },
-        {
-          "uri": "spotify:track:5r8LXNfSPgJaYBwI153mzH",
-          "name": "Steh auf!"
-        },
-        {
-          "uri": "spotify:track:61FJUURx7OjuWGGj9UJytR",
-          "name": "Perfekt unperfekt"
-        },
-        {
-          "uri": "spotify:track:3EnZRfdYPxqdkKdfPmZ8E8",
-          "name": "Gar nichts"
-        },
-        {
-          "uri": "spotify:track:19Lb5uNwAAIgHLvofFH1Du",
-          "name": "Raubtier"
-        }
-      ],
-      "track_count": 10,
-      "name": "Kärbholz",
-      "resolved_at": "2026-05-18"
-    },
-    {
-      "spotify_id": "526TMJFuJibm9j2p9td9Yp",
+    "526TMJFuJibm9j2p9td9Yp": {
       "tracks": [
         {
           "uri": "spotify:track:47enw9R1hdkfuxeSjoDQ0N",
@@ -3717,11 +3467,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Kim Dracula",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0ImEDe9tW5n4pxHOK39zIc",
+    "0ImEDe9tW5n4pxHOK39zIc": {
       "tracks": [
         {
           "uri": "spotify:track:6zd772F94reUnGHulNeEFm",
@@ -3765,19 +3513,14 @@
         }
       ],
       "track_count": 10,
-      "name": "Kittie",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4S8J8Nct8lHsbzAeNJXcJa",
+    "4S8J8Nct8lHsbzAeNJXcJa": {
       "tracks": [],
       "track_count": 0,
-      "name": "Krogi",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "5ziUNRAHfR28SgsINMc66V",
+    "5ziUNRAHfR28SgsINMc66V": {
       "tracks": [
         {
           "uri": "spotify:track:7uzQomLaeGqzxDzVArl87G",
@@ -3821,11 +3564,55 @@
         }
       ],
       "track_count": 10,
-      "name": "Kupfergold",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4OAddazJM576euUnFSvXSL",
+    "7LNFSNejKjCEEwneXJQwXL": {
+      "tracks": [
+        {
+          "uri": "spotify:track:72suyZA0E3vaA1qhLspoZW",
+          "name": "Tiefflieger"
+        },
+        {
+          "uri": "spotify:track:55BLayUosqcqnEd8gtqEsL",
+          "name": "Mutmacher"
+        },
+        {
+          "uri": "spotify:track:0kTersR7xv2NViznYz5oSm",
+          "name": "Vollgas"
+        },
+        {
+          "uri": "spotify:track:1XcAqRv2Hz5koDJsDiNiS0",
+          "name": "Fallen & fliegen"
+        },
+        {
+          "uri": "spotify:track:2KYH083vnOglWFz1LIGV5h",
+          "name": "Seite an Seite"
+        },
+        {
+          "uri": "spotify:track:5o71t1oemfjbwuvrtYeXPw",
+          "name": "Das hier ist ewig"
+        },
+        {
+          "uri": "spotify:track:5r8LXNfSPgJaYBwI153mzH",
+          "name": "Steh auf!"
+        },
+        {
+          "uri": "spotify:track:61FJUURx7OjuWGGj9UJytR",
+          "name": "Perfekt unperfekt"
+        },
+        {
+          "uri": "spotify:track:3EnZRfdYPxqdkKdfPmZ8E8",
+          "name": "Gar nichts"
+        },
+        {
+          "uri": "spotify:track:19Lb5uNwAAIgHLvofFH1Du",
+          "name": "Raubtier"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-18"
+    },
+    "4OAddazJM576euUnFSvXSL": {
       "tracks": [
         {
           "uri": "spotify:track:6vS5siwSidItcWFXskcpAA",
@@ -3869,11 +3656,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Lacuna Coil",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "66riGCPfih1Xqk81dDvpvf",
+    "66riGCPfih1Xqk81dDvpvf": {
       "tracks": [
         {
           "uri": "spotify:track:47Jnc152prHbOIYQJ8g3Mm",
@@ -3917,11 +3702,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Lagwagon",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3JFsVIxOn7STeilPICkkB2",
+    "3JFsVIxOn7STeilPICkkB2": {
       "tracks": [
         {
           "uri": "spotify:track:4VdQBhm4dnvBPgZfFNjSzH",
@@ -3965,11 +3748,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Lamb Of God",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4gyzQpfG5YQZJt2jj0IkEl",
+    "4gyzQpfG5YQZJt2jj0IkEl": {
       "tracks": [
         {
           "uri": "spotify:track:4rqrbNlfOGSXCsId1NPFeE",
@@ -4013,11 +3794,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Life Of Agony",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4H1S8RTYv4vN3SiM5uSZSa",
+    "4H1S8RTYv4vN3SiM5uSZSa": {
       "tracks": [
         {
           "uri": "spotify:track:7bIAOhz3d37FpmN70wTJcv",
@@ -4061,11 +3840,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Lovebites",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5OMIs8tNddcCXVDMN8LLyQ",
+    "5OMIs8tNddcCXVDMN8LLyQ": {
       "tracks": [
         {
           "uri": "spotify:track:6bW4cBIs2wys38ZDXzwdkG",
@@ -4109,11 +3886,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Luna Kills",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "29t2xhTM0SRjm8iTNVMynh",
+    "29t2xhTM0SRjm8iTNVMynh": {
       "tracks": [
         {
           "uri": "spotify:track:0wlIUiqzz4UVbQgzzsu9uD",
@@ -4157,11 +3932,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Mambo Kurt",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "5xKw7nNLyZ7UVvhaLC5kYd",
+    "5xKw7nNLyZ7UVvhaLC5kYd": {
       "tracks": [
         {
           "uri": "spotify:track:7xl2RRRKy0Q7oldxpPpfVK",
@@ -4205,11 +3978,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Manntra",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6rVRU7I6r1lt6bhXGYTRQL",
+    "6rVRU7I6r1lt6bhXGYTRQL": {
       "tracks": [
         {
           "uri": "spotify:track:55rwgxxKmOKwux5LVXWvHU",
@@ -4229,19 +4000,14 @@
         }
       ],
       "track_count": 4,
-      "name": "Mantar",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "23LXz8H5Kjs9oyMDuDt90r",
+    "23LXz8H5Kjs9oyMDuDt90r": {
       "tracks": [],
       "track_count": 0,
-      "name": "Maschine",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3dorOgTVQn7PWrqn7aHkWy",
+    "3dorOgTVQn7PWrqn7aHkWy": {
       "tracks": [
         {
           "uri": "spotify:track:2jUHVl7cnCf7Gww9JGwZ5c",
@@ -4285,11 +4051,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Metaklapa",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3dpwja8lSqNL1hDCzk7qXv",
+    "3dpwja8lSqNL1hDCzk7qXv": {
       "tracks": [
         {
           "uri": "spotify:track:0IolKkltYDNzOkG40VZxP3",
@@ -4325,11 +4089,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Midhaven",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2Yye71KtHwVbox5ST6254N",
+    "2Yye71KtHwVbox5ST6254N": {
       "tracks": [
         {
           "uri": "spotify:track:65KxgMABv9eHAA59UeY37q",
@@ -4365,11 +4127,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Minotaurus",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "1kTUJy3zL57iEANLB9FpIA",
+    "1kTUJy3zL57iEANLB9FpIA": {
       "tracks": [
         {
           "uri": "spotify:track:4v7p4iqGEol53XFS0Yi0Bk",
@@ -4413,11 +4173,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Misery Index",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "32zyj5MW8nhKGMaGlp4njt",
+    "32zyj5MW8nhKGMaGlp4njt": {
       "tracks": [
         {
           "uri": "spotify:track:0y09cfSDaDvYujTJ5cALBB",
@@ -4461,19 +4219,14 @@
         }
       ],
       "track_count": 10,
-      "name": "Misþyrming",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "5ncHUtKhiVsHlugFN0DCDl",
+    "5ncHUtKhiVsHlugFN0DCDl": {
       "tracks": [],
       "track_count": 0,
-      "name": "Mr. Hurley Und Die Pulveraffen",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2Ah9OuOj7B57gPD1cbwiaE",
+    "2Ah9OuOj7B57gPD1cbwiaE": {
       "tracks": [
         {
           "uri": "spotify:track:6egRwYsMJ8DVJQAKOjHWou",
@@ -4517,11 +4270,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Municipal Waste",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4IsBOsyWWMjrWBIJJOnuya",
+    "4IsBOsyWWMjrWBIJJOnuya": {
       "tracks": [
         {
           "uri": "spotify:track:6pkvW8p2EdoRdC1Oe0Ryt2",
@@ -4561,11 +4312,9 @@
         }
       ],
       "track_count": 9,
-      "name": "Nergal",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "1wUArE0NhHB8M1bU2WSplY",
+    "1wUArE0NhHB8M1bU2WSplY": {
       "tracks": [
         {
           "uri": "spotify:track:3zdUWmaNcbTqv2V7ZYLXQ8",
@@ -4609,11 +4358,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Nevermore",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "39VNwvlQTqE9SvgPjjnMpc",
+    "39VNwvlQTqE9SvgPjjnMpc": {
       "tracks": [
         {
           "uri": "spotify:track:2CASGo9Wmd6Dxrq3ygnRjf",
@@ -4657,11 +4404,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Nothing More",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3poazkVxpS4USWiABaOBAZ",
+    "3poazkVxpS4USWiABaOBAZ": {
       "tracks": [
         {
           "uri": "spotify:track:37s46D5lI6C8UDtRn1E6F0",
@@ -4669,11 +4414,9 @@
         }
       ],
       "track_count": 1,
-      "name": "Novelization",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4tususHNaR68xdgLstlGBA",
+    "4tususHNaR68xdgLstlGBA": {
       "tracks": [
         {
           "uri": "spotify:track:0FCY8j3JRrZ2ynRUdMK9pS",
@@ -4717,11 +4460,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Of Mice & Men",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7k29FbDq69ju2fe6zTskxY",
+    "7k29FbDq69ju2fe6zTskxY": {
       "tracks": [
         {
           "uri": "spotify:track:4HPrgYRpShQ7da64ssK3xP",
@@ -4765,11 +4506,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Orbit Culture",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4ISeDymLgZtEyx5Dy4BaqD",
+    "4ISeDymLgZtEyx5Dy4BaqD": {
       "tracks": [
         {
           "uri": "spotify:track:2UE48m09FyDdc6Ot1sGKqS",
@@ -4813,11 +4552,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Our Promise",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6KO6G41BBLTDNYOLefWTMU",
+    "6KO6G41BBLTDNYOLefWTMU": {
       "tracks": [
         {
           "uri": "spotify:track:0UrWr7Jnu1heq1o99ZwUd0",
@@ -4861,11 +4598,9 @@
         }
       ],
       "track_count": 10,
-      "name": "P.O.D.",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "467M2s2YxXdlL2ZpDUNL3A",
+    "467M2s2YxXdlL2ZpDUNL3A": {
       "tracks": [
         {
           "uri": "spotify:track:1S7pZAerfgfRVARfQ8eZgh",
@@ -4909,11 +4644,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Paleface Swiss",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "0gIo6kGl4KsCeIbqtZVHYp",
+    "0gIo6kGl4KsCeIbqtZVHYp": {
       "tracks": [
         {
           "uri": "spotify:track:7unanB9ZWhUkUAzWbnz21R",
@@ -4957,19 +4690,14 @@
         }
       ],
       "track_count": 10,
-      "name": "Paradise Lost",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6JO3HrRYUfSMbe71R7RUF2",
+    "6JO3HrRYUfSMbe71R7RUF2": {
       "tracks": [],
       "track_count": 0,
-      "name": "Phantom",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4raqfuxaWjPjrOQGb6zoa7",
+    "4raqfuxaWjPjrOQGb6zoa7": {
       "tracks": [
         {
           "uri": "spotify:track:79DHdvI3WjP9DGmJL0upxi",
@@ -5013,11 +4741,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Pig Destroyer",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3InxEfnjMqTJWqsWvHjjPU",
+    "3InxEfnjMqTJWqsWvHjjPU": {
       "tracks": [
         {
           "uri": "spotify:track:4wr7bfSBlo54VVZhfiCLc8",
@@ -5061,11 +4787,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Poison The Preacher",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5HFkc3t0HYETL4JeEbDB1v",
+    "5HFkc3t0HYETL4JeEbDB1v": {
       "tracks": [
         {
           "uri": "spotify:track:6vQT1Y3MTGCpc31VIF5Ela",
@@ -5109,11 +4833,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Powerwolf",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "40nPYop0FOD9Syyu5y4dAU",
+    "40nPYop0FOD9Syyu5y4dAU": {
       "tracks": [
         {
           "uri": "spotify:track:1ouWNCUOwqv5FnHLj4QnSr",
@@ -5149,11 +4871,9 @@
         }
       ],
       "track_count": 8,
-      "name": "President",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "5W7mxe09YZ9HfUimnNih8V",
+    "5W7mxe09YZ9HfUimnNih8V": {
       "tracks": [
         {
           "uri": "spotify:track:18LzUKezEfGDQVZ4yQktZT",
@@ -5197,11 +4917,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Ricky Warwick",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "1WsfEkSfrPIhy1lK7ZLRRH",
+    "1WsfEkSfrPIhy1lK7ZLRRH": {
       "tracks": [
         {
           "uri": "spotify:track:712cvetPbOegLiirMnU1ye",
@@ -5245,11 +4963,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Rose Tattoo",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7954VFaZClkL503srfV5PE",
+    "7954VFaZClkL503srfV5PE": {
       "tracks": [
         {
           "uri": "spotify:track:2NCh5hwrluY1w5D3BxDXMq",
@@ -5293,11 +5009,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Running Wild",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3o2dn2O0FCVsWDFSh8qxgG",
+    "3o2dn2O0FCVsWDFSh8qxgG": {
       "tracks": [
         {
           "uri": "spotify:track:5DbAOJ5dYW5A9xBhkeb33t",
@@ -5341,11 +5055,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Sabaton",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "1YIOK7G8mxLZE6FhuSVqBy",
+    "1YIOK7G8mxLZE6FhuSVqBy": {
       "tracks": [
         {
           "uri": "spotify:track:2uvDGa1M6Ff9SBJdmWp7HB",
@@ -5385,11 +5097,9 @@
         }
       ],
       "track_count": 9,
-      "name": "Sacred Steel",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "66ezn48mPS89ukz6Fo3nqx",
+    "66ezn48mPS89ukz6Fo3nqx": {
       "tracks": [
         {
           "uri": "spotify:track:5RmIvMOpn6U2xeQEtP8EnH",
@@ -5433,11 +5143,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Sagenbringer",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3N1B1g6JtIgd6ClRkzD4yT",
+    "3N1B1g6JtIgd6ClRkzD4yT": {
       "tracks": [
         {
           "uri": "spotify:track:6jCA4rJ4caeRuyTxvf9UvA",
@@ -5481,11 +5189,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Savatage",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7CkHF3MbHm4kTdB9ZOJkV4",
+    "7CkHF3MbHm4kTdB9ZOJkV4": {
       "tracks": [
         {
           "uri": "spotify:track:6BZT2lbsjyYhK4Q6VJFOyk",
@@ -5529,11 +5235,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Saviourself",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "71vVmHeNgCVSa5SVmfvscU",
+    "71vVmHeNgCVSa5SVmfvscU": {
       "tracks": [
         {
           "uri": "spotify:track:7LYxaN0EpwhRoheZ3eySLw",
@@ -5577,11 +5281,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Saxon",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6JW8wliOEwaDZ231ZY7cf4",
+    "6JW8wliOEwaDZ231ZY7cf4": {
       "tracks": [
         {
           "uri": "spotify:track:3erQAddOalef7tmVpAZ3BV",
@@ -5625,11 +5327,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Sepultura",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5MIQTIloEJunbdyIcANNwW",
+    "5MIQTIloEJunbdyIcANNwW": {
       "tracks": [
         {
           "uri": "spotify:track:1uhiaQd4JEgOYxzHNYy2sG",
@@ -5665,11 +5365,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Sinamort",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6X3KrNqyquFDYia4Oz5dDM",
+    "6X3KrNqyquFDYia4Oz5dDM": {
       "tracks": [
         {
           "uri": "spotify:track:48tm531D0F9nDyJA96Ywrs",
@@ -5713,11 +5411,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Skyline",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3Ca8UhvMDcgM1zyfAZGw3M",
+    "3Ca8UhvMDcgM1zyfAZGw3M": {
       "tracks": [
         {
           "uri": "spotify:track:5o9jyuaFOuKGr1gxecadKk",
@@ -5761,11 +5457,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Skynd",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "61Usxx24TwxGUlTUhE2S4u",
+    "61Usxx24TwxGUlTUhE2S4u": {
       "tracks": [
         {
           "uri": "spotify:track:6nT1ZW4BH1rgs9pk6U5s3L",
@@ -5805,11 +5499,9 @@
         }
       ],
       "track_count": 9,
-      "name": "Speak In Whispers",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3i6zP2x9GMBV3WyRzqQtM6",
+    "3i6zP2x9GMBV3WyRzqQtM6": {
       "tracks": [
         {
           "uri": "spotify:track:5klHRNUA4G6EFplcFbL17q",
@@ -5853,11 +5545,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Spectral Wound",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "1bnZNqlY7gL2D8FwhlzA9M",
+    "1bnZNqlY7gL2D8FwhlzA9M": {
       "tracks": [
         {
           "uri": "spotify:track:31TwI5vjNQMwpGLlJjGLeY",
@@ -5901,11 +5591,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Stonem",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "4zAK8a87dIdPw6xRYvsr4c",
+    "4zAK8a87dIdPw6xRYvsr4c": {
       "tracks": [
         {
           "uri": "spotify:track:1k8D4tMNIiIFcQrb4bdsHF",
@@ -5949,11 +5637,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Storm Seeker",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "544X9aDcwFDSon8HevRcqg",
+    "544X9aDcwFDSon8HevRcqg": {
       "tracks": [
         {
           "uri": "spotify:track:51P4DqgKa9EhralPIb03WH",
@@ -5997,11 +5683,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Subway To Sally",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "0nUPTibxuWvP3nGFOyDOQl",
+    "0nUPTibxuWvP3nGFOyDOQl": {
       "tracks": [
         {
           "uri": "spotify:track:7dTbXJ65KpnDjhuiuxXndn",
@@ -6045,11 +5729,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Temple Of The Absurd",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "28dpy0DQotTkBXcTlniQii",
+    "28dpy0DQotTkBXcTlniQii": {
       "tracks": [
         {
           "uri": "spotify:track:1w0ZidtOTM9Jx5WNuPLE42",
@@ -6093,11 +5775,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Ten56.",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6j8vGWE3wKAFEn0ngreusM",
+    "6j8vGWE3wKAFEn0ngreusM": {
       "tracks": [
         {
           "uri": "spotify:track:1NNNVGemxPg0B9eIR3Vq9w",
@@ -6141,11 +5821,9 @@
         }
       ],
       "track_count": 10,
-      "name": "The Butcher Sisters",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "2kO6zjt4a1OIqxOERhliEX",
+    "2kO6zjt4a1OIqxOERhliEX": {
       "tracks": [
         {
           "uri": "spotify:track:0qiy8BY3Kptp0QFsZacb61",
@@ -6189,11 +5867,9 @@
         }
       ],
       "track_count": 10,
-      "name": "The Gathering",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "4IJcztNtY5L7G3qK4yu1qt",
+    "4IJcztNtY5L7G3qK4yu1qt": {
       "tracks": [
         {
           "uri": "spotify:track:5oVbZJ9gm8CR9bxcha4LAv",
@@ -6237,19 +5913,14 @@
         }
       ],
       "track_count": 10,
-      "name": "The Hardkiss",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "2WLmgv66Uq4vt2i36vwkAq",
+    "2WLmgv66Uq4vt2i36vwkAq": {
       "tracks": [],
       "track_count": 0,
-      "name": "The Haunted",
-      "resolved_at": "2026-05-17",
-      "unresolved": true
+      "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3nV9wzwFVAOJAjiSeFvcaf",
+    "3nV9wzwFVAOJAjiSeFvcaf": {
       "tracks": [
         {
           "uri": "spotify:track:33tTxBLklnh27xT04rlEon",
@@ -6289,18 +5960,14 @@
         }
       ],
       "track_count": 9,
-      "name": "The Limit",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3GLOOlJDdTCd4NRrNb5Kg3",
+    "3GLOOlJDdTCd4NRrNb5Kg3": {
       "tracks": [],
       "track_count": 0,
-      "name": "The Other",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "1GCnpVka37q3EXMVnK9bma",
+    "1GCnpVka37q3EXMVnK9bma": {
       "tracks": [
         {
           "uri": "spotify:track:1qljRWWDB4o8RfTbFwgD4J",
@@ -6344,11 +6011,9 @@
         }
       ],
       "track_count": 10,
-      "name": "The Troops Of Doom",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3MomZRiJwdZmYnysgtF4Ey",
+    "3MomZRiJwdZmYnysgtF4Ey": {
       "tracks": [
         {
           "uri": "spotify:track:7xcdm6MybPgVeYgGewJzdE",
@@ -6392,11 +6057,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Therapy?",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "553ygvIoh7oel0K4hrC1dC",
+    "553ygvIoh7oel0K4hrC1dC": {
       "tracks": [
         {
           "uri": "spotify:track:1x8MvrEiLntIYRv5Yu7jq3",
@@ -6440,11 +6103,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Thomas Nicholas Band",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5eBCPtU2iPbzuMRre9BePt",
+    "5eBCPtU2iPbzuMRre9BePt": {
       "tracks": [
         {
           "uri": "spotify:track:5Sl5nxwOOREn5pBoZyPomu",
@@ -6488,11 +6149,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Thrown",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "18jTFcgHRRYHdwdof1MDZw",
+    "18jTFcgHRRYHdwdof1MDZw": {
       "tracks": [
         {
           "uri": "spotify:track:0nTiEhQGihSefnVOKzsLmm",
@@ -6536,11 +6195,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Thundermother",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "3et9upNERQI5IYt5jEDTxM",
+    "3et9upNERQI5IYt5jEDTxM": {
       "tracks": [
         {
           "uri": "spotify:track:5v1MdVFx4wfeo2CPI7fYOS",
@@ -6584,11 +6241,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Thy Art Is Murder",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "37fG1EQuwb6zBHyFYUGfj8",
+    "37fG1EQuwb6zBHyFYUGfj8": {
       "tracks": [
         {
           "uri": "spotify:track:5EehBjlQfBYKYbDVXydVpp",
@@ -6632,18 +6287,14 @@
         }
       ],
       "track_count": 10,
-      "name": "Triptykon",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "7DMG2PzS3ZNZkgwpfgcTjA",
+    "7DMG2PzS3ZNZkgwpfgcTjA": {
       "tracks": [],
       "track_count": 0,
-      "name": "Trold",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "191rVxQbbZ05wcICUSvLkz",
+    "191rVxQbbZ05wcICUSvLkz": {
       "tracks": [
         {
           "uri": "spotify:track:72k7h4RRSBg6xvJE9z3zS5",
@@ -6687,11 +6338,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Turbonegro",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "44irRUOhAfb0ochWsW4sG1",
+    "44irRUOhAfb0ochWsW4sG1": {
       "tracks": [
         {
           "uri": "spotify:track:4Fsv4DuKvXSu3eDK6sk4uW",
@@ -6735,11 +6384,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Tuxedoo",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2VoP4JXyxNPIoYAFdB5ssQ",
+    "2VoP4JXyxNPIoYAFdB5ssQ": {
       "tracks": [
         {
           "uri": "spotify:track:0I9smYvxqqKAyU5XUZKMUP",
@@ -6783,11 +6430,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Uli Jon Roth",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2hfInImCCmb7zXIuCE15IN",
+    "2hfInImCCmb7zXIuCE15IN": {
       "tracks": [
         {
           "uri": "spotify:track:4glfnQrRrsQZtPVimVJipA",
@@ -6831,11 +6476,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Unzucht",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "6DCYYeX3Iqic6GnQTXM3n4",
+    "6DCYYeX3Iqic6GnQTXM3n4": {
       "tracks": [
         {
           "uri": "spotify:track:49iA1o85yzomQPEXXiW4PI",
@@ -6879,11 +6522,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Vanir",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2MorUzc2WoEC4CA8VKjRuK",
+    "2MorUzc2WoEC4CA8VKjRuK": {
       "tracks": [
         {
           "uri": "spotify:track:5PavnJhqBIdHkMEuTjne1P",
@@ -6927,11 +6568,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Velvet Rush",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "17pZeX1Vy9hugVufmKFbCQ",
+    "17pZeX1Vy9hugVufmKFbCQ": {
       "tracks": [
         {
           "uri": "spotify:track:2lEnc7uc39Lwrredr63OPc",
@@ -6975,11 +6614,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Vended",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5kanN1nKzrkW1m2gZmo82x",
+    "5kanN1nKzrkW1m2gZmo82x": {
       "tracks": [
         {
           "uri": "spotify:track:5O9WprXSBssqwpRg9pFBI0",
@@ -7023,11 +6660,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Visions Of Atlantis",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "3pyjoONcLKvzpSCtk3zAkh",
+    "3pyjoONcLKvzpSCtk3zAkh": {
       "tracks": [
         {
           "uri": "spotify:track:5aZtYeO1SPg1dKFSoPMJte",
@@ -7071,11 +6706,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Vogelfrey",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "2KvwC4Kmp2U8XnKr5Yr1hm",
+    "2KvwC4Kmp2U8XnKr5Yr1hm": {
       "tracks": [
         {
           "uri": "spotify:track:5mWidwUFLUjofQfSTdPtFJ",
@@ -7119,18 +6752,16 @@
         }
       ],
       "track_count": 10,
-      "name": "Vreid",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "064R2a2ptevrnJHc5Tao56",
+    "064R2a2ptevrnJHc5Tao56": {
       "tracks": [],
       "track_count": 0,
-      "name": "Wacken Firefighters",
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "note": "This is a Wacken act or a tribute act, not available in Spotify"
     },
-    {
-      "spotify_id": "4EwBNQKEzshM5Yxs6cyzpt",
+    "4EwBNQKEzshM5Yxs6cyzpt": {
       "tracks": [
         {
           "uri": "spotify:track:363y7qoMX6gghv0S1jBnm7",
@@ -7174,11 +6805,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Wytch Hazel",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "6YQBDUiQeOg2Pp4XzGmtbm",
+    "6YQBDUiQeOg2Pp4XzGmtbm": {
       "tracks": [
         {
           "uri": "spotify:track:4Wum1y2q4VrMgJ7qzwmJP5",
@@ -7214,11 +6843,9 @@
         }
       ],
       "track_count": 8,
-      "name": "Wüstenberg",
       "resolved_at": "2026-05-17"
     },
-    {
-      "spotify_id": "56sorIyBAwXaDPifwqtCub",
+    "56sorIyBAwXaDPifwqtCub": {
       "tracks": [
         {
           "uri": "spotify:track:4PSEaEfCDUEDzVOJJx2gMs",
@@ -7262,11 +6889,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Year Of The Goat",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "5DpSoH5zCXNRqYai7pmcGG",
+    "5DpSoH5zCXNRqYai7pmcGG": {
       "tracks": [
         {
           "uri": "spotify:track:3SgshUlk02dwRHeLm0ztOi",
@@ -7310,11 +6935,9 @@
         }
       ],
       "track_count": 10,
-      "name": "Yngwie Malmsteen",
       "resolved_at": "2026-05-18"
     },
-    {
-      "spotify_id": "12cJGU9ktOShfMV5scsdHM",
+    "12cJGU9ktOShfMV5scsdHM": {
       "tracks": [
         {
           "uri": "spotify:track:1RbaYYfIqgCYx4UGYzsZjq",
@@ -7358,8 +6981,7 @@
         }
       ],
       "track_count": 10,
-      "name": "Zeltinger Band",
       "resolved_at": "2026-05-18"
     }
-  ]
+  }
 }

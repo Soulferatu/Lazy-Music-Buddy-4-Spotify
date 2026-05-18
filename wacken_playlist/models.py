@@ -10,6 +10,17 @@ class Track:
 
 
 @dataclass(frozen=True)
+class ArtistRecord:
+    """Canonical artist registry entry from data/library/artists.json."""
+    spotify_id: str
+    name: str
+    aliases: tuple[str, ...] = ()
+    mbid: Optional[str] = None
+    override_source: Optional[str] = None
+    notes: Optional[str] = None
+
+
+@dataclass(frozen=True)
 class Band:
     """Represents a band playing at Wacken Open Air."""
     name: str
