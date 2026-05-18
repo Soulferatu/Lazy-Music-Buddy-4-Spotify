@@ -4,7 +4,7 @@ Detailed phase-by-phase plan for Play[my W:O:A]list. Read [CLAUDE.md](CLAUDE.md)
 
 This roadmap has **two axes**:
 
-- **App Stages 0–9** — the product roadmap (features visible to the user).
+- **App Stages 0–8** — the product roadmap (features visible to the user). Deployment was promoted from Stage 9 to Stage 5; there is no Stage 9.
 - **Architecture Phases 1–6** — a one-time refactor that prepared the codebase for the harder stages. All six are complete.
 
 > **Update rule:** after every meaningful step (a phase substage closes, a decision is made, a new prerequisite appears), update both [CLAUDE.md](CLAUDE.md) and this file before moving on. The wiki (`wiki/` + `index.md` + `log.md`) gets a matching entry where deeper detail belongs.
@@ -121,7 +121,7 @@ Architecture migration: Phases 1–6 all ✅ Done — see [Architecture Phases (
 
 **Spotify Feb 2026 API migration:** the dedicated `GET /artists/{id}/top-tracks`, `POST /users/{user_id}/playlists`, and `POST /playlists/{id}/tracks` endpoints were removed in Spotify's [February 2026 changelog](https://developer.spotify.com/documentation/web-api/references/changes/february-2026). `SpotifyClient` was migrated to the replacements; see [wiki/stage3_playlist_creation.md](wiki/stage3_playlist_creation.md) for the full migration note and the lesson learned (check Spotify changelogs before chasing scope/account theories on bare 403s).
 
-**Open / deferred:** duplicate-playlist-name handling — Spotify lets accounts have many playlists with the same name (each has a unique id), and we currently mirror that behavior (every Create click creates a fresh playlist). Naming convention or cleanup story for the app account is on the Stage 9 list. `description` field is supported by `create_playlist` but not wired into the UI; cover-art generation needs `ugc-image-upload` scope (post-Stage 9).
+**Open / deferred:** duplicate-playlist-name handling — Spotify lets accounts have many playlists with the same name (each has a unique id), and we currently mirror that behavior (every Create click creates a fresh playlist). Naming convention or cleanup story for the app account is deferred to post-Stage 8 enhancements. `description` field is supported by `create_playlist` but not wired into the UI; cover-art generation needs `ugc-image-upload` scope (post-Stage 8).
 
 ---
 
@@ -181,11 +181,13 @@ App-owned playlist flow is usable on desktop and mobile; basic PWA install works
 - **Version** — bumped to 0.5.5 to cache-bust after lineup data changes.
 
 **Override-system work (2026-05-17, in progress — pending Spotify rate-limit clearance):**
-- Added `wacken_playlist/data/lineups/artist_overrides.json` — manual band-name → Spotify-artist-ID map. Resolver consults it before `search_artist` to bypass disambiguation failures on generic names. **10 verified IDs staged:** The Haunted, Mantar, Craft, Mr. Hurley Und Die Pulveraffen, The Other, Focus, Trold, Krogi (= EVIL JARED x KROGI), Phantom (= Phantom G.D.L), 9mm Headshot (= 9MM).
+- Added `wacken_playlist/data/lineups/artist_overrides.json` — manual band-name → Spotify-artist-ID map with 14 verified entries (The Haunted, Mantar, Craft, Mr. Hurley Und Die Pulveraffen, The Other, Focus, Trold, Krogi, Phantom, 9mm Headshot, E.N.D., Force, Novelization, Maschine). Resolver consults it before `search_artist` to bypass disambiguation failures on generic names.
 - Added `permanently_unresolved: true` flag on `unresolved_bands.json` entries for 4 Wacken-local / tribute acts that have no Spotify presence (Wacken Firefighters, Ballroom DJ Team, Blood Fire Death, Cowgirls From Hell). `--retry-unresolved` now skips them.
 - Updated `scripts/resolve_lineup.py`: `_load_overrides()` helper, `resolve_band(override_id=...)` parameter, override-aware `retry_unresolved`.
-- **Blocked:** first retry hit a fresh Spotify shadow ban (every request 429). Damaged `wacken_2026.json` was restored from HEAD. Retry pending once ban clears.
-- **Update (later 2026-05-17):** user supplied IDs for all 4 remaining bands. `artist_overrides.json` now has 14 entries. Novelization and Maschine (Dieter "Maschine" Birr) each have only 1 song on Spotify — to be marked `permanently_unresolved` **after** tomorrow's retry captures that 1 track.
+- **Blocked (still as of 2026-05-18):** first retry hit a fresh Spotify shadow ban (every request 429). Damaged `wacken_2026.json` was restored from HEAD. Retry still pending once the ban clears. Novelization and Maschine each have only 1 song on Spotify — to be marked `permanently_unresolved` **after** the retry captures that single track.
+- See [wiki/band_track_resolution.md](wiki/band_track_resolution.md) for the full as-built resolution system.
+
+**Track top-up plan (2026-05-18, not executed):** [Ten_song_fix.md](Ten_song_fix.md) catalogues 78 bands below the 10-track cap and proposes a staged retry (33 at 5 → 15 at 6 → 13 at 7 → 8 at 8 → 8 at 9). Pre-flight requires a single-band diagnostic to determine whether the "5-track plateau" is offline-resolver under-pagination or over-aggressive artist-ID filtering. Handling guide: [wiki/track_topup_plan.md](wiki/track_topup_plan.md). Blocked on the same shadow ban as the override retry.
 
 ### Prerequisites
 
@@ -371,7 +373,7 @@ A one-time refactor that prepared the codebase for Stages 2–9. **All six phase
 | 2 | Data Layer | Band list moved to JSON; `LineupRepository` with year-aware interface; near-duplicate audit | Stage 7 historical years drop in as more JSON files | ✅ [details](wiki/phase2_data_layer.md) |
 | 3 | i18n Centralization | Single source of truth `i18n/*.json` injected to template + JS | One edit adds/updates any UI string | ✅ [details](wiki/phase3_i18n.md) |
 | 4 | Service Layer Scaffolding | `services/spotify.py`, `services/playlist.py`, `services/setlistfm.py` stub; thin `routes.py` | Stage 2 (done) and Stages 3, 6, 8 have homes | ✅ [details](wiki/phase4_services.md) |
-| 5 | Security + Platform Hardening | CSRF, `SECRET_KEY` enforcement, `wsgi.py`, single-source SW versioning | Required before Stage 3 (real Spotify writes) and Stage 9 (deploy) | ✅ [details](wiki/phase5_security_platform.md) |
+| 5 | Security + Platform Hardening | CSRF, `SECRET_KEY` enforcement, `wsgi.py`, single-source SW versioning | Required before Stage 3 (real Spotify writes) and Stage 5 (deploy) | ✅ [details](wiki/phase5_security_platform.md) |
 | 6 | Test Architecture | `conftest.py` + `tests/unit/` and `tests/integration/` split | Unit tests for services without a Flask app | ✅ [details](wiki/phase6_test_architecture.md) |
 
 ## Phase → Stage Unlock Map
@@ -385,7 +387,6 @@ A one-time refactor that prepared the codebase for Stages 2–9. **All six phase
 | Stage 6 — setlist.fm | `services/setlistfm.py` stub from 4A ✅ |
 | Stage 7 — Historical years | `LineupRepository.get_available_years()` from 2C ✅ |
 | Stage 8 — Shuffle | `PlaylistBuilder` from 4A ✅ |
-| Stage 9 — Deployment | `wsgi.py` + `ProductionConfig` validation ✅ |
 
 ---
 
@@ -445,11 +446,11 @@ To avoid overengineering at this app size, the following are intentionally **out
 - No Blueprint split — `routes.py` is small enough; auth Blueprint considered only when OAuth lands.
 - No frontend framework — vanilla JS throughout.
 - No API versioning — no external API consumers.
-- No Docker — deferred to Stage 9 only if the chosen host requires it.
-- No async tasks / message queue — Spotify calls stay synchronous unless rate limiting forces it in Stage 9.
+- No Docker — Vercel deploy does not require it.
+- No async tasks / message queue — Spotify calls stay synchronous (and after v0.5.4 are zero per user session, so rate limiting is no longer a runtime concern).
 
 ---
 
-# Possible Future Enhancements (post-Stage 9)
+# Possible Future Enhancements (post-Stage 8)
 
 User login independent of Spotify · favorite bands list · playlist cover image generation · Wacken stage/day schedule planning · time-conflict detection · CSV/JSON export · support other festivals · shareable playlist recipes · admin cleanup for old app-owned playlists.
