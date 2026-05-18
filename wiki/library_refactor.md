@@ -2,6 +2,34 @@
 
 Tracks the in-flight normalization of `data/lineups/wacken_2026.json` into a thin lineup pointer file plus per-source `data/library/*.json` files. Full plan and rationale live in [LIBRARY_REFACTOR_PLAN.md](../LIBRARY_REFACTOR_PLAN.md); this page records decisions, progress, and the as-built state as each phase lands.
 
+## ⏸ Resume Here — Phase 3 Next
+
+**Where we paused:** Phase 1+2 done and committed (commit `35855a2` on `dev-search-improvements`). Library files exist under `wacken_playlist/data/library/` and `LibraryRepository` is wired into `create_app` as `app.library`, but **nothing else reads it yet**. `LineupRepository` still reads the fat `wacken_2026.json` exactly as before — runtime behavior unchanged.
+
+**Next session — Phase 3 task list:**
+1. Extend `scripts/build_library.py` to also emit a thin variant: `wacken_playlist/data/lineups/wacken_2026.thin.json` with the locked shape (alphabetical band IDs, parallel `unresolved_names: []`, retain `year` / `source_urls` / editorial `notes`).
+2. Add a `USE_THIN_LINEUPS` config flag (default `False`) in `wacken_playlist/config.py` — Development, Testing, Production.
+3. Teach `wacken_playlist/lineup.py::LineupRepository.get_bands()` to handle both shapes:
+   - If first `bands[]` item is a string ID → join with `LibraryRepository` to hydrate name, tracks, track_count.
+   - If first item is a dict → existing path (unchanged).
+4. Wire `LineupRepository` so it can reach `LibraryRepository`. Easiest: constructor takes an optional `library: LibraryRepository | None`; `create_app` passes the existing `app.library`. Falls back to its own instance if `None` for test convenience.
+5. Decide what `is_valid_band` / `get_band_names` should do under the thin shape — both currently iterate `bands_data`. Join with library to read `name`.
+6. Tests: cover the thin-shape path in `tests/unit/test_lineup.py`. Use a tmp_path fixture with a small thin lineup file pointing at a small library fixture. Confirm `get_bands` returns identical `Band` objects under both shapes for the same dataset.
+
+**Don't touch in Phase 3:**
+- `wacken_2026.json` stays in fat form (cutover is Phase 4).
+- `scripts/resolve_lineup.py` continues to read/write the fat file (rewrite is Phase 5+6).
+- `artist_overrides.json` and `unresolved_bands.json` stay (deleted in Phase 5+6).
+- The pre-existing 9 failing tests on this branch (stale `MAX_PAGES_*` and `create_playlist` assertions). Verified pre-existing on commit `952136c`. Separate follow-up.
+
+**Open questions to settle before Phase 3 code:**
+- None blocking. Locked decisions below cover the schema.
+
+**Commands to remind yourself of state:**
+- `py scripts/build_library.py --check` — confirms library files are in sync with current sources.
+- `py -m pytest tests/unit/test_library_parity.py tests/unit/test_library_repository.py` — 19 tests, should all pass.
+- `git log --oneline -5` — last entry is `35855a2 Library refactor Phase 1+2: build library files + LibraryRepository`.
+
 ## Why this refactor
 
 The current `wacken_2026.json` fuses three concerns:
