@@ -12,6 +12,8 @@ Usage:
   py scripts/resolve_lineup.py --retry-unresolved       # Re-resolve all bands in unresolved_bands.json
   py scripts/resolve_lineup.py --retry-unresolved --below-threshold-only
                                                         # Only retry bands with 1-4 tracks (skip zero-track)
+  py scripts/resolve_lineup.py --retry-low-count 5      # Re-resolve bands in wacken_2026.json with exactly 5 tracks
+  py scripts/resolve_lineup.py --retry-low-count 9      # ... or any other count below MAX_TRACKS (10)
 """
 
 import argparse
@@ -29,7 +31,7 @@ from wacken_playlist.services.spotify import SpotifyClient
 
 RATE_LIMIT_DELAY = 1.5   # seconds between Spotify calls
 MAX_TRACKS = 10
-MAX_PAGES_ARTIST = 3     # pages to try with artist: qualifier
+MAX_PAGES_ARTIST = 5     # pages to try with artist: qualifier (bumped 3->5 on 2026-05-18 after The Limit diagnostic)
 MAX_PAGES_PLAIN = 5      # pages to try with plain-text query
 DATA_FILE = Path("wacken_playlist/data/lineups/wacken_2026.json")
 UNRESOLVED_FILE = Path("wacken_playlist/data/lineups/unresolved_bands.json")
@@ -60,9 +62,16 @@ def _collect_tracks_for_artist(
     Filtering by artist ID (not name) handles: case differences, generic band names,
     bands that Spotify stores with slightly different capitalization.
 
+    Dedup is by URI and case-insensitive title — Spotify often returns multiple URIs
+    for the same song (single, album, compilation, remaster). Keeping the first URI per
+    title avoids "same song back-to-back" in generated playlists. Bands with two distinct
+    songs that share a title (rare) will lose one; that trade-off is documented in
+    wiki/track_topup_plan.md.
+
     Returns (tracks, updated_delay).
     """
     seen_uris: set[str] = set()
+    seen_titles: set[str] = set()
     collected: list[dict] = []
 
     def _accept(track: dict) -> bool:
@@ -73,7 +82,12 @@ def _collect_tracks_for_artist(
         uri = track.get("uri", "")
         if not uri or uri in seen_uris:
             return False
+        title_key = (track.get("name", "") or "").lower().strip()
+        if title_key and title_key in seen_titles:
+            return False
         seen_uris.add(uri)
+        if title_key:
+            seen_titles.add(title_key)
         return True
 
     # --- Strategy 1: artist:"NAME" qualifier ---
@@ -412,6 +426,107 @@ def retry_unresolved(below_threshold_only: bool = False) -> None:
     print(f"   wacken_2026.json and unresolved_bands.json updated.")
 
 
+def retry_low_count(target_count: int) -> None:
+    """
+    Re-resolve every band in wacken_2026.json whose current track_count == target_count.
+
+    Used to top up bands stuck below MAX_TRACKS after a previous resolver pass with
+    smaller pagination. Idempotent: if the re-resolution comes back with the same count
+    or lower, the existing entry is kept (no destructive overwrite).
+    """
+    import os
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+    if target_count < 0 or target_count >= MAX_TRACKS:
+        print(f"--retry-low-count must be between 0 and {MAX_TRACKS - 1} (got {target_count}).")
+        return
+
+    with DATA_FILE.open(encoding="utf-8") as f:
+        lineup = json.load(f)
+
+    bands = lineup.get("bands", [])
+    targets = [b for b in bands if isinstance(b, dict) and b.get("track_count") == target_count]
+
+    # Skip anything explicitly flagged permanently_unresolved in unresolved_bands.json.
+    # The flag exists precisely to stop retry churn on artists with a known Spotify ceiling.
+    perm_unresolved: set[str] = set()
+    if UNRESOLVED_FILE.exists():
+        with UNRESOLVED_FILE.open(encoding="utf-8") as f:
+            ud = json.load(f)
+        perm_unresolved = {
+            e["name"] for e in ud.get("unresolved", [])
+            if e.get("permanently_unresolved")
+        }
+    if perm_unresolved:
+        skipped = [b for b in targets if b["name"] in perm_unresolved]
+        targets = [b for b in targets if b["name"] not in perm_unresolved]
+        for b in skipped:
+            print(f"[SKIP] {b['name']} — permanently_unresolved")
+
+    if not targets:
+        print(f"No bands at track_count == {target_count} in {DATA_FILE.name}.")
+        return
+
+    print(f"[RETRY-LOW] Re-resolving {len(targets)} bands at track_count == {target_count}\n")
+
+    client = SpotifyClient(
+        client_id=os.getenv("SPOTIFY_CLIENT_ID", ""),
+        client_secret=os.getenv("SPOTIFY_CLIENT_SECRET", ""),
+    )
+
+    overrides = _load_overrides()
+    if overrides:
+        print(f"[OVERRIDES] {len(overrides)} manual artist-ID overrides loaded\n")
+
+    bands_by_name = {b["name"]: b for b in bands if isinstance(b, dict)}
+    today = date.today().isoformat()
+    current_delay = RATE_LIMIT_DELAY
+    improved: list[tuple[str, int, int]] = []
+    unchanged: list[tuple[str, int]] = []
+
+    for i, entry in enumerate(targets, 1):
+        name = entry["name"]
+        old_count = entry.get("track_count", 0)
+        # Prefer the stored spotify_id if we already have one (avoids redundant search_artist).
+        override_id = overrides.get(name) or entry.get("spotify_id")
+        print(f"[{i}/{len(targets)}] {name}  (was {old_count})")
+
+        result, current_delay = resolve_band(client, name, current_delay, override_id=override_id)
+        new_count = result.get("track_count", 0)
+
+        if new_count > old_count:
+            print(f"  + {new_count} tracks (was {old_count})")
+            bands_by_name[name].update({
+                "spotify_id": result.get("spotify_id") or entry.get("spotify_id"),
+                "tracks": result.get("tracks", []),
+                "track_count": new_count,
+                "resolved_at": today,
+            })
+            # Clear any stale unresolved flag now that we have a fuller result.
+            bands_by_name[name].pop("unresolved", None)
+            improved.append((name, old_count, new_count))
+        else:
+            print(f"  ~ {new_count} tracks (no improvement) — keeping previous entry untouched")
+            unchanged.append((name, old_count))
+
+        time.sleep(current_delay)
+
+    lineup["bands"] = list(bands_by_name.values())
+    with DATA_FILE.open("w", encoding="utf-8") as f:
+        json.dump(lineup, f, ensure_ascii=False, indent=2)
+
+    print(f"\n[OK] retry-low-count {target_count} complete.")
+    print(f"   Improved: {len(improved)}")
+    for name, old, new in improved:
+        print(f"     {name}: {old} -> {new}")
+    print(f"   Unchanged: {len(unchanged)}")
+    if unchanged:
+        for name, old in unchanged:
+            print(f"     {name}: still {old}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Resolve Spotify tracks for Wacken lineup bands.")
     parser.add_argument("--test", action="store_true", help="Test run: resolve only first 10 bands")
@@ -426,10 +541,18 @@ if __name__ == "__main__":
         action="store_true",
         help="With --retry-unresolved: only retry bands that got 1-4 tracks (skip zero-track bands)",
     )
+    parser.add_argument(
+        "--retry-low-count",
+        type=int,
+        metavar="N",
+        help=f"Re-resolve bands in wacken_2026.json with exactly N tracks (0 <= N < {MAX_TRACKS}). Idempotent: keeps previous data if new pass doesn't improve.",
+    )
 
     args = parser.parse_args()
 
     if args.retry_unresolved:
         retry_unresolved(below_threshold_only=args.below_threshold_only)
+    elif args.retry_low_count is not None:
+        retry_low_count(args.retry_low_count)
     else:
         run(test_mode=args.test, resume_from_band=args.resume_from_band)

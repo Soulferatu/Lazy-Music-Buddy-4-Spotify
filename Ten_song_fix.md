@@ -1,6 +1,7 @@
 # Ten_song_fix — Plan to top every band up to 10 Spotify tracks
 
-> **Status (2026-05-18):** not executed. Blocked on the active Spotify shadow ban.
+> **Status (2026-05-18):** **Steps 1–5 effectively done** (v0.5.8). 136/169 bands at 10-track cap (was 74). Total 1,234 → 1,485 tracks. Resolver hardened: `MAX_PAGES_ARTIST` 3→5, case-insensitive title dedup, `--retry-low-count N` flag (idempotent, honors `permanently_unresolved`). Global title-dedup sweep revealed 40 bands had release-variant duplicates inflating counts. **Heavysaurus** flagged `permanently_unresolved`. Remaining below-cap bands are real Spotify ceilings, name-collision casualties (Minotaurus, Sacred Steel — search ranks a different artist first), or already deferred.
+> Diagnostic outcome (recorded for the wiki): the "5-track plateau" was **stale data**, not a resolver bug. The current resolver yields 15+ candidate tracks for major artists; the low counts were written by a previous pass with smaller pagination. Re-running with the existing code fixes it.
 > For the handling guide and pitfalls, see [wiki/track_topup_plan.md](wiki/track_topup_plan.md). For the as-built resolver this plan operates on, see [wiki/band_track_resolution.md](wiki/band_track_resolution.md).
 
 Source: [wacken_playlist/data/lineups/wacken_2026.json](wacken_playlist/data/lineups/wacken_2026.json) as resolved on 2026-05-17 (v0.5.5 + staged overrides).
@@ -15,15 +16,15 @@ Source: [wacken_playlist/data/lineups/wacken_2026.json](wacken_playlist/data/lin
 
 | Tracks | # bands | Status in this plan |
 |---:|---:|---|
-| 10 | 74 | Done — leave alone |
-| 9  | 8  | Step 5 |
-| 8  | 8  | Step 4 |
-| 7  | 13 | Step 3 |
-| 6  | 15 | Step 2 |
-| 5  | 33 | **Step 1 (start here)** |
-| 4  | 1  | Deferred (Mantar — see notes) |
+| 10 | 136 (was 74) | ✅ Done |
+| 9  | 5 (was 8)  | ✅ Done — real ceilings or name-collision casualties (I See Red, Nergal, Sacred Steel, Speak In Whispers, The Limit) |
+| 8  | 7 (was 8)  | ✅ Done — real ceilings or name collisions (Cursed Abyss, Europe, Midhaven, Minotaurus, President, Sinamort, Wüstenberg) |
+| 7  | 0 (was 13) | ✅ Step 3 done — all 13 cleared (post-dedup the 4 stragglers all hit 10) |
+| 6  | 1 (was 15) | ✅ Electric Bassboy is the only one left; only 6 unique songs on Spotify |
+| 5  | 0 (was 33) | ✅ Step 1 done — all 33 → 10 |
+| 4  | 2  | Deferred (Mantar — known low avail; **Evil Jared** — only 4 unique songs after dedup) |
 | 3  | 1  | Deferred (9mm Headshot — override staged) |
-| 2  | 2  | Deferred (Cowgirls From Hell, Focus) |
+| 2  | 3  | Deferred (Cowgirls From Hell, Focus, **Heavysaurus** — `permanently_unresolved`) |
 | 1  | 1  | Deferred (Novelization) |
 | 0  | 13 | Deferred (most have overrides or `permanently_unresolved` staged) |
 

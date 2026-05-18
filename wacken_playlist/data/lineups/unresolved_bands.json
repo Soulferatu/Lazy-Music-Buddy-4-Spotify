@@ -97,7 +97,14 @@
       "name": "Novelization",
       "reason": "Not found on Spotify",
       "attempted_at": "2026-05-17"
+    },
+    {
+      "name": "Heavysaurus",
+      "reason": "Spotify ceiling: 2 unique songs (deduped from 6 release-variant URIs)",
+      "attempted_at": "2026-05-18",
+      "permanently_unresolved": true,
+      "note": "Artist 6uyCfgv8FWIc2mifriVXqw has only 2 unique songs on Spotify (\"Trotzdem beste Freunde\" and \"Dinofreunde\"). Resolver originally returned 6 URIs (re-releases / singles / compilations of the same 2 songs); deduped by title 2026-05-18. Skip future retries."
     }
   ],
-  "updated_at": "2026-05-17"
+  "updated_at": "2026-05-18"
 }
