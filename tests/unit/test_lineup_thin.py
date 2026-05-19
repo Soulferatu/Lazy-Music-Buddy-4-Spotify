@@ -1,8 +1,9 @@
-"""Phase 3 tests: LineupRepository in thin-lineup mode.
+"""Phase 3 + 4 tests: LineupRepository against the thin-shape lineup file.
 
-These exercise the dual-path read in LineupRepository against the
-real ``wacken_2026.thin.json`` + library produced by build_library.py.
-The fat-shape behavior is covered by tests/unit/test_lineup.py.
+These exercise the read path in LineupRepository against the real
+``wacken_2026.json`` (thin, post Phase 4 cutover) + the library produced
+by build_library.py. After Phase 4 there is only one shape on disk;
+the ``use_thin`` flag is vestigial and will be removed in Phase 6.
 """
 
 from __future__ import annotations
@@ -18,12 +19,14 @@ from wacken_playlist.models import Band
 
 
 @pytest.fixture
-def fat_repo() -> LineupRepository:
+def default_repo() -> LineupRepository:
+    """Repository with the implicit auto-created LibraryRepository."""
     return LineupRepository()
 
 
 @pytest.fixture
 def thin_repo() -> LineupRepository:
+    """Repository with explicit library + flag, as wired in production."""
     return LineupRepository(library=LibraryRepository(), use_thin=True)
 
 
@@ -31,15 +34,15 @@ def _bands_by_id(bands: list[Band]) -> dict[str, Band]:
     return {b.spotify_id: b for b in bands if b.spotify_id}
 
 
-def test_thin_get_bands_matches_fat_set(fat_repo, thin_repo):
-    fat = _bands_by_id(fat_repo.get_bands(2026))
+def test_thin_get_bands_matches_default_set(default_repo, thin_repo):
+    fat = _bands_by_id(default_repo.get_bands(2026))
     thin = _bands_by_id(thin_repo.get_bands(2026))
     assert set(fat.keys()) == set(thin.keys())
     assert len(thin) == len(fat) == 169
 
 
-def test_thin_band_matches_fat_per_band(fat_repo, thin_repo):
-    fat = _bands_by_id(fat_repo.get_bands(2026))
+def test_thin_band_matches_default_per_band(default_repo, thin_repo):
+    fat = _bands_by_id(default_repo.get_bands(2026))
     thin = _bands_by_id(thin_repo.get_bands(2026))
     for sid, fat_band in fat.items():
         thin_band = thin[sid]
@@ -55,8 +58,8 @@ def test_thin_get_bands_is_alphabetical(thin_repo):
     assert names == sorted(names, key=str.lower)
 
 
-def test_thin_get_band_names_matches_fat(fat_repo, thin_repo):
-    assert set(fat_repo.get_band_names(2026)) == set(thin_repo.get_band_names(2026))
+def test_thin_get_band_names_matches_default(default_repo, thin_repo):
+    assert set(default_repo.get_band_names(2026)) == set(thin_repo.get_band_names(2026))
 
 
 def test_thin_is_valid_band(thin_repo):
@@ -65,8 +68,8 @@ def test_thin_is_valid_band(thin_repo):
     assert not thin_repo.is_valid_band("Not A Real Band", 2026)
 
 
-def test_thin_source_urls_preserved(fat_repo, thin_repo):
-    assert thin_repo.get_source_urls(2026) == fat_repo.get_source_urls(2026)
+def test_thin_source_urls_preserved(default_repo, thin_repo):
+    assert thin_repo.get_source_urls(2026) == default_repo.get_source_urls(2026)
 
 
 def test_thin_get_available_years(thin_repo):
@@ -76,26 +79,30 @@ def test_thin_get_available_years(thin_repo):
     assert all(isinstance(y, int) for y in years)
 
 
-def test_thin_mode_requires_library(tmp_path: Path):
-    """Constructing thin-mode without a library raises on first thin read."""
-    # Build a minimal thin file so we get past the file-exists check.
-    (tmp_path / "wacken_2099.thin.json").write_text(
-        json.dumps({"year": 2099, "bands": ["abc"], "source_urls": []}),
-        encoding="utf-8",
-    )
-    repo = LineupRepository(data_dir=tmp_path, use_thin=True)
-    with pytest.raises(RuntimeError, match="thin mode"):
-        repo.get_bands(2099)
-
-
 def test_unknown_year_in_thin_mode_raises(thin_repo):
     with pytest.raises(LineupNotFoundError):
         thin_repo.get_bands(1999)
 
 
+def test_thin_read_with_missing_library_raises_cleanly(tmp_path: Path):
+    """A thin file with no library available raises ArtistNotFoundError or
+    FileNotFoundError — never a silent miss."""
+    from wacken_playlist.library import ArtistNotFoundError
+
+    (tmp_path / "wacken_2099.json").write_text(
+        json.dumps({"year": 2099, "bands": ["nope_id"], "source_urls": []}),
+        encoding="utf-8",
+    )
+    # No library files written under tmp_path.parent / "library", so the
+    # auto-created LibraryRepository will fail loudly on first lookup.
+    repo = LineupRepository(data_dir=tmp_path)
+    with pytest.raises((ArtistNotFoundError, FileNotFoundError)):
+        repo.get_bands(2099)
+
+
 def test_thin_notes_section_carries_withdrawals_and_non_band_entries():
     """The thin file retains editorial notes split per the locked schema."""
-    path = Path("wacken_playlist/data/lineups/wacken_2026.thin.json")
+    path = Path("wacken_playlist/data/lineups/wacken_2026.json")
     with path.open(encoding="utf-8") as f:
         data = json.load(f)
     notes = data["notes"]

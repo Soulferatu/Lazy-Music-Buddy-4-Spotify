@@ -17,9 +17,9 @@ Outputs:
   wacken_playlist/data/library/spotify_tracks.json
   wacken_playlist/data/library/unresolved.json
   wacken_playlist/data/library/setlists.json (RESERVED — Stage 6)
-  wacken_playlist/data/lineups/wacken_2026.thin.json (Phase 3: thin variant
-      consumed when USE_THIN_LINEUPS is on; the fat wacken_2026.json
-      remains the source of truth until Phase 4 cutover).
+  wacken_playlist/data/lineups/wacken_2026.json (thin pointer list, post
+      Phase 4 cutover; the historic fat version lives at
+      raw/wacken_2026.fat.json for audit).
 
 Usage:
   py scripts/build_library.py
@@ -37,7 +37,12 @@ ROOT = Path(__file__).parent.parent
 LINEUP_DIR = ROOT / "wacken_playlist" / "data" / "lineups"
 LIBRARY_DIR = ROOT / "wacken_playlist" / "data" / "library"
 
-WACKEN_FILE = LINEUP_DIR / "wacken_2026.json"
+RAW_DIR = ROOT / "raw"
+# Post-Phase-4 cutover: the source of truth for resolved tracks is the
+# archived fat lineup (until Phase 5+6 makes the resolver write straight
+# to library/). The thin lineup file at LINEUP_DIR / "wacken_2026.json"
+# is regenerated from the archive on every build.
+WACKEN_FILE = RAW_DIR / "wacken_2026.fat.json"
 OVERRIDES_FILE = LINEUP_DIR / "artist_overrides.json"
 UNRESOLVED_FILE = LINEUP_DIR / "unresolved_bands.json"
 
@@ -192,7 +197,7 @@ def build_library() -> dict[str, dict]:
         "spotify_tracks.json": (LIBRARY_DIR, tracks_doc),
         "unresolved.json": (LIBRARY_DIR, unresolved_doc),
         "setlists.json": (LIBRARY_DIR, setlists_doc),
-        "wacken_2026.thin.json": (LINEUP_DIR, thin_lineup),
+        "wacken_2026.json": (LINEUP_DIR, thin_lineup),
     }
 
 

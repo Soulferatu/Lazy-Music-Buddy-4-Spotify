@@ -1,10 +1,11 @@
-"""Parity test for the library refactor (Phase 1+2).
+"""Parity test for the library refactor (Phase 1+2, retained through Phase 4).
 
-Asserts that the generated ``data/library/*.json`` files faithfully mirror
-the canonical data still living in ``data/lineups/wacken_2026.json`` plus
-``artist_overrides.json`` and ``unresolved_bands.json``. Until the Phase 4
-cutover, the fat lineup file remains the source of truth — this test is
-the guardrail against silent drift.
+Asserts that ``data/library/*.json`` faithfully mirrors the archived
+fat-format snapshot at ``raw/wacken_2026.fat.json`` plus
+``artist_overrides.json`` and ``unresolved_bands.json``. Pre-cutover this
+file lived at ``data/lineups/wacken_2026.json``; Phase 4 moved it. The
+parity test will be retired in Phase 5+6 when the resolver writes
+directly to ``library/`` and the fat snapshot can be deleted.
 """
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 LINEUP_DIR = ROOT / "wacken_playlist" / "data" / "lineups"
 LIBRARY_DIR = ROOT / "wacken_playlist" / "data" / "library"
+FAT_SNAPSHOT = ROOT / "raw" / "wacken_2026.fat.json"
 
 
 def _load(path: Path) -> dict:
@@ -23,7 +25,7 @@ def _load(path: Path) -> dict:
 
 
 def test_every_band_in_artists_registry():
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     artists = _load(LIBRARY_DIR / "artists.json")["artists"]
 
     assert len(wacken["bands"]) == len(artists)
@@ -34,7 +36,7 @@ def test_every_band_in_artists_registry():
 
 
 def test_track_lists_match_band_for_band():
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     tracks_by_id = _load(LIBRARY_DIR / "spotify_tracks.json")["artists"]
 
     for band in wacken["bands"]:
@@ -47,7 +49,7 @@ def test_track_lists_match_band_for_band():
 
 
 def test_override_source_flag_matches_overrides_file():
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     overrides = _load(LINEUP_DIR / "artist_overrides.json")
     artists = _load(LIBRARY_DIR / "artists.json")["artists"]
 
@@ -65,7 +67,7 @@ def test_override_source_flag_matches_overrides_file():
 
 def test_permanently_unresolved_flag_migrated_to_tracks_file():
     unresolved = _load(LINEUP_DIR / "unresolved_bands.json")
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     tracks_by_id = _load(LIBRARY_DIR / "spotify_tracks.json")["artists"]
 
     name_to_id = {b["name"]: b["spotify_id"] for b in wacken["bands"]}
@@ -82,7 +84,7 @@ def test_permanently_unresolved_flag_migrated_to_tracks_file():
 
 
 def test_aliases_pulled_from_dedup_decisions():
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     artists = _load(LIBRARY_DIR / "artists.json")["artists"]
 
     name_to_id = {b["name"]: b["spotify_id"] for b in wacken["bands"]}
@@ -98,7 +100,7 @@ def test_aliases_pulled_from_dedup_decisions():
 
 def test_unresolved_entries_have_no_spotify_id_in_lineup():
     """library/unresolved.json holds only truly Spotify-less bands."""
-    wacken = _load(LINEUP_DIR / "wacken_2026.json")
+    wacken = _load(FAT_SNAPSHOT)
     unresolved_lib = _load(LIBRARY_DIR / "unresolved.json")
 
     band_names = {b["name"] for b in wacken["bands"]}

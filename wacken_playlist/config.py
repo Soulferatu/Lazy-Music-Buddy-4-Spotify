@@ -23,6 +23,7 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration. Provides safe fallback for SECRET_KEY."""
     DEBUG = True
+    USE_THIN_LINEUPS = True
 
     def __init__(self):
         if not Config.SECRET_KEY:
@@ -43,6 +44,7 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     """Production configuration. Fails loudly if SECRET_KEY is absent."""
+    USE_THIN_LINEUPS = True
 
     @classmethod
     def validate(cls):

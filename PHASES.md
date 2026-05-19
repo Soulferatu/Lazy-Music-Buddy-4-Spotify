@@ -244,7 +244,7 @@ The app is live at a public URL, installable from phone/desktop, and users can c
 
 **Status:** pending. Not started. Band resolution improvements (v0.5.5) unblocked Stage 6, but implementation has been deferred pending user decision.
 
-**Blocked by (in-flight):** library refactor — see [wiki/library_refactor.md](wiki/library_refactor.md) (top of page has a **Resume Here** section) and [LIBRARY_REFACTOR_PLAN.md](LIBRARY_REFACTOR_PLAN.md). Phases 1+2 and 3 done; Phase 4 (cutover) next, then Phase 5+6 (resolver rewrite). Stage 6 starts after the refactor lands so setlist.fm data uses `data/library/setlists.json` from day one.
+**Blocked by (in-flight):** library refactor — see [wiki/library_refactor.md](wiki/library_refactor.md) (top of page has a **Resume Here** section) and [LIBRARY_REFACTOR_PLAN.md](LIBRARY_REFACTOR_PLAN.md). Phases 1+2, 3 and 4 done; Phase 5+6 (resolver rewrite + dual-path removal) next. Stage 6 starts after the refactor lands so setlist.fm data uses `data/library/setlists.json` from day one.
 
 ### Prerequisites
 

@@ -550,6 +550,30 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    # Phase 4 guard: after the library refactor cutover, wacken_2026.json
+    # holds a thin pointer list instead of the fat dicts this script reads
+    # and writes. Running blindly would corrupt the file. The proper rewrite
+    # (writing tracks straight to library/spotify_tracks.json) lands in
+    # Phase 5+6. Until then, refuse to run with a clear pointer.
+    try:
+        with DATA_FILE.open(encoding="utf-8") as f:
+            _peek = json.load(f)
+        _bands = _peek.get("bands", [])
+        if _bands and isinstance(_bands[0], str):
+            print(
+                f"ERROR: {DATA_FILE} is in thin (pointer) format. The resolver "
+                "is paused pending the library refactor Phase 5+6 rewrite — see "
+                "wiki/library_refactor.md. The historic fat-format snapshot lives "
+                "at raw/wacken_2026.fat.json if you need to inspect the previous "
+                "shape.",
+                file=sys.stderr,
+            )
+            sys.exit(2)
+    except FileNotFoundError:
+        # Let the normal code path raise its own error; the guard is only
+        # responsible for the shape-mismatch case.
+        pass
+
     if args.retry_unresolved:
         retry_unresolved(below_threshold_only=args.below_threshold_only)
     elif args.retry_low_count is not None:
