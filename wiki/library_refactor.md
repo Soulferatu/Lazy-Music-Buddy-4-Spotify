@@ -2,33 +2,33 @@
 
 Tracks the in-flight normalization of `data/lineups/wacken_2026.json` into a thin lineup pointer file plus per-source `data/library/*.json` files. Full plan and rationale live in [LIBRARY_REFACTOR_PLAN.md](../LIBRARY_REFACTOR_PLAN.md); this page records decisions, progress, and the as-built state as each phase lands.
 
-## ⏸ Resume Here — Phase 3 Next
+## ⏸ Resume Here — Phase 4 Next
 
-**Where we paused:** Phase 1+2 done and committed (commit `35855a2` on `dev-search-improvements`). Library files exist under `wacken_playlist/data/library/` and `LibraryRepository` is wired into `create_app` as `app.library`, but **nothing else reads it yet**. `LineupRepository` still reads the fat `wacken_2026.json` exactly as before — runtime behavior unchanged.
+**Where we paused:** Phase 3 done. `wacken_2026.thin.json` exists, `LineupRepository` reads both shapes, `USE_THIN_LINEUPS` flag added (default `False` everywhere). Runtime still uses the fat file. Tests stay at the same baseline (9 pre-existing failures unchanged; 10 new passing tests).
 
-**Next session — Phase 3 task list:**
-1. Extend `scripts/build_library.py` to also emit a thin variant: `wacken_playlist/data/lineups/wacken_2026.thin.json` with the locked shape (alphabetical band IDs, parallel `unresolved_names: []`, retain `year` / `source_urls` / editorial `notes`).
-2. Add a `USE_THIN_LINEUPS` config flag (default `False`) in `wacken_playlist/config.py` — Development, Testing, Production.
-3. Teach `wacken_playlist/lineup.py::LineupRepository.get_bands()` to handle both shapes:
-   - If first `bands[]` item is a string ID → join with `LibraryRepository` to hydrate name, tracks, track_count.
-   - If first item is a dict → existing path (unchanged).
-4. Wire `LineupRepository` so it can reach `LibraryRepository`. Easiest: constructor takes an optional `library: LibraryRepository | None`; `create_app` passes the existing `app.library`. Falls back to its own instance if `None` for test convenience.
-5. Decide what `is_valid_band` / `get_band_names` should do under the thin shape — both currently iterate `bands_data`. Join with library to read `name`.
-6. Tests: cover the thin-shape path in `tests/unit/test_lineup.py`. Use a tmp_path fixture with a small thin lineup file pointing at a small library fixture. Confirm `get_bands` returns identical `Band` objects under both shapes for the same dataset.
+**Next session — Phase 4 task list (the cutover):**
+1. Set `USE_THIN_LINEUPS = True` on `DevelopmentConfig` and `ProductionConfig` (keep `TestingConfig` controlled per-test).
+2. Manual smoke test against a Flask dev run with the flag on: preview a playlist, create one, compare track URIs against a baseline taken pre-flip. Document the comparison in the as-built notes.
+3. Move the current fat `wacken_playlist/data/lineups/wacken_2026.json` to `raw/wacken_2026.fat.json` (audit copy, out of the read path).
+4. Promote `wacken_2026.thin.json` to `wacken_2026.json`. Update `scripts/build_library.py` so its output filename matches the promoted name (it stops writing a separate `.thin.json` from this point).
+5. Update `LineupRepository._path_for` to drop the `.thin.json` suffix when `use_thin` is True — both modes read `wacken_YYYY.json`; the shape determines which path runs.
+6. Update `scripts/resolve_lineup.py` minimally so it does **not** break on the thin shape. The full resolver rewrite is Phase 5+6, but if Phase 4 leaves only a thin file in place, the resolver needs at least a "refuse to run / clear error" branch until then. Decide between (a) gating the resolver on the fat file being present, (b) reading the fat file from `raw/` for now, (c) accepting the thin shape and writing to `data/library/spotify_tracks.json` (which is Phase 5's job anyway).
+7. Tests: full suite green except the same pre-existing 9. Cover both code paths in `tests/unit/test_lineup.py` after the rename.
+8. Bump `wacken_playlist/version.py` (cache-bust SW + static assets).
+9. CLAUDE.md, PHASES.md, wiki/library_refactor.md, wiki/band_track_resolution.md all reflect the cutover.
 
-**Don't touch in Phase 3:**
-- `wacken_2026.json` stays in fat form (cutover is Phase 4).
-- `scripts/resolve_lineup.py` continues to read/write the fat file (rewrite is Phase 5+6).
-- `artist_overrides.json` and `unresolved_bands.json` stay (deleted in Phase 5+6).
-- The pre-existing 9 failing tests on this branch (stale `MAX_PAGES_*` and `create_playlist` assertions). Verified pre-existing on commit `952136c`. Separate follow-up.
+**Open question for Phase 4:** the resolver-during-cutover handling above (Phase 4 task 6). Worth a small decision before code touches.
 
-**Open questions to settle before Phase 3 code:**
-- None blocking. Locked decisions below cover the schema.
+**Don't touch in Phase 4:**
+- The resolver rewrite proper (Phase 5+6).
+- `artist_overrides.json` and `unresolved_bands.json` (delete in Phase 5+6 once resolver writes to library directly).
+- The pre-existing 9 failing tests.
+- The permanently-unresolved UX (badge + warning copy). Separate follow-up PR after Phase 4 — see the "Tracked Follow-Up" section below for the locked schema and UI sketch.
 
 **Commands to remind yourself of state:**
-- `py scripts/build_library.py --check` — confirms library files are in sync with current sources.
-- `py -m pytest tests/unit/test_library_parity.py tests/unit/test_library_repository.py` — 19 tests, should all pass.
-- `git log --oneline -5` — last entry is `35855a2 Library refactor Phase 1+2: build library files + LibraryRepository`.
+- `py scripts/build_library.py --check` — confirms library + thin lineup in sync with the fat source.
+- `py -m pytest` — 84 pass, 9 pre-existing fail.
+- `git log --oneline -5` — Phase 3 commit on top.
 
 ## Why this refactor
 
@@ -70,7 +70,7 @@ Schemas: see [LIBRARY_REFACTOR_PLAN.md](../LIBRARY_REFACTOR_PLAN.md#target-archi
 | Phase | Scope | Status |
 |---|---|---|
 | 1+2 | Build `library/*.json` from current data + `LibraryRepository` (parallel read path; nothing consumes it yet) | ✅ Done 2026-05-18 |
-| 3 | Dual-path `LineupRepository` behind `USE_THIN_LINEUPS` flag (default off) | ⏳ Pending |
+| 3 | Dual-path `LineupRepository` behind `USE_THIN_LINEUPS` flag (default off) | ✅ Done 2026-05-19 |
 | 4 | Flip flag on; replace `wacken_2026.json` with thin form; archive original to `raw/wacken_2026.fat.json` | ⏳ Pending |
 | 5+6 | Resolver writes to `library/`; delete dual-path code, overrides file, and `unresolved_bands.json` | ⏳ Pending |
 
@@ -100,14 +100,73 @@ _To be filled in after each phase ships._
 
 **Open follow-up:** the broader `/v1/artists/{id}/albums` fallback is still not wired into `resolve_lineup.py` (CLAUDE.md flags this as "deferred" — it's what would unblock Minotaurus, Sacred Steel, and other name-collision casualties). Handled here only as a one-off for 9mm Headshot.
 
-### Phase 3
-_pending_
+### Phase 3 — 2026-05-19
+
+**Thin lineup file:** [wacken_playlist/data/lineups/wacken_2026.thin.json](../wacken_playlist/data/lineups/wacken_2026.thin.json) — produced by [scripts/build_library.py](../scripts/build_library.py) (extended in this phase to emit a 5th output). Shape:
+- `year`, `source_urls` carried over verbatim.
+- `notes.withdrawals` / `notes.non_band_entries` migrated from the fat file's `notes.dedup_decisions` entries where `kept` is null (alias entries with `kept != null` continue to live in `library/artists.json`). Classification rule: reason text containing "withdrew" / "withdrawal" → withdrawals; everything else → non_band_entries. Today: 1 each (Nita Strauss withdrew; Maschine's Late Night Show is a stage event).
+- `bands` is a list of 169 Spotify artist IDs, sorted alphabetically by canonical name (case-insensitive — same order as `artists.json` and `spotify_tracks.json` so the three files diff cleanly together).
+- `unresolved_names: []` — reserved per the locked schema; empty today since every band has a Spotify ID.
+
+**Config flag:** `USE_THIN_LINEUPS` added to the base `Config` class in [wacken_playlist/config.py](../wacken_playlist/config.py), default `False`. Inherited by Development, Testing, Production unchanged. Phase 4 flips Dev + Prod.
+
+**Dual-path `LineupRepository`:** [wacken_playlist/lineup.py](../wacken_playlist/lineup.py) now accepts `library: LibraryRepository | None` and `use_thin: bool` in its constructor. When `use_thin=True`:
+- `_path_for(year)` returns `wacken_YYYY.thin.json`.
+- `get_bands(year)` joins each Spotify ID against `LibraryRepository.get_artist` + `get_tracks` + `get_track_count` to hydrate the `Band` dataclass.
+- `get_band_names(year)` reads names off the library too.
+- `is_valid_band` delegates to `get_band_names` (works for both shapes).
+- `get_available_years` filters by file suffix so fat and thin files in the same dir don't bleed across modes.
+- Missing library at read time raises a clear `RuntimeError("LineupRepository is in thin mode but no LibraryRepository was supplied")`.
+
+**Wiring:** [wacken_playlist/__init__.py](../wacken_playlist/__init__.py) builds `app.library` first, then passes it (plus the config flag) to `LineupRepository`. With the default flag off, this is a no-op for runtime behavior; the fat-path branch still serves all reads.
+
+**Tests:** [tests/unit/test_lineup_thin.py](../tests/unit/test_lineup_thin.py) — 10 new tests. Asserts the thin-mode repo returns the same set of bands, same per-band Band data (name, year, tracks, track_count), alphabetical ordering, source URLs preserved, `is_valid_band` works for known + unknown names, thin mode raises without a library, unknown years still raise `LineupNotFoundError`, and the editorial notes section carries both withdrawals and non-band entries. Existing fat-path tests in [tests/unit/test_lineup.py](../tests/unit/test_lineup.py) remain green untouched.
+
+**Suite state:** 84 pass / 9 pre-existing fail (was 74 / 9 before Phase 3). No new regressions.
+
+**Decision notes for Phase 4 (the cutover):** see top-of-page **Resume Here** section. The non-trivial open question is how `scripts/resolve_lineup.py` behaves between the rename (Phase 4) and the resolver rewrite (Phase 5+6), since it currently writes to the fat lineup file.
 
 ### Phase 4
 _pending_
 
 ### Phase 5+6
 _pending_
+
+## Tracked Follow-Up (post-refactor)
+
+### Permanently-unresolved UX (separate PR after Phase 4)
+
+Today the app has 5 bands flagged `permanently_unresolved: true` in `library/spotify_tracks.json`. They slip through the UI silently — users can tick them in the checklist and the preview shows them with 0 or 2 tracks, but the existing "unmatched bands" warning only fires when there's no Spotify artist match at all.
+
+| Band | Tracks | Category |
+|---|---|---|
+| Ballroom DJ Team | 0 | Wacken house act |
+| Blood Fire Death | 0 | Tribute act |
+| Cowgirls From Hell | 2 | Tribute act |
+| Wacken Firefighters | 0 | Wacken-local |
+| Heavysaurus | 2 | Real band, thin Spotify catalog (only 2 unique songs ever) |
+
+**Planned UX (locked decisions for the follow-up PR):**
+- Bands stay selectable but get a visual marker on the checklist tile (badge / icon).
+- If selected, the preview surfaces a clear warning per band — different copy depending on category.
+- Two reason categories in the data model: `wacken_local_or_tribute` (the first 4 bands) vs `thin_catalog` (Heavysaurus and any future case). UI shows different copy for each.
+
+**Schema sketch (subject to revision when the PR lands):**
+
+```json
+"6uyCfgv8FWIc2mifriVXqw": {
+  "tracks": [...],
+  "track_count": 2,
+  "resolved_at": "...",
+  "permanently_unresolved": true,
+  "unresolved_reason": "thin_catalog",
+  "note": "Only 2 unique songs across 6 release URIs"
+}
+```
+
+**Where the work lives:** [scripts/build_library.py](../scripts/build_library.py) (read a new `unresolved_reason` from `unresolved_bands.json` or inline rule), `spotify_tracks.json` (new field), `wacken_playlist/models.py` (new `Band` fields?), `routes.py` / `templates/index.html` / `static/css/styles.css` (checklist badge + warning), `i18n/{en,pt-BR}.json` (copy for both reason types).
+
+**Not part of Phase 3 or 4.** Phase 3's contract is "no user-visible behavior change". Phase 4 is the cutover (still no UX change). This is a Phase-4-follow-up commit on its own.
 
 ## Guardrails
 

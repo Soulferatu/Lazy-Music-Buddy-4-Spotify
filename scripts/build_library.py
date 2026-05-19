@@ -12,11 +12,14 @@ Sources:
   wacken_playlist/data/lineups/artist_overrides.json
   wacken_playlist/data/lineups/unresolved_bands.json
 
-Outputs (in wacken_playlist/data/library/):
-  artists.json          canonical artist registry, keyed by Spotify artist ID
-  spotify_tracks.json   per-artist track cache, keyed by Spotify artist ID
-  unresolved.json       bands with no Spotify ID at all (empty for now)
-  setlists.json         RESERVED for Stage 6, written with empty `artists: {}`
+Outputs:
+  wacken_playlist/data/library/artists.json
+  wacken_playlist/data/library/spotify_tracks.json
+  wacken_playlist/data/library/unresolved.json
+  wacken_playlist/data/library/setlists.json (RESERVED — Stage 6)
+  wacken_playlist/data/lineups/wacken_2026.thin.json (Phase 3: thin variant
+      consumed when USE_THIN_LINEUPS is on; the fat wacken_2026.json
+      remains the source of truth until Phase 4 cutover).
 
 Usage:
   py scripts/build_library.py
@@ -151,11 +154,45 @@ def build_library() -> dict[str, dict]:
         "artists": {},
     }
 
+    # ---- thin lineup: wacken_2026.thin.json -----------------------------
+    # Bands become a sorted array of Spotify IDs (alphabetical by canonical
+    # name, case-insensitive — the same order used for artists.json /
+    # spotify_tracks.json so the three files diff cleanly together).
+    # Editorial entries from notes.dedup_decisions with kept=null move into
+    # dedicated sections; alias entries (kept != null) live in artists.json.
+    sorted_bands = sorted(bands, key=lambda b: b["name"].lower())
+    withdrawals: list[dict] = []
+    non_band_entries: list[dict] = []
+    for entry in dedup:
+        if entry.get("kept") is not None:
+            continue
+        name = entry.get("removed")
+        reason = entry.get("reason", "")
+        if not name:
+            continue
+        item = {"name": name, "reason": reason}
+        if "withdrew" in reason.lower() or "withdrawal" in reason.lower():
+            withdrawals.append(item)
+        else:
+            non_band_entries.append(item)
+
+    thin_lineup = {
+        "year": wacken.get("year"),
+        "source_urls": list(wacken.get("source_urls", [])),
+        "notes": {
+            "withdrawals": withdrawals,
+            "non_band_entries": non_band_entries,
+        },
+        "bands": [b["spotify_id"] for b in sorted_bands],
+        "unresolved_names": [],
+    }
+
     return {
-        "artists.json": artists_doc,
-        "spotify_tracks.json": tracks_doc,
-        "unresolved.json": unresolved_doc,
-        "setlists.json": setlists_doc,
+        "artists.json": (LIBRARY_DIR, artists_doc),
+        "spotify_tracks.json": (LIBRARY_DIR, tracks_doc),
+        "unresolved.json": (LIBRARY_DIR, unresolved_doc),
+        "setlists.json": (LIBRARY_DIR, setlists_doc),
+        "wacken_2026.thin.json": (LINEUP_DIR, thin_lineup),
     }
 
 
@@ -169,11 +206,12 @@ def main() -> int:
     args = parser.parse_args()
 
     LIBRARY_DIR.mkdir(parents=True, exist_ok=True)
+    LINEUP_DIR.mkdir(parents=True, exist_ok=True)
 
     files = build_library()
     drift = False
-    for name, doc in files.items():
-        path = LIBRARY_DIR / name
+    for name, (target_dir, doc) in files.items():
+        path = target_dir / name
         new_bytes = _dump_json(path, doc)
         old_bytes = path.read_bytes() if path.exists() else None
         if old_bytes == new_bytes:

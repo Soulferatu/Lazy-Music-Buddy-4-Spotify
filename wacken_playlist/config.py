@@ -13,6 +13,11 @@ class Config:
     SPOTIFY_APP_REFRESH_TOKEN = os.environ.get("SPOTIFY_APP_REFRESH_TOKEN", "")
     SETLISTFM_API_KEY = os.environ.get("SETLISTFM_API_KEY", "")
     WTF_CSRF_ENABLED = True
+    # Phase 3 of the library refactor: when True, LineupRepository reads
+    # wacken_YYYY.thin.json (pointer list) and joins with LibraryRepository.
+    # When False (current default), it reads the fat wacken_YYYY.json directly.
+    # Flag will be flipped on in Phase 4.
+    USE_THIN_LINEUPS = False
 
 
 class DevelopmentConfig(Config):

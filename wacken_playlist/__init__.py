@@ -24,8 +24,11 @@ def create_app(config_class=DevelopmentConfig):
 
     csrf.init_app(app)
 
-    app.lineup = LineupRepository()
     app.library = LibraryRepository()
+    app.lineup = LineupRepository(
+        library=app.library,
+        use_thin=bool(app.config.get("USE_THIN_LINEUPS")),
+    )
     app.spotify = SpotifyClient(
         client_id=app.config["SPOTIFY_CLIENT_ID"],
         client_secret=app.config["SPOTIFY_CLIENT_SECRET"],
