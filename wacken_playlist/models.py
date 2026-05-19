@@ -10,6 +10,17 @@ class Track:
 
 
 @dataclass(frozen=True)
+class ArtistRecord:
+    """Canonical artist registry entry from data/library/artists.json."""
+    spotify_id: str
+    name: str
+    aliases: tuple[str, ...] = ()
+    mbid: Optional[str] = None
+    override_source: Optional[str] = None
+    notes: Optional[str] = None
+
+
+@dataclass(frozen=True)
 class Band:
     """Represents a band playing at Wacken Open Air."""
     name: str
@@ -18,6 +29,16 @@ class Band:
     tracks: tuple[Track, ...] = field(default_factory=tuple)
     track_count: int = 0
     unresolved: bool = False
+    # `permanently_unresolved` + `unresolved_reason` mirror the
+    # spotify_tracks.json fields. The reason is one of:
+    #   - "wacken_local_or_tribute": Wacken house act or tribute band
+    #     with no real Spotify presence.
+    #   - "thin_catalog": real artist whose entire Spotify catalog is
+    #     just a handful of tracks (e.g. Heavysaurus, 2 unique songs).
+    # Both are surfaced in the UI so users know what to expect before
+    # building a playlist.
+    permanently_unresolved: bool = False
+    unresolved_reason: Optional[str] = None
 
 
 @dataclass

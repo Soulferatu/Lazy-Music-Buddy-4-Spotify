@@ -502,7 +502,8 @@ input[type="search"]:focus {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 14px;
+  /* ~3% larger overall: 11→12px vertical, 14→15px horizontal padding. */
+  padding: 12px 15px;
   cursor: pointer;
   font-family: "Inter Tight", Inter, sans-serif;
   font-size: 14px;
@@ -758,6 +759,31 @@ button:disabled {
   font-size: 0.78rem;
 }
 
+.notice-info {
+  border-left-color: var(--ember-glow, #ff8a3d);
+  background: rgb(255 138 61 / 8%);
+  color: #f5e1c8;
+  font-family: "Special Elite", Georgia, serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.notice-info strong {
+  color: var(--ember-glow, #ff8a3d);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-family: Inter, "Inter Tight", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.notice-info .warning-list span {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-family: Inter, "Inter Tight", system-ui, sans-serif;
+  color: var(--paper, #f5f1e8);
+}
+
 .warning-list {
   margin: 6px 0 0;
   padding-left: 18px;
@@ -765,6 +791,36 @@ button:disabled {
   gap: 3px;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
+}
+
+/* ───────── Band-option badges (permanently-unresolved acts) ───────── */
+
+.band-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  font-family: "Special Elite", Georgia, serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  vertical-align: middle;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.band-option--wacken_local_or_tribute .band-badge {
+  color: #8b0000;
+}
+
+.band-option--thin_catalog .band-badge {
+  color: var(--ember-glow, #ff8a3d);
+}
+
+.band-option.has-badge .band-option-name {
+  /* Slight dim on the name so the badge is the anchor */
+  opacity: 0.92;
 }
 
 /* ───────── Summary / preview tickets ───────── */

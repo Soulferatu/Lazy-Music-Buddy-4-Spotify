@@ -53,36 +53,66 @@ def test_preview_shows_matched_tracks_and_total_count(client):
     assert b"Def Leppard" in response.data
     assert b"Powerwolf" in response.data
     assert b"20 tracks matched" in response.data
-    assert b"Track 1" in response.data
+    # Pull a real pre-resolved track name through to confirm the embedded
+    # library data is being surfaced (not a Spotify mock).
+    assert b"Hysteria" in response.data
 
 
-def test_preview_shows_unmatched_warning(client, mock_spotify):
-    mock_spotify.search_artist.side_effect = lambda name: (
-        {"id": "id-Powerwolf", "name": "Powerwolf"} if name == "Powerwolf" else None
-    )
-
+def test_preview_shows_limited_presence_notice_for_wacken_local(client):
+    """Selecting a wacken_local_or_tribute band shows the new ember
+    notice (the legacy 'Could not find on Spotify' warning was retired
+    for these bands so they don't get double-flagged)."""
     response = client.post(
         "/preview",
-        data={"playlist_name": "Test", "bands": ["Powerwolf", "Def Leppard"]},
+        data={"playlist_name": "Test", "bands": ["Powerwolf", "Wacken Firefighters"]},
     )
 
     assert response.status_code == 200
-    assert b"notice-warning" in response.data
-    assert b"Could not find on Spotify" in response.data
-    assert b"Def Leppard" in response.data
+    assert b"notice-info" in response.data
+    assert b"Limited Spotify presence" in response.data
+    assert b"Wacken Firefighters" in response.data
+    # Reason-specific copy fires for the wacken_local_or_tribute reason.
+    assert b"Wacken-local or tribute acts" in response.data
 
 
-def test_preview_all_unmatched_renders_zero_tracks(client, mock_spotify):
-    mock_spotify.search_artist.side_effect = lambda name: None
-
+def test_preview_shows_limited_presence_notice_for_thin_catalog(client):
+    """Heavysaurus has a real Spotify presence but only 2 unique tracks
+    — the thin_catalog explanation should fire instead of the local-act
+    copy."""
     response = client.post(
         "/preview",
-        data={"playlist_name": "Test", "bands": ["Def Leppard", "Powerwolf"]},
+        data={"playlist_name": "Test", "bands": ["Powerwolf", "Heavysaurus"]},
     )
 
     assert response.status_code == 200
-    assert b"0 tracks matched" in response.data
-    assert b"Def Leppard" in response.data
+    assert b"notice-info" in response.data
+    assert b"Heavysaurus" in response.data
+    assert b"very small Spotify catalog" in response.data
+
+
+def test_preview_zero_track_band_does_not_trigger_legacy_warning(client):
+    """A permanently-unresolved band that's also flagged is filtered out
+    of the legacy `unmatched` list so the yellow warning stays quiet for
+    these bands."""
+    response = client.post(
+        "/preview",
+        data={"playlist_name": "Test", "bands": ["Wacken Firefighters"]},
+    )
+
+    assert response.status_code == 200
+    # Notice-warning class wraps the legacy warning; if it appears at all
+    # in the rendered preview, it must NOT be about Wacken Firefighters.
+    assert b"notice-info" in response.data  # new notice fired
+    # The legacy warning's headline shouldn't surface for this band.
+    # (We can't assert the class is absent globally because i18n bundle
+    #  embeds copy elsewhere — instead check the warning-list contents.)
+    import re
+    html = response.data.decode()
+    legacy = re.search(
+        r'<div class="notice notice-warning".*?</div>', html, flags=re.DOTALL
+    )
+    if legacy:
+        assert "Wacken Firefighters" not in legacy.group(0)
 
 
 def test_preview_spotify_config_error(client, mock_spotify):
@@ -109,16 +139,21 @@ def test_preview_spotify_auth_error(client, mock_spotify):
     assert b"Could not authenticate with Spotify" in response.data
 
 
-def test_preview_spotify_api_error(client, mock_spotify):
-    mock_spotify.search_artist.side_effect = SpotifyAPIError("boom")
+def test_create_spotify_api_error_surfaces_message(client, mock_spotify):
+    """Post-v0.5.4 the only runtime Spotify call is create_playlist via
+    /create. /preview no longer talks to Spotify, so error surfacing
+    moved entirely to the create path."""
+    mock_spotify.create_playlist.side_effect = SpotifyAPIError("boom")
 
     response = client.post(
-        "/preview",
+        "/create",
         data={"playlist_name": "Test", "bands": ["Def Leppard"]},
     )
 
     assert response.status_code == 200
-    assert b"Spotify returned an unexpected error" in response.data
+    # The i18n copy was renamed during the rate-limit hotfix work; the
+    # current key surfaces the rate-limit guidance.
+    assert b"Spotify is temporarily unavailable" in response.data
 
 
 def test_preview_renders_create_form_with_band_values(client):
@@ -181,11 +216,12 @@ def test_create_reports_skipped_bands(client, mock_spotify):
 
 
 def test_create_no_matches_shows_error(client, mock_spotify):
-    mock_spotify.search_artist.side_effect = lambda name: None
-
+    """If the only band selected has zero pre-resolved tracks (e.g. a
+    wacken_local act), /create raises NoMatchedTracksError and renders
+    the error copy without calling Spotify."""
     response = client.post(
         "/create",
-        data={"playlist_name": "Mix", "bands": ["Def Leppard", "Powerwolf"]},
+        data={"playlist_name": "Mix", "bands": ["Wacken Firefighters"]},
     )
 
     assert response.status_code == 200

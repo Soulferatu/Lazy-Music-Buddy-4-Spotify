@@ -187,17 +187,27 @@ def test_get_top_tracks_paginates_across_all_query_strategies():
     assert mock_get.call_args_list[2].kwargs["params"]["offset"] == 10
 
 
-def test_get_top_tracks_caps_at_six_queries():
-    """Hard cap: artist: query + MAX_TOP_TRACKS_PAGES(5) plain-text pages = 6
-    total queries, even if none of them filled the bucket."""
+def test_get_top_tracks_caps_at_max_pages():
+    """Hard cap on the runtime client: artist: query + MAX_TOP_TRACKS_PAGES
+    plain-text pages, never any more. Sparseband returns one matching hit
+    per page so each query is consumed and the loop exits at the cap.
+
+    Note: deep pagination lives in `scripts/resolve_lineup.py`, not the
+    runtime client. Since v0.5.4 the runtime path is essentially dead
+    code — tracks are pre-resolved offline — but the cap still holds in
+    case `get_top_tracks` is ever called directly.
+    """
     from unittest.mock import MagicMock
+
+    from wacken_playlist.services.spotify import SpotifyClient
 
     client = _make_client()
     client._token = "t"
     client._token_expires_at = time.time() + 1000
+    expected_calls = 1 + SpotifyClient.MAX_TOP_TRACKS_PAGES
 
     responses = []
-    for i in range(7):  # 7 prepared; only 6 should be consumed
+    for i in range(expected_calls + 2):  # over-prepared; only `expected` consumed
         resp = MagicMock()
         resp.raise_for_status = lambda: None
         resp.json.return_value = {
@@ -218,8 +228,8 @@ def test_get_top_tracks_caps_at_six_queries():
     ) as mock_get:
         tracks = client.get_top_tracks("Sparseband")
 
-    assert mock_get.call_count == 6  # artist: + 5 plain pages, never a 7th
-    assert len(tracks) == 6  # one match per query
+    assert mock_get.call_count == expected_calls
+    assert len(tracks) == expected_calls  # one match per query
 
 
 def test_get_top_tracks_filters_out_tracks_by_other_artists():

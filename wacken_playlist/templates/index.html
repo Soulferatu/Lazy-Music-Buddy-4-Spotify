@@ -118,14 +118,24 @@
           <fieldset class="band-grid" aria-describedby="source-note">
             <legend data-i18n="choose_bands">{{ translations.choose_bands }}</legend>
             {% for band in bands %}
-              <label class="band-option" data-band-name="{{ band|lower }}" tabindex="0">
+              <label
+                class="band-option{% if band.badge %} has-badge band-option--{{ band.badge }}{% endif %}"
+                data-band-name="{{ band.name|lower }}"
+                {% if band.badge %}data-badge="{{ band.badge }}"{% endif %}
+                tabindex="0"
+              >
                 <input
                   type="checkbox"
                   name="bands"
-                  value="{{ band }}"
-                  {% if band in form_values.bands %}checked{% endif %}
+                  value="{{ band.name }}"
+                  {% if band.name in form_values.bands %}checked{% endif %}
                 >
-                <span class="band-option-name">{{ band }}</span>
+                <span class="band-option-name">{{ band.name }}</span>
+                {% if band.badge == 'wacken_local_or_tribute' %}
+                  <span class="band-badge" data-i18n="band_badge_local_or_tribute">{{ translations.band_badge_local_or_tribute }}</span>
+                {% elif band.badge == 'thin_catalog' %}
+                  <span class="band-badge" data-i18n="band_badge_thin_catalog">{{ translations.band_badge_thin_catalog }}</span>
+                {% endif %}
                 <span class="band-option-spark" aria-hidden="true"></span>
               </label>
             {% endfor %}
@@ -175,6 +185,24 @@
                 <ul class="warning-list">
                   {% for band in preview.unmatched %}
                     <li>{{ band }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            {% if preview.limited_presence %}
+              <div class="notice notice-info" role="status">
+                <p data-i18n="limited_presence_heading">{{ translations.limited_presence_heading }}</p>
+                <ul class="warning-list">
+                  {% for entry in preview.limited_presence %}
+                    <li>
+                      <strong>{{ entry.name }}</strong> —
+                      {% if entry.reason == 'wacken_local_or_tribute' %}
+                        <span data-i18n="limited_presence_local_or_tribute_explanation">{{ translations.limited_presence_local_or_tribute_explanation }}</span>
+                      {% elif entry.reason == 'thin_catalog' %}
+                        <span data-i18n="limited_presence_thin_catalog_explanation">{{ translations.limited_presence_thin_catalog_explanation }}</span>
+                      {% endif %}
+                    </li>
                   {% endfor %}
                 </ul>
               </div>

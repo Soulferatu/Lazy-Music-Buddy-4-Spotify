@@ -1,0 +1,7 @@
+{
+  "_meta": {
+    "description": "Bands with no Spotify presence at all. Bands that have an ID but no usable tracks live in spotify_tracks.json with permanently_unresolved=true.",
+    "updated_at": "2026-05-18"
+  },
+  "entries": []
+}

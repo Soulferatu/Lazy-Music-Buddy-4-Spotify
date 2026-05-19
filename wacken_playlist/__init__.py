@@ -4,6 +4,7 @@ from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 
 from .config import DevelopmentConfig, ProductionConfig
+from .library import LibraryRepository
 from .lineup import LineupRepository
 from .services import PlaylistBuilder, SetlistFmClient, SpotifyClient
 from .version import APP_VERSION
@@ -23,7 +24,8 @@ def create_app(config_class=DevelopmentConfig):
 
     csrf.init_app(app)
 
-    app.lineup = LineupRepository()
+    app.library = LibraryRepository()
+    app.lineup = LineupRepository(library=app.library)
     app.spotify = SpotifyClient(
         client_id=app.config["SPOTIFY_CLIENT_ID"],
         client_secret=app.config["SPOTIFY_CLIENT_SECRET"],

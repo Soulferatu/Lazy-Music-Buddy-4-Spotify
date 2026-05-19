@@ -18,6 +18,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 | [wiki/stage5_deployment.md](wiki/stage5_deployment.md) | Records Stage 5: Vercel deployment, production env vars, redirect URL setup, PWA install on production origin, cache-busting workflow, and smoke-test checklist. | Codebase, [DEPLOYMENT.md](DEPLOYMENT.md), [vercel.json](vercel.json) | PWA requirements, Stage 4 polish, band track resolution |
 | [wiki/band_track_resolution.md](wiki/band_track_resolution.md) | Records the as-built offline pre-resolution system: `scripts/resolve_lineup.py`, two-strategy search, artist-ID filter, `artist_overrides.json`, `permanently_unresolved` flag, runtime `PlaylistBuilder` behavior, JSON schema. | Codebase, [raw/spotify_search_proposal.md](raw/spotify_search_proposal.md) | Spotify integration, Stage 5 deployment, track top-up plan |
 | [wiki/track_topup_plan.md](wiki/track_topup_plan.md) | Documents how to handle bands still below the 10-track cap: pre-flight checks, the "5-track plateau" diagnostic, staged retry by track count, success criteria, rollback. | [Ten_song_fix.md](Ten_song_fix.md), Codebase | Band track resolution, Spotify integration |
+| [wiki/library_refactor.md](wiki/library_refactor.md) | Tracks the in-flight split of `wacken_2026.json` into a thin lineup pointer file plus `data/library/*.json` (artists, spotify_tracks, unresolved, setlists). Records locked decisions and per-phase as-built state. | [LIBRARY_REFACTOR_PLAN.md](LIBRARY_REFACTOR_PLAN.md), Codebase | Band track resolution, development stages, Spotify integration |
 
 ## Knowledge Areas
 
@@ -46,6 +47,7 @@ This is the master index for the project wiki. It tracks processed knowledge pag
 - Spotify OAuth and playlist creation: [wiki/spotify_integration.md](wiki/spotify_integration.md)
 - Offline band track resolution (v0.5.4+): [wiki/band_track_resolution.md](wiki/band_track_resolution.md)
 - Track top-up plan for low-count bands: [wiki/track_topup_plan.md](wiki/track_topup_plan.md)
+- Library refactor (in flight): [wiki/library_refactor.md](wiki/library_refactor.md)
 
 ### App Delivery
 

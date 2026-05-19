@@ -244,10 +244,13 @@ The app is live at a public URL, installable from phone/desktop, and users can c
 
 **Status:** pending. Not started. Band resolution improvements (v0.5.5) unblocked Stage 6, but implementation has been deferred pending user decision.
 
+**Unblocked (2026-05-19, v0.5.9):** library refactor complete — see [wiki/library_refactor.md](wiki/library_refactor.md). All four phases (1+2, 3, 4, 5+6) landed. Setlist data will live in the reserved `data/library/setlists.json` slot from day one.
+
 ### Prerequisites
 
 - ✅ `SetlistFmClient` stub already exists from Phase 4A — interface is in place.
 - ✅ Offline band resolution (v0.5.5) eliminates per-session Spotify rate-limit exposure.
+- ⏳ Library refactor (4-phase plan in flight).
 
 ### User Actions
 

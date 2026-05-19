@@ -25,6 +25,7 @@ instance/
 .idea/
 .vscode/
 .obsidian/
+.claude/
 *.swp
 Thumbs.db
 .DS_Store

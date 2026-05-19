@@ -1,0 +1,1199 @@
+{
+  "_meta": {
+    "description": "Canonical artist registry. Keyed by Spotify artist ID.",
+    "updated_at": "2026-05-19"
+  },
+  "artists": {
+    "1biWH85uIGqR8Nj7oKU5J9": {
+      "name": "5th Avenue",
+      "aliases": [
+        "5th Avenue Hamburg"
+      ],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0hYxXnnFEBBK8JDab4lIEM": {
+      "name": "9mm Headshot",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "2X3qFQFHkm1sOGo5ppIoSD": {
+      "name": "Ad Infinitum",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6urzdpGY5yUimWZsgJUoTb": {
+      "name": "Airbourne",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0d5ZwMtCer8dQdOPAgWhe7": {
+      "name": "Alcest",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3OpqU68JpZlzvjAJj3B2Da": {
+      "name": "Alestorm",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0DhxBb7HKgksv0K7p3cIFj": {
+      "name": "Alfahanne",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6TZdvF1kFzwnQLgHQynzsO": {
+      "name": "Alien Ant Farm",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2GgqtN4rfpLZosbLI3PnpP": {
+      "name": "Alien Rockin Explosion",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6YRr0btzGqfQ5K7r23qjEM": {
+      "name": "Allt",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7vrrJ5YlL3I8XUrh1ktGJV": {
+      "name": "Anaal Nathrakh",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3bnPBquC93vbHmamojAf59": {
+      "name": "Angelus Apatrida",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "65C6Unk7nhg2aCnVuAPMo8": {
+      "name": "Animals As Leaders",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4p6RoajGbtqLSfYZpFxHyU": {
+      "name": "Any Given Day",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0DCw6lHkzh9t7f8Hb4Z0Sx": {
+      "name": "Arch Enemy",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7eSVSGjrGmW6f8t21v3gHl": {
+      "name": "Arroganz",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7A6bQKckcNVXkQGGPwyGWt": {
+      "name": "Asrock",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3kcwSBHk3lMgHMHuxjJLNZ": {
+      "name": "Ballroom DJ Team",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2wUKcOuW5xBpCKxnWOoxnI": {
+      "name": "Battlecreek",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2ifvIECHAlEgPMBuBOJ0lG": {
+      "name": "Bear McCreary",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3qjpqpwTo3qdYJ3GjQ84GR": {
+      "name": "Blaas Of Glory",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0zfT626RwO6zN3RDYeRit5": {
+      "name": "Black Label Society",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3zgdqcPEdYpDTSCsyjXePd": {
+      "name": "Black Tish",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5ZvwJikDgdP1PFU4PkAPVG": {
+      "name": "Bleed From Within",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4WfUbvICLrqPW9rzuNGS1f": {
+      "name": "Blood Command",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7FDSyIKRi2pQDXHpvfYZCd": {
+      "name": "Blood Fire Death",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "38shFuJO9k0kOEQSf854u4": {
+      "name": "Blood Red Throne",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0QJjaDqswcLyjDOgcBBf1Z": {
+      "name": "Broken By The Scream",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0J0ZiqA0aDxmkQye4wohwb": {
+      "name": "Brunhilde",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2g5gjeZJLGcWPAF0o9KdJj": {
+      "name": "Castle Rat",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7GNTvmIi6DDF2XDJKYKoUk": {
+      "name": "Chaosbay",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1BBIIH0h76KN8gYeXFcPjR": {
+      "name": "Corrosion Of Conformity",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2BJzRLleDH2jTAArbI4Xod": {
+      "name": "Cowgirls From Hell",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0hkIlpV0isEixFIr74VfZm": {
+      "name": "Craft",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "4q2uhIfBHCNlwXYvQdnzvS": {
+      "name": "Crematory",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2B73nUiRlcSwjTyVaIAwhR": {
+      "name": "Crimson Glory",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6QpbkfyEQJ3JiQw2AbTRUH": {
+      "name": "Cruachan",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "363ih5wuNGWBFcjeKFG8cc": {
+      "name": "Crypt Sermon",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "18inV5ouPlVcntsdYFWwiJ": {
+      "name": "Cursed Abyss",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7CGoviGsNXYmGOBkXk8dtW": {
+      "name": "Danko Jones",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4XpPveeg7RuYS3CgLo75t9": {
+      "name": "Deafheaven",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6H1RjVyNruCmrBEWRbD0VZ": {
+      "name": "Def Leppard",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0mdu8tTvytKczjlIVh78oJ": {
+      "name": "Diabolisches Werk",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7lnoKzE5unKzShIzkjlTX7": {
+      "name": "Dirty Shirt",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6mMlq8oWkHZwC2rd2RZbYF": {
+      "name": "Divlje Jagode",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7zhSE4Ry047wUsemXtAzq9": {
+      "name": "Dritte Wahl",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "02IFYoziC7CpQRK8fbehUY": {
+      "name": "Dubioza Kolektiv",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0cnovHZTwq7jWzzzGQWt58": {
+      "name": "E.N.D.",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "0iGkBvuI18nxqJR8Ipg1cu": {
+      "name": "Einherjer",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4irE4oDcl1EOiQxc4T9kNc": {
+      "name": "Elchivo",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5OhB4WP6o9odTeJS6rEC9g": {
+      "name": "Electric Bassboy",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3HKoyHD86fikvLBdecyl5j": {
+      "name": "Eläkeläiset",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6jPWrSmxOd9mj7Xaj4EP2Y": {
+      "name": "Emperor",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "58d50jBQXhOetEGuSBgu64": {
+      "name": "Employed To Serve",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7Js6Lde8thlIHXggv2SCBz": {
+      "name": "Europe",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6GuheeWvmKVL49zes8CYoW": {
+      "name": "Evil Jared",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7n7ZqJDzdKrZul0UjAWUhC": {
+      "name": "Expellow",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2wPOgnQ6eW3X73uIJZ4YFE": {
+      "name": "Faun",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1Gh3UMZ0WVesXifHfziSx9": {
+      "name": "Finsterforst",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6iuACyGPyhtixKHUiJ8mNu": {
+      "name": "Firespawn",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0qJpY7K8p7g6sacvaGNt6i": {
+      "name": "Fit For An Autopsy",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0ifzzRKdmtgaHy9cfnnyCR": {
+      "name": "Focus",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "2E9JlIDz7c0Ufmbs1YEjIX": {
+      "name": "Force",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "4QnuZOyl4C9d1keyOZXJ21": {
+      "name": "Future Palace",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3zig081GzEy52hB4SLF41Z": {
+      "name": "Given By The Flames",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4jjB1JrODqyxFVDDCLM4YV": {
+      "name": "Goodnight Greatness",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7GTkjp7qsfmx8iJzBUQLmN": {
+      "name": "Grand Magus",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "07mhRucOGu6NJvRNVzqoxU": {
+      "name": "Guilt Trip",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5CmgfDQq0YVKMP6zpjYhPR": {
+      "name": "Gutalax",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1V3Nl0Y3EZwqP38KHws6vB": {
+      "name": "H-Blockx",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6Vp7LKfnmi4ONEUww3IjCj": {
+      "name": "Hackneyed",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3caJ5Uy9aHZv7wVSNqwwjc": {
+      "name": "Hardline",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "17Mb968quDHpjCkIyq30QV": {
+      "name": "Hatebreed",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6b5VGR6r36WvU3vbrl9HbG": {
+      "name": "Heartless Human Harvest",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6uyCfgv8FWIc2mifriVXqw": {
+      "name": "Heavysaurus",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6vg9BW5gHSjidGbypXQku2": {
+      "name": "Hämatom",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7eHLiXFTjoywQZCWvsTaNh": {
+      "name": "I See Red",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "57ylwQTnFnIhJh4nu4rxCs": {
+      "name": "In Flames",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7371n3dNMRdoAuDOiweQJx": {
+      "name": "Insanity Alert",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2tRsMl4eGxwoNabM08Dm4I": {
+      "name": "Judas Priest",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0FfuujZJUa7Z2JzhhiPI2z": {
+      "name": "Kadavar",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4WsOnJW1h3znXnbMGQ2mpP": {
+      "name": "Katerfahrt",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "526TMJFuJibm9j2p9td9Yp": {
+      "name": "Kim Dracula",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0ImEDe9tW5n4pxHOK39zIc": {
+      "name": "Kittie",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4S8J8Nct8lHsbzAeNJXcJa": {
+      "name": "Krogi",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "5ziUNRAHfR28SgsINMc66V": {
+      "name": "Kupfergold",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7LNFSNejKjCEEwneXJQwXL": {
+      "name": "Kärbholz",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4OAddazJM576euUnFSvXSL": {
+      "name": "Lacuna Coil",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "66riGCPfih1Xqk81dDvpvf": {
+      "name": "Lagwagon",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3JFsVIxOn7STeilPICkkB2": {
+      "name": "Lamb Of God",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4gyzQpfG5YQZJt2jj0IkEl": {
+      "name": "Life Of Agony",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4H1S8RTYv4vN3SiM5uSZSa": {
+      "name": "Lovebites",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5OMIs8tNddcCXVDMN8LLyQ": {
+      "name": "Luna Kills",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "29t2xhTM0SRjm8iTNVMynh": {
+      "name": "Mambo Kurt",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5xKw7nNLyZ7UVvhaLC5kYd": {
+      "name": "Manntra",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6rVRU7I6r1lt6bhXGYTRQL": {
+      "name": "Mantar",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "23LXz8H5Kjs9oyMDuDt90r": {
+      "name": "Maschine",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "3dorOgTVQn7PWrqn7aHkWy": {
+      "name": "Metaklapa",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3dpwja8lSqNL1hDCzk7qXv": {
+      "name": "Midhaven",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2Yye71KtHwVbox5ST6254N": {
+      "name": "Minotaurus",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1kTUJy3zL57iEANLB9FpIA": {
+      "name": "Misery Index",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "32zyj5MW8nhKGMaGlp4njt": {
+      "name": "Misþyrming",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5ncHUtKhiVsHlugFN0DCDl": {
+      "name": "Mr. Hurley Und Die Pulveraffen",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "2Ah9OuOj7B57gPD1cbwiaE": {
+      "name": "Municipal Waste",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4IsBOsyWWMjrWBIJJOnuya": {
+      "name": "Nergal",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1wUArE0NhHB8M1bU2WSplY": {
+      "name": "Nevermore",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "39VNwvlQTqE9SvgPjjnMpc": {
+      "name": "Nothing More",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3poazkVxpS4USWiABaOBAZ": {
+      "name": "Novelization",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "4tususHNaR68xdgLstlGBA": {
+      "name": "Of Mice & Men",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7k29FbDq69ju2fe6zTskxY": {
+      "name": "Orbit Culture",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4ISeDymLgZtEyx5Dy4BaqD": {
+      "name": "Our Promise",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6KO6G41BBLTDNYOLefWTMU": {
+      "name": "P.O.D.",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "467M2s2YxXdlL2ZpDUNL3A": {
+      "name": "Paleface Swiss",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0gIo6kGl4KsCeIbqtZVHYp": {
+      "name": "Paradise Lost",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6JO3HrRYUfSMbe71R7RUF2": {
+      "name": "Phantom",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "4raqfuxaWjPjrOQGb6zoa7": {
+      "name": "Pig Destroyer",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3InxEfnjMqTJWqsWvHjjPU": {
+      "name": "Poison The Preacher",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5HFkc3t0HYETL4JeEbDB1v": {
+      "name": "Powerwolf",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "40nPYop0FOD9Syyu5y4dAU": {
+      "name": "President",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5W7mxe09YZ9HfUimnNih8V": {
+      "name": "Ricky Warwick",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1WsfEkSfrPIhy1lK7ZLRRH": {
+      "name": "Rose Tattoo",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7954VFaZClkL503srfV5PE": {
+      "name": "Running Wild",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3o2dn2O0FCVsWDFSh8qxgG": {
+      "name": "Sabaton",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "1YIOK7G8mxLZE6FhuSVqBy": {
+      "name": "Sacred Steel",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "66ezn48mPS89ukz6Fo3nqx": {
+      "name": "Sagenbringer",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3N1B1g6JtIgd6ClRkzD4yT": {
+      "name": "Savatage",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7CkHF3MbHm4kTdB9ZOJkV4": {
+      "name": "Saviourself",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "71vVmHeNgCVSa5SVmfvscU": {
+      "name": "Saxon",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6JW8wliOEwaDZ231ZY7cf4": {
+      "name": "Sepultura",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5MIQTIloEJunbdyIcANNwW": {
+      "name": "Sinamort",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6X3KrNqyquFDYia4Oz5dDM": {
+      "name": "Skyline",
+      "aliases": [
+        "Skylineband"
+      ],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3Ca8UhvMDcgM1zyfAZGw3M": {
+      "name": "Skynd",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "61Usxx24TwxGUlTUhE2S4u": {
+      "name": "Speak In Whispers",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3i6zP2x9GMBV3WyRzqQtM6": {
+      "name": "Spectral Wound",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4h4QdZPbKp8lz7PEA1FqkO": {
+      "name": "Stonem",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": "ID corrected 2026-05-19 from 1bnZNqlY7gL2D8FwhlzA9M; prior ID pointed at an unrelated same-named artist."
+    },
+    "4zAK8a87dIdPw6xRYvsr4c": {
+      "name": "Storm Seeker",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "544X9aDcwFDSon8HevRcqg": {
+      "name": "Subway To Sally",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0nUPTibxuWvP3nGFOyDOQl": {
+      "name": "Temple Of The Absurd",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "28dpy0DQotTkBXcTlniQii": {
+      "name": "Ten56.",
+      "aliases": [
+        "Ten56"
+      ],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6j8vGWE3wKAFEn0ngreusM": {
+      "name": "The Butcher Sisters",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2kO6zjt4a1OIqxOERhliEX": {
+      "name": "The Gathering",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4IJcztNtY5L7G3qK4yu1qt": {
+      "name": "The Hardkiss",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2WLmgv66Uq4vt2i36vwkAq": {
+      "name": "The Haunted",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "3nV9wzwFVAOJAjiSeFvcaf": {
+      "name": "The Limit",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "0a3Gua6g9TZBKlDSqebL7W": {
+      "name": "The Other",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": "ID corrected 2026-05-19 from 3GLOOlJDdTCd4NRrNb5Kg3; prior ID pointed at an unrelated same-named artist."
+    },
+    "1GCnpVka37q3EXMVnK9bma": {
+      "name": "The Troops Of Doom",
+      "aliases": [
+        "Troops Of Doom"
+      ],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3MomZRiJwdZmYnysgtF4Ey": {
+      "name": "Therapy?",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "553ygvIoh7oel0K4hrC1dC": {
+      "name": "Thomas Nicholas Band",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5eBCPtU2iPbzuMRre9BePt": {
+      "name": "Thrown",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "18jTFcgHRRYHdwdof1MDZw": {
+      "name": "Thundermother",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3et9upNERQI5IYt5jEDTxM": {
+      "name": "Thy Art Is Murder",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "37fG1EQuwb6zBHyFYUGfj8": {
+      "name": "Triptykon",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "7DMG2PzS3ZNZkgwpfgcTjA": {
+      "name": "Trold",
+      "aliases": [],
+      "mbid": null,
+      "override_source": "manual_2026-05-17",
+      "notes": null
+    },
+    "191rVxQbbZ05wcICUSvLkz": {
+      "name": "Turbonegro",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "44irRUOhAfb0ochWsW4sG1": {
+      "name": "Tuxedoo",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2VoP4JXyxNPIoYAFdB5ssQ": {
+      "name": "Uli Jon Roth",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2hfInImCCmb7zXIuCE15IN": {
+      "name": "Unzucht",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6DCYYeX3Iqic6GnQTXM3n4": {
+      "name": "Vanir",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2MorUzc2WoEC4CA8VKjRuK": {
+      "name": "Velvet Rush",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "17pZeX1Vy9hugVufmKFbCQ": {
+      "name": "Vended",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5kanN1nKzrkW1m2gZmo82x": {
+      "name": "Visions Of Atlantis",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "3pyjoONcLKvzpSCtk3zAkh": {
+      "name": "Vogelfrey",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "2KvwC4Kmp2U8XnKr5Yr1hm": {
+      "name": "Vreid",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "064R2a2ptevrnJHc5Tao56": {
+      "name": "Wacken Firefighters",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "4EwBNQKEzshM5Yxs6cyzpt": {
+      "name": "Wytch Hazel",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "6YQBDUiQeOg2Pp4XzGmtbm": {
+      "name": "Wüstenberg",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "56sorIyBAwXaDPifwqtCub": {
+      "name": "Year Of The Goat",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "5DpSoH5zCXNRqYai7pmcGG": {
+      "name": "Yngwie Malmsteen",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    },
+    "12cJGU9ktOShfMV5scsdHM": {
+      "name": "Zeltinger Band",
+      "aliases": [],
+      "mbid": null,
+      "override_source": null,
+      "notes": null
+    }
+  }
+}

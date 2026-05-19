@@ -46,8 +46,17 @@ def _render(template_kwargs):
 
 def _lineup_context():
     repo = current_app.lineup
+    bands = repo.get_bands(CURRENT_YEAR)
     return {
-        "bands": repo.get_band_names(CURRENT_YEAR),
+        # Each band tile carries an optional `badge` so the template can
+        # mark Wacken-local / tribute acts and thin-catalog artists.
+        "bands": [
+            {
+                "name": b.name,
+                "badge": b.unresolved_reason if b.permanently_unresolved else None,
+            }
+            for b in bands
+        ],
         "source_urls": repo.get_source_urls(CURRENT_YEAR),
     }
 
@@ -106,6 +115,20 @@ def preview():
             preview = None
 
         if preview is not None:
+            limited_presence = [
+                {"name": b.name, "reason": b.unresolved_reason}
+                for b in selected_bands
+                if b.permanently_unresolved and b.unresolved_reason
+            ]
+            # The new limited-presence notice subsumes the yellow "Could not
+            # find on Spotify" warning for permanently-unresolved bands —
+            # they already explain themselves with a per-reason copy. Drop
+            # them from `unmatched` so the legacy warning is only used for
+            # genuinely unexpected misses.
+            limited_names = {entry["name"] for entry in limited_presence}
+            unmatched_filtered = [
+                name for name in preview.unmatched if name not in limited_names
+            ]
             preview_view = {
                 "playlist_name": preview.playlist_name,
                 "bands": [b.name for b in preview.bands],
@@ -118,7 +141,8 @@ def preview():
                     }
                     for m in preview.matched
                 ],
-                "unmatched": preview.unmatched,
+                "unmatched": unmatched_filtered,
+                "limited_presence": limited_presence,
             }
 
     return _render({
