@@ -741,50 +741,12 @@
       "resolved_at": "2026-05-18"
     },
     "7A6bQKckcNVXkQGGPwyGWt": {
-      "tracks": [
-        {
-          "uri": "spotify:track:0FIIFjByMzWCbDDkTzMjNF",
-          "name": "Pamit Darimu"
-        },
-        {
-          "uri": "spotify:track:5PkHchQSmlb3viNwYaTQ2S",
-          "name": "Flower Garden"
-        },
-        {
-          "uri": "spotify:track:1LvZO0IS8JxGEQD5GUv4A6",
-          "name": "Think Active"
-        },
-        {
-          "uri": "spotify:track:0BwhbCO4DihdJePjGpQS3i",
-          "name": "Take Me Away (Kenneth Thomas TMA Mix)"
-        },
-        {
-          "uri": "spotify:track:7LLtlcmTblKuHr3E8SjvJ2",
-          "name": "Take Me Away (Mike Clark Groove Mix)"
-        },
-        {
-          "uri": "spotify:track:33lG1XKmsYb3O3Bb3Iqxzi",
-          "name": "Take Me Away (Original Mix)"
-        },
-        {
-          "uri": "spotify:track:7qFU3DKbsE5LFtLpYiTqT4",
-          "name": "Hallooween Day"
-        },
-        {
-          "uri": "spotify:track:5ps1uUV3WjH8cRVg3sdACr",
-          "name": "Take Me Away (Jon Watts Detroit Authentic Mix)"
-        },
-        {
-          "uri": "spotify:track:6eT6HzoVsVpn1kr1gfeF4V",
-          "name": "Take Me Away (Armo Theory Mix feat. Chuck Alkazian)"
-        },
-        {
-          "uri": "spotify:track:6V5WmAJhkZ6uMYBYdVp4XM",
-          "name": "Take Me Away (Seth Troxler and Lee Curtiss TMA Mix)"
-        }
-      ],
-      "track_count": 10,
-      "resolved_at": "2026-05-17"
+      "tracks": [],
+      "track_count": 0,
+      "resolved_at": "2026-05-19",
+      "permanently_unresolved": true,
+      "unresolved_reason": "wacken_local_or_tribute",
+      "note": "Wacken local act — the artist with this ID on Spotify is an unrelated electronic-music project; the Wacken Asrock has no Spotify presence."
     },
     "3kcwSBHk3lMgHMHuxjJLNZ": {
       "tracks": [],
