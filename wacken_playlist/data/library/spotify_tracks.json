@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Per-artist Spotify track cache. Keyed by Spotify artist ID.",
-    "updated_at": "2026-05-18"
+    "updated_at": "2026-05-19"
   },
   "artists": {
     "1biWH85uIGqR8Nj7oKU5J9": {
@@ -1418,9 +1418,50 @@
       "unresolved_reason": "wacken_local_or_tribute"
     },
     "0hkIlpV0isEixFIr74VfZm": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:114U0A9d5vnO1YcTZ3rLLq",
+          "name": "The Cosmic Sphere Falls"
+        },
+        {
+          "uri": "spotify:track:5IjdTBTtcQ2XlbagRXYLCL",
+          "name": "Again"
+        },
+        {
+          "uri": "spotify:track:2S8ZEige6RUFNuhLGMg7hx",
+          "name": "Undone"
+        },
+        {
+          "uri": "spotify:track:7okwuNfmb1j4MZQiEp2dZQ",
+          "name": "Tragedy of Pointless Games"
+        },
+        {
+          "uri": "spotify:track:4OAgWmisw29lzun5bfaUeV",
+          "name": "Darkness Falls"
+        },
+        {
+          "uri": "spotify:track:5g1RDD90rfinsgD9O7AGGn",
+          "name": "Crimson"
+        },
+        {
+          "uri": "spotify:track:15NXtEAKTNFEX2IcEXGuP0",
+          "name": "Yhvh's Shadow"
+        },
+        {
+          "uri": "spotify:track:5OcbAeS9yISigIf5f3eCeA",
+          "name": "White Noise"
+        },
+        {
+          "uri": "spotify:track:4bihiUcULmT7ko7pFAznwM",
+          "name": "Ablaze"
+        },
+        {
+          "uri": "spotify:track:4lmUYCo0ig626cUfqgAsD3",
+          "name": "The Silence Thereafter"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "4q2uhIfBHCNlwXYvQdnzvS": {
       "tracks": [
@@ -2013,9 +2054,14 @@
       "resolved_at": "2026-05-18"
     },
     "0cnovHZTwq7jWzzzGQWt58": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:5d02xCOpR1Kh2Q31NwCDMP",
+          "name": "Deep Dark You"
+        }
+      ],
+      "track_count": 1,
+      "resolved_at": "2026-05-19"
     },
     "0iGkBvuI18nxqJR8Ipg1cu": {
       "tracks": [
@@ -2576,15 +2622,60 @@
         {
           "uri": "spotify:track:6iZtDWu3FTuxu7AprIqA3Y",
           "name": "Hocus Pocus - Extended Version"
+        },
+        {
+          "uri": "spotify:track:6TJa7RJhrlI4PYaBv0Nx8h",
+          "name": "Sylvia"
         }
       ],
-      "track_count": 2,
-      "resolved_at": "2026-05-17"
+      "track_count": 3,
+      "resolved_at": "2026-05-19"
     },
     "2E9JlIDz7c0Ufmbs1YEjIX": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:7KdJqRXtBzxMWS7L6eVqJD",
+          "name": "Doubt"
+        },
+        {
+          "uri": "spotify:track:78XXjVZEHvMzCQ5MbYSnVZ",
+          "name": "The Morelli Stomp"
+        },
+        {
+          "uri": "spotify:track:4maqGSf9v9LuGvOrXSQEIB",
+          "name": "Water It Down"
+        },
+        {
+          "uri": "spotify:track:6ggRnzlf67Ehw0ZAWA9tJC",
+          "name": "Misconception"
+        },
+        {
+          "uri": "spotify:track:09mLVg0oBuDwVkXAlUPI63",
+          "name": "Disgrace (I'm Not Like You)"
+        },
+        {
+          "uri": "spotify:track:3nGmwRYuKESwO0GTxc5Ztx",
+          "name": "Get Burned"
+        },
+        {
+          "uri": "spotify:track:7iAlCJktchpKeLs5EasWOf",
+          "name": "Piles Of Hate"
+        },
+        {
+          "uri": "spotify:track:4O89DAq2CeTVg36OQRDv7e",
+          "name": "Sorry Excuse"
+        },
+        {
+          "uri": "spotify:track:7oQrPFxLfi1y9q61KcXjBW",
+          "name": "Two-faced Rat"
+        },
+        {
+          "uri": "spotify:track:35oc5vdBQea0TaFSger0Bd",
+          "name": "The Choice"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "4QnuZOyl4C9d1keyOZXJ21": {
       "tracks": [
@@ -3520,9 +3611,50 @@
       "resolved_at": "2026-05-18"
     },
     "4S8J8Nct8lHsbzAeNJXcJa": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:5d01BQH1StbVRKkMz0y6Z7",
+          "name": "Fire Brain - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:3gkOLdKGwPfw0x9LHEmkYR",
+          "name": "Drippin' Desert - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:0p53xYtrtobFXyzmG3XgQf",
+          "name": "shift command - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:6r9HnSBNonHS4fUYKhMhbQ",
+          "name": "Yoake - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:61Shaw0CHaaYm2jpkQUUSb",
+          "name": "Mr. Foundation - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:1kBgz7GDAhUKdPvqPq8L0g",
+          "name": "Sesame - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:6eb24rdRKnUj2iGNGyMJmY",
+          "name": "Monster Play - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:3UuMxgyNcgj2J5Q6QzvQo7",
+          "name": "Page - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:3vxIM6WbOYPuCDWPnpvxJR",
+          "name": "Hyper - Live at Nippon Budokan"
+        },
+        {
+          "uri": "spotify:track:642GEze9jyvURtikeY5FRv",
+          "name": "Shinko - Live at Nippon Budokan"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "5ziUNRAHfR28SgsINMc66V": {
       "tracks": [
@@ -4001,15 +4133,80 @@
         {
           "uri": "spotify:track:38EVDsDWOIt7TBfxGZzbcl",
           "name": "Astral Kannibal"
+        },
+        {
+          "uri": "spotify:track:2ytD03FygBmlGrcHamYwOu",
+          "name": "Spit"
+        },
+        {
+          "uri": "spotify:track:7xIDcMONoLr4FcmMoDVlzK",
+          "name": "Cross the Cross"
+        },
+        {
+          "uri": "spotify:track:4YzW3l5jaka6mRMEER7ASO",
+          "name": "Age of the Absurd"
+        },
+        {
+          "uri": "spotify:track:239r2xrrokkbaQRe3OAXh9",
+          "name": "Rex Perverso"
+        },
+        {
+          "uri": "spotify:track:6Fl0TY6Qhme90Il62mFvxR",
+          "name": "Absolute Ghost"
+        },
+        {
+          "uri": "spotify:track:7jatXBd1GYnbQxdMAvC8mr",
+          "name": "Egoisto"
         }
       ],
-      "track_count": 4,
-      "resolved_at": "2026-05-17"
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "23LXz8H5Kjs9oyMDuDt90r": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:2B5Oiszl07lG0fMilOiVq6",
+          "name": "Mein Weg - 2024 Version"
+        },
+        {
+          "uri": "spotify:track:1Gw9gQ7cidu6PBwOOJLwKR",
+          "name": "Sonnenseite"
+        },
+        {
+          "uri": "spotify:track:0gyYvrydPzwTtjzbq1Mp6o",
+          "name": "Auf das Leben - 2024 Version"
+        },
+        {
+          "uri": "spotify:track:42xnk3DnBifFXqGj8bhIBc",
+          "name": "Sehnsucht - 2024 Version"
+        },
+        {
+          "uri": "spotify:track:07J6c5GzUZwPe1zwf30B6v",
+          "name": "Lange her"
+        },
+        {
+          "uri": "spotify:track:30HBA7BR8tDosjQIAsLXa5",
+          "name": "Hiroshima - 2024 Version"
+        },
+        {
+          "uri": "spotify:track:1IeXRRXSCM0BjquNuYTtpZ",
+          "name": "Weitergehen"
+        },
+        {
+          "uri": "spotify:track:2v0V9pWpyNEG9HlFCN1pBB",
+          "name": "Melanie - 2024 Version"
+        },
+        {
+          "uri": "spotify:track:3JHDDP7BAEH3kfGdXNnmZN",
+          "name": "Hunderttausend Laienrichter"
+        },
+        {
+          "uri": "spotify:track:6zLKNJLoPewhGLMpj5VP9i",
+          "name": "Ikarus - 2024 Version"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "3dorOgTVQn7PWrqn7aHkWy": {
       "tracks": [
@@ -4226,9 +4423,50 @@
       "resolved_at": "2026-05-17"
     },
     "5ncHUtKhiVsHlugFN0DCDl": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:1Criaph81z0FS1zfd541Kk",
+          "name": "Onder Invloed"
+        },
+        {
+          "uri": "spotify:track:01QPg8gqcMQIb0c7BlBTGy",
+          "name": "Nu Ik Niet Meer Aan Jou Denk"
+        },
+        {
+          "uri": "spotify:track:3V9VmaVxhbZRKd774dWAgW",
+          "name": "Rode Draad"
+        },
+        {
+          "uri": "spotify:track:3h2wlirtfyNyAgMSaiTmtG",
+          "name": "Dat Hadden Wij Moeten Zijn"
+        },
+        {
+          "uri": "spotify:track:6Z1XcUf7jZIfOsgNyqTJjE",
+          "name": "Foto Van Jou"
+        },
+        {
+          "uri": "spotify:track:1NhSxdgnQqcfpCqNuNgjiW",
+          "name": "Dopamine"
+        },
+        {
+          "uri": "spotify:track:1bSvZCYlh3H8sho4r53S4q",
+          "name": "Als Ik Voor Jou Kon Kiezen"
+        },
+        {
+          "uri": "spotify:track:17YPDNwLbZiQrh8TrtuNdL",
+          "name": "Brons"
+        },
+        {
+          "uri": "spotify:track:0bsCQOVperLsLjtgBZMH54",
+          "name": "Leef Voor Jou"
+        },
+        {
+          "uri": "spotify:track:1TZp2xL8N5UftdIzxIGZhZ",
+          "name": "Ik Wil Dat Je Liegt"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "2Ah9OuOj7B57gPD1cbwiaE": {
       "tracks": [
@@ -4697,9 +4935,50 @@
       "resolved_at": "2026-05-18"
     },
     "6JO3HrRYUfSMbe71R7RUF2": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:1npXilZ4I0Uk7zWzLLjfho",
+          "name": "キミと××××したいだけ"
+        },
+        {
+          "uri": "spotify:track:3dc18ew0RJ8M2uFM92C61y",
+          "name": "おともだち"
+        },
+        {
+          "uri": "spotify:track:63Tl0nq4g3QgW16AoQqiqk",
+          "name": "魔性少女"
+        },
+        {
+          "uri": "spotify:track:5AeQ58wtnJgVjSe24ktotO",
+          "name": "乙女心中"
+        },
+        {
+          "uri": "spotify:track:1ET0LExqmC8mkMDtDJelTS",
+          "name": "花喰み"
+        },
+        {
+          "uri": "spotify:track:5GlPEN11q6aNd5mcGZjtsC",
+          "name": "HANAGATAMI"
+        },
+        {
+          "uri": "spotify:track:6ne1xt8DR2XKqy6eKQzIf7",
+          "name": "ゾクゾク"
+        },
+        {
+          "uri": "spotify:track:1y4YfZwPYSBUIqmEGfRLCo",
+          "name": "もーいーかい？"
+        },
+        {
+          "uri": "spotify:track:2Diqv4GLQ8pS66JhwsTGLl",
+          "name": "薔薇色の月"
+        },
+        {
+          "uri": "spotify:track:24FrCLaRsEvTCA6ChTOzUg",
+          "name": "botばっか"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "4raqfuxaWjPjrOQGb6zoa7": {
       "tracks": [
@@ -5920,9 +6199,50 @@
       "resolved_at": "2026-05-18"
     },
     "2WLmgv66Uq4vt2i36vwkAq": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:4VcDDwZQlT8uBNj4O5DCzM",
+          "name": "Warhead"
+        },
+        {
+          "uri": "spotify:track:65bRv0Mcp4kXrS3Mmt3kcX",
+          "name": "In Fire Reborn"
+        },
+        {
+          "uri": "spotify:track:3hbdv07FRFwZyX5FeTCI5Z",
+          "name": "Death to the Crown"
+        },
+        {
+          "uri": "spotify:track:5YnvMSYTOhZ4z5xVZ9qJ53",
+          "name": "To Bleed Out"
+        },
+        {
+          "uri": "spotify:track:1hSfOtrSmgBsfH9hfRMuV5",
+          "name": "Unbound"
+        },
+        {
+          "uri": "spotify:track:5ReJn0WGF85jk9BaYbwBH2",
+          "name": "Hell is Wasted on the Dead"
+        },
+        {
+          "uri": "spotify:track:6lMNu2bfnAojjSPTPel6Uy",
+          "name": "Through the Fire"
+        },
+        {
+          "uri": "spotify:track:3e301OFJOlqPBXx7ahAS6P",
+          "name": "Collateral Carnage"
+        },
+        {
+          "uri": "spotify:track:0pm5ANJBUj6pGNScDLUILP",
+          "name": "Blood Clots"
+        },
+        {
+          "uri": "spotify:track:6hoTICk2s9ZrhcX5SaIIpU",
+          "name": "Salvation Recalled"
+        }
+      ],
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "3nV9wzwFVAOJAjiSeFvcaf": {
       "tracks": [
@@ -5967,9 +6287,42 @@
       "resolved_at": "2026-05-18"
     },
     "3GLOOlJDdTCd4NRrNb5Kg3": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:55s7B24EXzo2oklyJcVQID",
+          "name": "Let Me Be Me"
+        },
+        {
+          "uri": "spotify:track:4ZWb7UnCECZQnjsVnuoo8X",
+          "name": "It's Your Love"
+        },
+        {
+          "uri": "spotify:track:1OiCLJifj1jPLj5tH6tAYG",
+          "name": "Eye Contact"
+        },
+        {
+          "uri": "spotify:track:6BIizzpjM2zQp0zWmiCDj6",
+          "name": "Moonlight Rendezvous"
+        },
+        {
+          "uri": "spotify:track:3UHIcs2ZYz8BRAHwZbQS5b",
+          "name": "Sunrays"
+        },
+        {
+          "uri": "spotify:track:3dnjIYD92Mu1xLE0QYCzxq",
+          "name": "You Said You Want Me"
+        },
+        {
+          "uri": "spotify:track:5xZZUM6VMzGsoMfkAy6Oya",
+          "name": "Lifestyles Of The Casual"
+        },
+        {
+          "uri": "spotify:track:3ciP7FzLutkNiXz4acnS4M",
+          "name": "Sorrow & A Cup of Joe"
+        }
+      ],
+      "track_count": 8,
+      "resolved_at": "2026-05-19"
     },
     "1GCnpVka37q3EXMVnK9bma": {
       "tracks": [
@@ -6294,9 +6647,14 @@
       "resolved_at": "2026-05-18"
     },
     "7DMG2PzS3ZNZkgwpfgcTjA": {
-      "tracks": [],
-      "track_count": 0,
-      "resolved_at": "2026-05-17"
+      "tracks": [
+        {
+          "uri": "spotify:track:5MHxrhxFajeXpdRj2KlGBj",
+          "name": "Huldra's Dream"
+        }
+      ],
+      "track_count": 1,
+      "resolved_at": "2026-05-19"
     },
     "191rVxQbbZ05wcICUSvLkz": {
       "tracks": [
