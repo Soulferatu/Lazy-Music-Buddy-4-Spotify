@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from datetime import date
@@ -43,6 +44,64 @@ RATE_LIMIT_DELAY = 1.5
 MAX_TRACKS = 10
 MAX_PAGES_ARTIST = 5
 MAX_PAGES_PLAIN = 5
+
+# Release-variant tokens that follow a " - " separator on Spotify track
+# titles. Examples that collapse to the same song:
+#   "Hysteria"  ==  "Hysteria - Remastered 2017"
+#   "Mdma"      ==  "Mdma - Radio Edit"
+_VARIANT_TOKENS = (
+    "remaster", "remastered",
+    "remix",
+    "live",
+    "acoustic",
+    "version",
+    "edit",
+    "mix",
+    "single",
+    "radio",
+    "extended",
+    "demo",
+    "instrumental",
+    "mono",
+    "stereo",
+)
+_VARIANT_DASH_RE = re.compile(
+    r"\s*-\s*(?:" + "|".join(_VARIANT_TOKENS) + r")\b.*$",
+    re.IGNORECASE,
+)
+_TRAILING_YEAR_RE = re.compile(r"\s+\d{4}\s*$")
+
+
+def _normalize_title(name: str) -> str:
+    """Collapse release-variant titles down to a stable dedup key.
+
+    Examples:
+        "The Final Countdown"            -> "the final countdown"
+        "The Final Countdown 2025"       -> "the final countdown"
+        "Hysteria - Remastered 2017"     -> "hysteria"
+        "Hocus Pocus (Extended Version)" -> "hocus pocus"
+        "Loving the Dead (Radio Edit)"   -> "loving the dead"
+        "Asi mit Niwoh (Live)"           -> "asi mit niwoh"
+
+    Two distinct songs that happen to share a base title (rare) will
+    collide and the second one loses — this is the same trade-off as
+    the original case-insensitive dedup, documented in
+    wiki/band_track_resolution.md.
+    """
+    n = name.lower()
+    # Strip parenthetical / bracketed suffixes (multiple passes for nested).
+    while True:
+        new = re.sub(r"\s*\([^)]*\)", "", n)
+        new = re.sub(r"\s*\[[^\]]*\]", "", new)
+        if new == n:
+            break
+        n = new
+    # Strip "- Remaster/Remix/Live/..." trailing suffixes.
+    n = _VARIANT_DASH_RE.sub("", n)
+    # Strip a trailing standalone year (e.g. "Song 2025").
+    n = _TRAILING_YEAR_RE.sub("", n)
+    n = re.sub(r"\s+", " ", n).strip()
+    return n
 
 ROOT = Path(__file__).parent.parent
 LINEUP_FILE = ROOT / "wacken_playlist" / "data" / "lineups" / "wacken_2026.json"
@@ -82,7 +141,7 @@ def _collect_tracks_for_artist(
         uri = track.get("uri", "")
         if not uri or uri in seen_uris:
             return False
-        title_key = (track.get("name", "") or "").lower().strip()
+        title_key = _normalize_title(track.get("name", "") or "")
         if title_key and title_key in seen_titles:
             return False
         seen_uris.add(uri)
@@ -179,7 +238,7 @@ def _collect_tracks_via_albums(
                 continue
             uri = t.get("uri", "")
             title = (t.get("name") or "").strip()
-            title_key = title.lower()
+            title_key = _normalize_title(title)
             if not uri or uri in seen_uris:
                 continue
             if title_key in seen_titles:

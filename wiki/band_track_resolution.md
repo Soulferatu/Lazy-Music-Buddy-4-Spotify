@@ -98,7 +98,7 @@ For each artist in the lineup the resolver runs:
 
 Results from both are:
 - **Deduplicated by track URI.**
-- **Deduplicated by case-insensitive title** — Spotify often returns the same song under multiple URIs (single / album / compilation / remaster).
+- **Deduplicated by normalized title** — `_normalize_title` strips parentheticals, brackets, ` - Remaster/Remix/Live/Acoustic/Version/Edit/Mix/Demo/Single/Radio/Extended/Instrumental/Mono/Stereo` suffixes, and trailing standalone years. "The Final Countdown" and "The Final Countdown 2025" collapse to one entry; "Hocus Pocus" and "Hocus Pocus - Extended Version" collapse too. Two distinct songs that happen to share a normalized base title (rare) lose one — same trade-off documented since v0.5.8.
 - **Filtered by Spotify artist ID** — only tracks where the target artist appears are kept.
 - **Capped at 10** (`MAX_TRACKS`) per band.
 

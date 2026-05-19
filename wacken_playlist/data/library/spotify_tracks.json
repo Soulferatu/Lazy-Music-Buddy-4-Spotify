@@ -1758,10 +1758,6 @@
           "name": "Photograph"
         },
         {
-          "uri": "spotify:track:0PdM2a6oIjqepoEfcJo0RO",
-          "name": "Pour Some Sugar On Me - Remastered 2017"
-        },
-        {
           "uri": "spotify:track:4qWizh4UB8BuSypZ3T1zAz",
           "name": "Love Bites"
         },
@@ -1770,20 +1766,24 @@
           "name": "Let's Get Rocked"
         },
         {
-          "uri": "spotify:track:3Dfy8YIxq89i84t108TvMi",
-          "name": "Love Bites - Remastered 2017"
-        },
-        {
           "uri": "spotify:track:2AmEv442DGwSxMGZ9XEvBA",
           "name": "Rock Of Ages"
         },
         {
           "uri": "spotify:track:16MQZkAIAAtI4X5NuiEwuq",
           "name": "Armageddon It - Remastered 2017"
+        },
+        {
+          "uri": "spotify:track:1aR6W01r094onPc4O2avEp",
+          "name": "Let It Go"
+        },
+        {
+          "uri": "spotify:track:4YwR2G26Pp5jNUX3gN3EIP",
+          "name": "When Love And Hate Collide"
         }
       ],
       "track_count": 10,
-      "resolved_at": "2026-05-18"
+      "resolved_at": "2026-05-19"
     },
     "0mdu8tTvytKczjlIVh78oJ": {
       "tracks": [
@@ -2296,10 +2296,6 @@
           "name": "The Final Countdown"
         },
         {
-          "uri": "spotify:track:21bk4m2BIbuHZ6GKiPqFsG",
-          "name": "The Final Countdown 2025"
-        },
-        {
           "uri": "spotify:track:3J9NEWkd9Cx1MwSSvDySkL",
           "name": "Rock the Night"
         },
@@ -2320,7 +2316,7 @@
           "name": "Open Your Heart"
         }
       ],
-      "track_count": 8,
+      "track_count": 7,
       "resolved_at": "2026-05-17"
     },
     "6GuheeWvmKVL49zes8CYoW": {
@@ -2582,15 +2578,11 @@
           "name": "Hocus Pocus"
         },
         {
-          "uri": "spotify:track:6iZtDWu3FTuxu7AprIqA3Y",
-          "name": "Hocus Pocus - Extended Version"
-        },
-        {
           "uri": "spotify:track:6TJa7RJhrlI4PYaBv0Nx8h",
           "name": "Sylvia"
         }
       ],
-      "track_count": 3,
+      "track_count": 2,
       "resolved_at": "2026-05-19"
     },
     "2E9JlIDz7c0Ufmbs1YEjIX": {
@@ -5305,44 +5297,48 @@
     "1YIOK7G8mxLZE6FhuSVqBy": {
       "tracks": [
         {
-          "uri": "spotify:track:2uvDGa1M6Ff9SBJdmWp7HB",
-          "name": "Tonight The Witches Ride"
+          "uri": "spotify:track:5CnJN3hgG71tOpXtOoJgXT",
+          "name": "528 Hz the Butterfly Effect"
         },
         {
-          "uri": "spotify:track:6XvEynKTzNmKsiY8JdhDuZ",
-          "name": "Slaughter Prophecy"
+          "uri": "spotify:track:11Q3bRgt8cuYCio52qk7XB",
+          "name": "528 Hz Cleanse Infections"
         },
         {
-          "uri": "spotify:track:56yLnWNbVxguUli0g3YVRj",
-          "name": "Wargods Of Metal"
+          "uri": "spotify:track:72qfoB5USn7SywLlxT78D2",
+          "name": "528 Hz You Are the Universe"
         },
         {
-          "uri": "spotify:track:20mbaXg8Si8vrFlgS6159b",
-          "name": "Leather, Spikes And Chains"
+          "uri": "spotify:track:3izySEVjzH2Hxj9FQp23Lv",
+          "name": "528 Hz Keep Negative Energy Away"
         },
         {
-          "uri": "spotify:track:5hhj5qSM6u1veTUgsjBumH",
-          "name": "Ritual Supremacy"
+          "uri": "spotify:track:153DBVvBwAv08q80G8vCpb",
+          "name": "528 Hz Attract Positivity"
         },
         {
-          "uri": "spotify:track:1CD95x94BPRtiAkzhiLnwa",
-          "name": "Carnage Rules The Fields Of Death"
+          "uri": "spotify:track:3tujXApWS2kE2PBED0cYui",
+          "name": "528 Hz Reduce Stress"
         },
         {
-          "uri": "spotify:track:6OrIYKvASz9dXaYBwFy2fY",
-          "name": "The Watcher Infernal"
+          "uri": "spotify:track:0aNbWKUVMM8sIdlLLaSS3l",
+          "name": "528 Hz Angelic Healing Music"
         },
         {
-          "uri": "spotify:track:4jMxf1n9PEMVMuOQWceXhF",
-          "name": "Empire Of Steel"
+          "uri": "spotify:track:31LqnB5d29Xm6bgXBAj6XI",
+          "name": "528 Hz Nerve Regeneration"
         },
         {
-          "uri": "spotify:track:2K3dneT1gnBKgCYuN0X6CQ",
-          "name": "Crucified In Heaven"
+          "uri": "spotify:track:2OmmqEa4dgfMBKcflcgAqg",
+          "name": "528 Hz Activate Self Healing"
+        },
+        {
+          "uri": "spotify:track:5J4Z5yaZJvBCXwc2v56Mdx",
+          "name": "528 Hz Remove Fear"
         }
       ],
-      "track_count": 9,
-      "resolved_at": "2026-05-17"
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "66ezn48mPS89ukz6Fo3nqx": {
       "tracks": [
@@ -5819,10 +5815,6 @@
           "name": "LUV"
         },
         {
-          "uri": "spotify:track:3qPBmgtKbe5F9gXriJJGMk",
-          "name": "Mdma - Radio Edit"
-        },
-        {
           "uri": "spotify:track:1G4sq3bGxAFbh1Dycch7tB",
           "name": "Bitter Trip"
         },
@@ -5835,7 +5827,7 @@
           "name": "Break Out"
         }
       ],
-      "track_count": 10,
+      "track_count": 9,
       "resolved_at": "2026-05-17"
     },
     "4zAK8a87dIdPw6xRYvsr4c": {
@@ -7035,12 +7027,12 @@
     "2KvwC4Kmp2U8XnKr5Yr1hm": {
       "tracks": [
         {
-          "uri": "spotify:track:5mWidwUFLUjofQfSTdPtFJ",
-          "name": "Loving the Dead"
-        },
-        {
           "uri": "spotify:track:2CucIT5DSA7oQNoCOqIr63",
           "name": "Lifehunger"
+        },
+        {
+          "uri": "spotify:track:5mWidwUFLUjofQfSTdPtFJ",
+          "name": "Loving the Dead"
         },
         {
           "uri": "spotify:track:6c55lkTARFJGmxAKJpByEQ",
@@ -7063,20 +7055,20 @@
           "name": "A Second Death"
         },
         {
-          "uri": "spotify:track:4DdZmvrkf8rxS5ssrsk710",
-          "name": "Loving the Dead (Radio Edit)"
-        },
-        {
           "uri": "spotify:track:1pWYbvzkuocWcBinUmXxkg",
           "name": "Into the Mountains"
         },
         {
           "uri": "spotify:track:154RLUnpXi3hQMSg6nyj25",
           "name": "Flammen"
+        },
+        {
+          "uri": "spotify:track:1w8kmPSpIWrdk9qCM1dCZu",
+          "name": "Pitch Black"
         }
       ],
       "track_count": 10,
-      "resolved_at": "2026-05-18"
+      "resolved_at": "2026-05-19"
     },
     "064R2a2ptevrnJHc5Tao56": {
       "tracks": [],
@@ -7285,28 +7277,28 @@
           "name": "Müngersdorfer Stadion (Rockaway Beach) (Retro Version)"
         },
         {
-          "uri": "spotify:track:3hA1M22QKVIJpPtq8iNrSF",
-          "name": "Asi mit Niwoh (Live)"
+          "uri": "spotify:track:3Kh5FaN4xXKms7PJs4aVNz",
+          "name": "Mallorca, Sommer, Sonne, Herzinfarkt (Live)"
         },
         {
           "uri": "spotify:track:4WD5hRAptpN93IQs30rSrZ",
           "name": "Balla Balla"
         },
         {
-          "uri": "spotify:track:7apWm6nq3AkFLfcrF5Fza6",
-          "name": "Müngersdorfer Stadion - Live at the Bunker Cologne"
-        },
-        {
           "uri": "spotify:track:0znIbF8Ibt7v1ZIDwvu8tF",
           "name": "Ich lass gerad sein wat krumm ist (Radio Edit)"
         },
         {
-          "uri": "spotify:track:3qEdW2SdVja9T3FSskYcvQ",
-          "name": "Entzug"
+          "uri": "spotify:track:0C39FxqNM0NcRPQBRk3A2m",
+          "name": "Ali Mustafa"
+        },
+        {
+          "uri": "spotify:track:4ELost00rdUbPTaXQBT9rS",
+          "name": "Sozialamt"
         }
       ],
       "track_count": 10,
-      "resolved_at": "2026-05-18"
+      "resolved_at": "2026-05-19"
     }
   }
 }
