@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Per-artist Spotify track cache. Keyed by Spotify artist ID.",
-    "updated_at": "2026-05-19"
+    "updated_at": "2026-05-20"
   },
   "artists": {
     "1biWH85uIGqR8Nj7oKU5J9": {
@@ -2148,7 +2148,10 @@
         }
       ],
       "track_count": 6,
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "DJ / remix project — entire Spotify catalog is remixes of other artists' songs (Electric Callboy \"Hypa Hypa\", Black Eyed Peas \"Pump It\", etc.). Playlist will be remix-heavy."
     },
     "3HKoyHD86fikvLBdecyl5j": {
       "tracks": [
@@ -2317,10 +2320,22 @@
         {
           "uri": "spotify:track:4cPE441DlsfXRh57rl1PAX",
           "name": "Open Your Heart"
+        },
+        {
+          "uri": "spotify:track:4jjCfcfvhtz5doIUojTDBu",
+          "name": "Walk The Earth"
+        },
+        {
+          "uri": "spotify:track:0yIGSb0ef3HBVLUodHB4on",
+          "name": "The Siege"
+        },
+        {
+          "uri": "spotify:track:3nBDbWZoRLOKUGVmuxNawU",
+          "name": "Kingdom United"
         }
       ],
-      "track_count": 7,
-      "resolved_at": "2026-05-17"
+      "track_count": 10,
+      "resolved_at": "2026-05-20"
     },
     "6GuheeWvmKVL49zes8CYoW": {
       "tracks": [
