@@ -207,7 +207,24 @@ Key behavior changes vs the previous resolver:
 
 ## Tracked Follow-Up (post-refactor)
 
-### Permanently-unresolved UX (separate PR after Phase 4)
+### ✅ Permanently-unresolved UX (landed 2026-05-19, v0.5.9b)
+
+Shipped as a follow-up commit after the Phase 5+6 refactor. The 5 affected bands now carry a per-reason classification (`wacken_local_or_tribute` for festival house acts and tribute bands, `thin_catalog` for real artists with very small Spotify catalogs) which drives both a checklist badge and a reason-specific preview warning.
+
+**Data:** `wacken_playlist/data/library/spotify_tracks.json` gains `unresolved_reason: "wacken_local_or_tribute" | "thin_catalog"` next to the existing `permanently_unresolved: true` + `note` fields. 4 bands flagged `wacken_local_or_tribute` (Ballroom DJ Team, Blood Fire Death, Cowgirls From Hell, Wacken Firefighters); 1 flagged `thin_catalog` (Heavysaurus).
+
+**Read path:** `LibraryRepository.unresolved_reason(spotify_id) → Optional[str]`. `LineupRepository._band_from_library` plumbs both `permanently_unresolved` and `unresolved_reason` onto the `Band` dataclass.
+
+**UI:**
+- Checklist tile: `.band-badge` chip next to the band name. Blood-red for local/tribute, ember-glow for thin catalog. Tile remains selectable.
+- Preview: new `.notice-info` block beneath the existing matched-track count, with reason-specific copy per band. The legacy yellow "Could not find on Spotify" warning now filters out bands already in this new notice so the same band never appears twice — it stays as a catch-all for genuinely-unmatched bands (no Spotify ID at all).
+- i18n: 5 new keys in `en.json` + `pt-BR.json` (`band_badge_local_or_tribute`, `band_badge_thin_catalog`, `limited_presence_heading`, `limited_presence_{local_or_tribute,thin_catalog}_explanation`).
+
+**Polish:** band-option padding bumped from `11px 14px` to `12px 15px` (~3% larger tiles).
+
+**Tests:** [tests/unit/test_unresolved_reason.py](../tests/unit/test_unresolved_reason.py) — 6 tests covering schema consistency (every flag has a reason; reasons only set when flagged), LibraryRepository + LineupRepository return paths, and the i18n keys exist in both languages. Suite: 89 pass / 9 pre-existing fail.
+
+### Original Permanently-unresolved UX plan (kept for history)
 
 Today the app has 5 bands flagged `permanently_unresolved: true` in `library/spotify_tracks.json`. They slip through the UI silently — users can tick them in the checklist and the preview shows them with 0 or 2 tracks, but the existing "unmatched bands" warning only fires when there's no Spotify artist match at all.
 

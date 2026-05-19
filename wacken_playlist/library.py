@@ -84,6 +84,20 @@ class LibraryRepository:
         entry = self._tracks_doc()["artists"].get(spotify_id)
         return bool(entry and entry.get("permanently_unresolved"))
 
+    def unresolved_reason(self, spotify_id: str) -> Optional[str]:
+        """Return the `unresolved_reason` classification for a permanently-
+        unresolved artist, or ``None`` if the artist resolves normally.
+
+        Values today: ``"wacken_local_or_tribute"`` (festival house acts and
+        tribute bands with no real Spotify presence) and ``"thin_catalog"``
+        (real artist with only a handful of unique recordings ever — e.g.
+        Heavysaurus).
+        """
+        entry = self._tracks_doc()["artists"].get(spotify_id)
+        if not entry or not entry.get("permanently_unresolved"):
+            return None
+        return entry.get("unresolved_reason")
+
     def iter_artist_ids(self):
         return iter(self._artists_doc()["artists"].keys())
 

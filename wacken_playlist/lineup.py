@@ -57,6 +57,8 @@ class LineupRepository:
             tracks=tuple(tracks),
             track_count=track_count,
             unresolved=False,
+            permanently_unresolved=self._library.is_permanently_unresolved(spotify_id),
+            unresolved_reason=self._library.unresolved_reason(spotify_id),
         )
 
     def get_bands(self, year: int) -> list[Band]:
