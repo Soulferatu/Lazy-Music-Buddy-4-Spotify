@@ -2,7 +2,18 @@
 
 Tracks the in-flight normalization of `data/lineups/wacken_2026.json` into a thin lineup pointer file plus per-source `data/library/*.json` files. Full plan and rationale live in [LIBRARY_REFACTOR_PLAN.md](../LIBRARY_REFACTOR_PLAN.md); this page records decisions, progress, and the as-built state as each phase lands.
 
-## ⏸ Resume Here — Phase 5+6 Next
+## ✅ Refactor Complete
+
+All four phases landed. The next session can move on to Stage 6 (setlist.fm integration); the refactor's `setlists.json` slot is ready to consume.
+
+Quick state pointers:
+- Resolver: [scripts/resolve_lineup.py](../scripts/resolve_lineup.py) — canonical writer for `library/spotify_tracks.json`. See [wiki/band_track_resolution.md](band_track_resolution.md) for the full as-built.
+- Lineup format: thin pointer list in `data/lineups/wacken_YYYY.json`. Single read path through `LineupRepository`.
+- Library files: `data/library/{artists,spotify_tracks,unresolved,setlists}.json`.
+
+Original Phase 5+6 task list (now done) preserved below for history.
+
+## ⏸ Original Phase 5+6 Plan (completed 2026-05-19)
 
 **Where we paused:** Phase 4 (cutover) done. `wacken_2026.json` now holds the thin pointer list in production; the historic fat snapshot lives at `raw/wacken_2026.fat.json` for audit. `USE_THIN_LINEUPS=True` in Dev + Prod. `LineupRepository` auto-creates a sibling `LibraryRepository` when none is supplied. Resolver script refuses to run with a clear error pointing at this page. Tests stay at the same 84 pass / 9 pre-existing fail baseline. Version bumped to `0.5.8a`.
 
@@ -79,7 +90,7 @@ Schemas: see [LIBRARY_REFACTOR_PLAN.md](../LIBRARY_REFACTOR_PLAN.md#target-archi
 | 1+2 | Build `library/*.json` from current data + `LibraryRepository` (parallel read path; nothing consumes it yet) | ✅ Done 2026-05-18 |
 | 3 | Dual-path `LineupRepository` behind `USE_THIN_LINEUPS` flag (default off) | ✅ Done 2026-05-19 |
 | 4 | Flip flag on; replace `wacken_2026.json` with thin form; archive original to `raw/wacken_2026.fat.json` | ✅ Done 2026-05-19 |
-| 5+6 | Resolver writes to `library/`; delete dual-path code, overrides file, and `unresolved_bands.json` | ⏳ Pending |
+| 5+6 | Resolver writes to `library/`; delete dual-path code, overrides file, and `unresolved_bands.json` | ✅ Done 2026-05-19 |
 
 ## As-Built Notes
 
@@ -166,8 +177,33 @@ Signature = sha256 of `json.dumps(sorted bands by spotify_id, each {id, name, [t
 
 **Smoke test:** confirmed by the user on the local dev server with `USE_THIN_LINEUPS=True`. Band list loads, all 169 bands present, preview shows the expected track counts per band (10 for the majority of headliners), language toggle works.
 
-### Phase 5+6
-_pending_
+### Phase 5+6 — 2026-05-19 (v0.5.9)
+
+**Resolver rewrite:** [scripts/resolve_lineup.py](../scripts/resolve_lineup.py) is now the canonical writer for `data/library/spotify_tracks.json`. Reads the thin lineup file + `library/artists.json`; writes only `library/spotify_tracks.json`. The previous read/write target (the fat `wacken_2026.json` and the separate `artist_overrides.json` + `unresolved_bands.json` audit pair) is gone.
+
+Key behavior changes vs the previous resolver:
+- **Pre-flight Spotify probe** built into every batch (`_probe_spotify`). Aborts cleanly with exit 2 if the probe fails — the memory-rule "always probe before a batch retry" is now mechanical.
+- **Albums fallback** in `_resolve_one`: when search returns zero tracks tagged to the artist ID, walks `/v1/artists/{id}/albums` (album + single groups) and pulls tracks from each album. This handles the project-name ≠ Spotify-name case (9mm Headshot → "9MM" on Spotify, ID `0hYxXnnFEBBK8JDab4lIEM`).
+- **Safety guard**: `_resolve_ids` refuses to overwrite a nonzero entry with zero. A transient 429 / 502 / timeout late in the batch can no longer destroy good track data.
+- **No more name-keyed overrides file.** Hand-curated bands keep their Spotify ID directly in the lineup + an `override_source` marker in `library/artists.json` for documentation. The resolver does not branch on overrides — it joins lineup IDs against `artists.json` for the canonical name and runs the same search path for every band.
+
+**Dual-path removal:** [wacken_playlist/lineup.py](../wacken_playlist/lineup.py) simplified. The `use_thin` constructor arg, the `_path_for` shape switch, and the `isinstance(item, dict)` fat branch are gone. `LineupRepository.get_bands` joins lineup IDs through `LibraryRepository` unconditionally. `USE_THIN_LINEUPS` flag deleted from `wacken_playlist/config.py` (no longer in Config / Development / Production).
+
+**Files deleted:**
+- `wacken_playlist/data/lineups/artist_overrides.json` (the overrides data moved to `library/artists.json`'s `override_source` field during Phase 1+2; nothing read this file anymore).
+- `wacken_playlist/data/lineups/unresolved_bands.json` (`permanently_unresolved` flag moved to `spotify_tracks.json` entries during Phase 1+2; this file was no longer read).
+- `scripts/build_library.py` (one-way migration aid; obsolete now that the resolver is the canonical writer for `library/spotify_tracks.json` and the lineup file is hand-curated).
+- `raw/wacken_2026.fat.json` (parity tests retired; nothing else read it).
+
+**Tests:**
+- Retired: [tests/unit/test_library_parity.py](../tests/unit/test_library_parity.py) — its job was to assert the library mirrored the fat snapshot during the migration. Both inputs are gone now.
+- Added: [tests/unit/test_library_consistency.py](../tests/unit/test_library_consistency.py) — 7 tests asserting internal consistency of the library files (every lineup ID has an artists.json + spotify_tracks.json entry; no orphans in either direction; tracks-entry shape is well-formed; setlists empty; unresolved entries don't shadow library artists).
+- Rewrote: [tests/unit/test_lineup_thin.py](../tests/unit/test_lineup_thin.py) — fixture renamed (`thin_repo` → `explicit_repo` since "thin" is no longer a mode), `use_thin=True` arg removed, all 10 tests pass.
+- Suite: **83 pass / 9 pre-existing fail** (was 84 / 9 — net -1 from retiring 8 parity tests, adding 7 consistency tests).
+
+**Live run during cutover (the lesson):** ran the rewritten resolver end-to-end against all 169 artists. The smoke test (`--test`, first 10 bands) was clean — 9mm Headshot resolved via the albums fallback. The full run made it to band 160 cleanly, then hit a Spotify 429 / 502 wall around band 161; without the safety guard in place yet, ~450 tracks across 53 bands were written as zero. Rolled back from the safeguard backup, added the safety guard, and skipped re-running to avoid further rate-limit pressure. The 9 real improvements observed before the rate-limit (Craft, E.N.D., Focus, Force, Krogi, Mantar, Maschine, Mr. Hurley Und Die Pulveraffen, Nergal) were not preserved; user can run `--retry-unresolved` whenever Spotify is calm to recover them. Library left at 1,492 tracks — the pre-Phase-5+6 baseline.
+
+**Version:** [wacken_playlist/version.py](../wacken_playlist/version.py) → `0.5.9` (refactor complete; `0.6.0` still reserved for Stage 6 launch).
 
 ## Tracked Follow-Up (post-refactor)
 

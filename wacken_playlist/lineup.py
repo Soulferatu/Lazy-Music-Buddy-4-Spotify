@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Optional, Union
 
 from .library import LibraryRepository
-from .models import Band, Track
+from .models import Band
 
 
 class LineupNotFoundError(LookupError):
@@ -13,35 +12,24 @@ class LineupNotFoundError(LookupError):
 
 
 class LineupRepository:
-    """Reads festival lineups from JSON files under data/lineups/.
+    """Reads festival lineups from JSON files under ``data/lineups/``.
 
-    Both lineup shapes are accepted on a per-item basis so the dual-path
-    survives across the refactor and into tests that exercise either form:
-
-    * **Thin** — ``bands`` is a list of Spotify artist ID strings. Names and
-      track data are joined in from :class:`LibraryRepository`. This is the
-      shape on disk in production after the Phase 4 cutover.
-    * **Fat** — ``bands`` is a list of dicts with embedded tracks. Kept
-      working through Phase 4 so test fixtures and the archived
-      ``raw/wacken_2026.fat.json`` remain readable. Removed in Phase 5+6.
-
-    The ``use_thin`` flag is retained from Phase 3 but no longer drives the
-    filename — both shapes live in ``wacken_YYYY.json`` after cutover. The
-    flag will be deleted in Phase 6.
+    The lineup file is a thin pointer list — ``bands`` holds Spotify artist
+    IDs, and per-artist data (name, tracks) is joined in from
+    :class:`LibraryRepository`. The fat-shape branch and the
+    ``USE_THIN_LINEUPS`` flag were retired in Phase 5+6 of the library
+    refactor; see ``wiki/library_refactor.md``.
     """
 
     def __init__(
         self,
         data_dir: Path | None = None,
         library: LibraryRepository | None = None,
-        use_thin: bool = False,
     ):
         self._data_dir = data_dir or Path(__file__).parent / "data" / "lineups"
         if library is None:
-            library_dir = self._data_dir.parent / "library"
-            library = LibraryRepository(data_dir=library_dir)
+            library = LibraryRepository(data_dir=self._data_dir.parent / "library")
         self._library = library
-        self._use_thin = use_thin
         self._cache: dict[int, dict] = {}
 
     def _path_for(self, year: int) -> Path:
@@ -73,48 +61,15 @@ class LineupRepository:
 
     def get_bands(self, year: int) -> list[Band]:
         data = self._load(year)
-        bands_data = data.get("bands", [])
-        result: list[Band] = []
-
-        for item in bands_data:
-            if isinstance(item, str):
-                result.append(self._band_from_library(item, year))
-            elif isinstance(item, dict):
-                result.append(Band(
-                    name=item.get("name", ""),
-                    year=year,
-                    spotify_id=item.get("spotify_id"),
-                    tracks=tuple(
-                        Track(uri=t["uri"], name=t["name"])
-                        for t in item.get("tracks", [])
-                    ),
-                    track_count=item.get("track_count", 0),
-                    unresolved=item.get("unresolved", False),
-                ))
-
-        return result
+        return [self._band_from_library(sid, year) for sid in data.get("bands", [])]
 
     def get_band_names(self, year: int) -> list[str]:
         data = self._load(year)
-        bands_data = data.get("bands", [])
-        result: list[str] = []
-
-        if bands_data and isinstance(bands_data[0], str):
-            for sid in bands_data:
-                if self._library.has_artist(sid):
-                    result.append(self._library.get_artist(sid).name)
-            return result
-
-        for item in bands_data:
-            if isinstance(item, str):
-                # Legacy plain-string format (pre-resolution). Treated as a name.
-                result.append(item)
-            elif isinstance(item, dict):
-                name = item.get("name", "")
-                if name:
-                    result.append(name)
-
-        return result
+        return [
+            self._library.get_artist(sid).name
+            for sid in data.get("bands", [])
+            if self._library.has_artist(sid)
+        ]
 
     def get_available_years(self) -> list[int]:
         if not self._data_dir.exists():

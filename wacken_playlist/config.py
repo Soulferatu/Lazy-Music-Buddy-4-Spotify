@@ -13,17 +13,11 @@ class Config:
     SPOTIFY_APP_REFRESH_TOKEN = os.environ.get("SPOTIFY_APP_REFRESH_TOKEN", "")
     SETLISTFM_API_KEY = os.environ.get("SETLISTFM_API_KEY", "")
     WTF_CSRF_ENABLED = True
-    # Phase 3 of the library refactor: when True, LineupRepository reads
-    # wacken_YYYY.thin.json (pointer list) and joins with LibraryRepository.
-    # When False (current default), it reads the fat wacken_YYYY.json directly.
-    # Flag will be flipped on in Phase 4.
-    USE_THIN_LINEUPS = False
 
 
 class DevelopmentConfig(Config):
     """Development configuration. Provides safe fallback for SECRET_KEY."""
     DEBUG = True
-    USE_THIN_LINEUPS = True
 
     def __init__(self):
         if not Config.SECRET_KEY:
@@ -44,7 +38,6 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     """Production configuration. Fails loudly if SECRET_KEY is absent."""
-    USE_THIN_LINEUPS = True
 
     @classmethod
     def validate(cls):
