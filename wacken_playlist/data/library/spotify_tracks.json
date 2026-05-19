@@ -2023,7 +2023,10 @@
         }
       ],
       "track_count": 1,
-      "resolved_at": "2026-05-19"
+      "resolved_at": "2026-05-19",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "Only 1 unique track found on Spotify under this ID."
     },
     "0iGkBvuI18nxqJR8Ipg1cu": {
       "tracks": [
@@ -2339,7 +2342,10 @@
         }
       ],
       "track_count": 4,
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "Only 4 unique tracks available under this ID."
     },
     "7n7ZqJDzdKrZul0UjAWUhC": {
       "tracks": [
@@ -2583,7 +2589,10 @@
         }
       ],
       "track_count": 2,
-      "resolved_at": "2026-05-19"
+      "resolved_at": "2026-05-19",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "Real Dutch prog band, but only 2 unique tracks surface under this ID after dedup. Catalog is real but search/resolver coverage is thin."
     },
     "2E9JlIDz7c0Ufmbs1YEjIX": {
       "tracks": [
@@ -4610,7 +4619,10 @@
         }
       ],
       "track_count": 1,
-      "resolved_at": "2026-05-17"
+      "resolved_at": "2026-05-17",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "Only 1 unique track found on Spotify under this ID."
     },
     "4tususHNaR68xdgLstlGBA": {
       "tracks": [
@@ -5788,47 +5800,51 @@
       "track_count": 10,
       "resolved_at": "2026-05-17"
     },
-    "1bnZNqlY7gL2D8FwhlzA9M": {
+    "4h4QdZPbKp8lz7PEA1FqkO": {
       "tracks": [
-        {
-          "uri": "spotify:track:31TwI5vjNQMwpGLlJjGLeY",
-          "name": "Las Maquinitas"
-        },
         {
           "uri": "spotify:track:08z3ykHQdh6aIpb1lMfSEK",
           "name": "R.I.P."
         },
         {
-          "uri": "spotify:track:6heqoIfSof8ByBBX1B0yU5",
-          "name": "Weekend Warriors"
-        },
-        {
-          "uri": "spotify:track:78s8mCT7v5JGkYFV17OgR1",
-          "name": "Freestyler"
-        },
-        {
-          "uri": "spotify:track:29l2aQLqLbPSaG2ZVPyrft",
-          "name": "Mdma"
-        },
-        {
-          "uri": "spotify:track:1ICVhrS72sOG00kAlJih3Q",
-          "name": "LUV"
+          "uri": "spotify:track:4HD4ZlqRG44wsb6OHGx2un",
+          "name": "Off the Trail"
         },
         {
           "uri": "spotify:track:1G4sq3bGxAFbh1Dycch7tB",
           "name": "Bitter Trip"
         },
         {
-          "uri": "spotify:track:0JH7FbQes5HjoQvUvOVQSX",
-          "name": "Letargico"
+          "uri": "spotify:track:69kOyISIoXhc2Z9ysnZRI8",
+          "name": "Chroming Roses"
         },
         {
           "uri": "spotify:track:2nvwTTEqTa82He1XNWdCEq",
           "name": "Break Out"
+        },
+        {
+          "uri": "spotify:track:3cf3E1clDGEUVYKxcSyhLZ",
+          "name": "Mirror's Truth"
+        },
+        {
+          "uri": "spotify:track:0a3uJzSUzd2bK6qGtv959x",
+          "name": "#0815"
+        },
+        {
+          "uri": "spotify:track:5fqVEjlXuKaVnV6Xnt5WUk",
+          "name": "What Up?!"
+        },
+        {
+          "uri": "spotify:track:06UFgAoTzFs704J9jpCxMX",
+          "name": "Set to End"
+        },
+        {
+          "uri": "spotify:track:6O7TXyEO6rnPN9YgBiOQfj",
+          "name": "Unrest"
         }
       ],
-      "track_count": 9,
-      "resolved_at": "2026-05-17"
+      "track_count": 10,
+      "resolved_at": "2026-05-19"
     },
     "4zAK8a87dIdPw6xRYvsr4c": {
       "tracks": [
@@ -6240,42 +6256,50 @@
       "track_count": 9,
       "resolved_at": "2026-05-18"
     },
-    "3GLOOlJDdTCd4NRrNb5Kg3": {
+    "0a3Gua6g9TZBKlDSqebL7W": {
       "tracks": [
         {
-          "uri": "spotify:track:55s7B24EXzo2oklyJcVQID",
-          "name": "Let Me Be Me"
+          "uri": "spotify:track:7L9NixXBFo5U7JSQS7QitU",
+          "name": "Hellfire"
         },
         {
-          "uri": "spotify:track:4ZWb7UnCECZQnjsVnuoo8X",
-          "name": "It's Your Love"
+          "uri": "spotify:track:5MaX1KsLs3YMYs6lF8KCrc",
+          "name": "I Give You the Creeps"
         },
         {
-          "uri": "spotify:track:1OiCLJifj1jPLj5tH6tAYG",
-          "name": "Eye Contact"
+          "uri": "spotify:track:2KMkATrkE6q7iW3x371dGY",
+          "name": "A Ghost from the '80S"
         },
         {
-          "uri": "spotify:track:6BIizzpjM2zQp0zWmiCDj6",
-          "name": "Moonlight Rendezvous"
+          "uri": "spotify:track:0dqEY7eppZ7t3rXjFEZoYc",
+          "name": "Hier Sein"
         },
         {
-          "uri": "spotify:track:3UHIcs2ZYz8BRAHwZbQS5b",
-          "name": "Sunrays"
+          "uri": "spotify:track:5wQt5EV8IUkE0xhSVK6mvI",
+          "name": "I Need Blood"
         },
         {
-          "uri": "spotify:track:3dnjIYD92Mu1xLE0QYCzxq",
-          "name": "You Said You Want Me"
+          "uri": "spotify:track:1FAAZUzR9K7Ym7zkqbTNFM",
+          "name": "Alienated"
         },
         {
-          "uri": "spotify:track:5xZZUM6VMzGsoMfkAy6Oya",
-          "name": "Lifestyles Of The Casual"
+          "uri": "spotify:track:5oJdLZrx0gcVZjNZ8uDh6H",
+          "name": "In the End"
         },
         {
-          "uri": "spotify:track:3ciP7FzLutkNiXz4acnS4M",
-          "name": "Sorrow & A Cup of Joe"
+          "uri": "spotify:track:5HnErnlokZqrYip7HVCfW9",
+          "name": "Horror Movie Monster"
+        },
+        {
+          "uri": "spotify:track:6WLOCiOKBDpppsZVDYS4w2",
+          "name": "The Witch from Outer Space"
+        },
+        {
+          "uri": "spotify:track:54yzWgca4IMQalOmKqXQol",
+          "name": "Don't Be Afraid of the Night"
         }
       ],
-      "track_count": 8,
+      "track_count": 10,
       "resolved_at": "2026-05-19"
     },
     "1GCnpVka37q3EXMVnK9bma": {
@@ -6608,7 +6632,10 @@
         }
       ],
       "track_count": 1,
-      "resolved_at": "2026-05-19"
+      "resolved_at": "2026-05-19",
+      "permanently_unresolved": true,
+      "unresolved_reason": "thin_catalog",
+      "note": "Only 1 unique track found on Spotify under this ID."
     },
     "191rVxQbbZ05wcICUSvLkz": {
       "tracks": [

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Canonical artist registry. Keyed by Spotify artist ID.",
-    "updated_at": "2026-05-18"
+    "updated_at": "2026-05-19"
   },
   "artists": {
     "1biWH85uIGqR8Nj7oKU5J9": {
@@ -946,12 +946,12 @@
       "override_source": null,
       "notes": null
     },
-    "1bnZNqlY7gL2D8FwhlzA9M": {
+    "4h4QdZPbKp8lz7PEA1FqkO": {
       "name": "Stonem",
       "aliases": [],
       "mbid": null,
       "override_source": null,
-      "notes": null
+      "notes": "ID corrected 2026-05-19 from 1bnZNqlY7gL2D8FwhlzA9M; prior ID pointed at an unrelated same-named artist."
     },
     "4zAK8a87dIdPw6xRYvsr4c": {
       "name": "Storm Seeker",
@@ -1018,12 +1018,12 @@
       "override_source": null,
       "notes": null
     },
-    "3GLOOlJDdTCd4NRrNb5Kg3": {
+    "0a3Gua6g9TZBKlDSqebL7W": {
       "name": "The Other",
       "aliases": [],
       "mbid": null,
       "override_source": "manual_2026-05-17",
-      "notes": null
+      "notes": "ID corrected 2026-05-19 from 3GLOOlJDdTCd4NRrNb5Kg3; prior ID pointed at an unrelated same-named artist."
     },
     "1GCnpVka37q3EXMVnK9bma": {
       "name": "The Troops Of Doom",
